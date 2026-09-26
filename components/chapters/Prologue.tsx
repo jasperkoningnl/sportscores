@@ -1,8 +1,10 @@
 "use client";
 import type { ReactNode } from "react";
 
-import Scrolly from "@/components/Scrolly";
-import { Certainty, Cite } from "@/components/ui";
+import Scrolly, { type Scene } from "@/components/Scrolly";
+import { useReducedMotion } from "@/lib/hooks";
+import { Certainty, Cite, Exhibit } from "@/components/ui";
+import { VideoEmbed } from "@/components/Media";
 
 function Egg({ className = "" }: { className?: string }) {
   // An egg: an ellipse whose top is narrower than its bottom.
@@ -19,7 +21,7 @@ function Egg({ className = "" }: { className?: string }) {
   );
 }
 
-function ClockFace() {
+function ClockFace({ angle, struck }: { angle: number; struck: boolean }) {
   const marks = Array.from({ length: 60 }, (_, i) => i);
   const quarter = [
     { m: 15, label: "15" },
@@ -47,127 +49,168 @@ function ClockFace() {
             x={x}
             y={y + 7}
             textAnchor="middle"
-            className={`op-clock__num${label === "45" ? " is-struck" : ""}`}
-            fill={label === "45" ? "var(--red)" : "var(--ink)"}
+            className={`op-clock__num${label === "45" && struck ? " is-struck" : ""}`}
+            fill={label === "45" && struck ? "var(--red)" : "var(--ink)"}
           >
             {label}
           </text>
         );
       })}
-      <line x1="100" y1="100" x2="100" y2="36" stroke="var(--ink)" strokeWidth="3" strokeLinecap="round" className="op-clock__hand" />
+      <line
+        x1="100"
+        y1="100"
+        x2="100"
+        y2="36"
+        stroke="var(--ink)"
+        strokeWidth="3"
+        strokeLinecap="round"
+        transform={`rotate(${angle.toFixed(1)} 100 100)`}
+      />
       <circle cx="100" cy="100" r="5" fill="var(--red)" />
     </svg>
   );
 }
 
-const scenes: ((active: boolean) => ReactNode)[] = [
-  // 0. spoken
-  () => (
-    <div className="op-scene op-scene--spoken">
-      <p className="op-spoken">
-        Thirty<span className="op-dash">–</span>love.
-      </p>
-      <p className="op-voice">spoken</p>
-    </div>
-  ),
-  // 1. the egg
-  () => (
-    <div className="op-scene op-scene--egg">
-      <Egg className="op-egg" />
-      <p className="op-egg-word">l’œuf</p>
-      <p className="op-voice">“the egg” · folk etymology?</p>
-    </div>
-  ),
-  // 2. œuf – œuf becomes 0 – 0
-  () => (
-    <div className="op-scene op-scene--morph">
-      <div className="op-morph">
-        <p className="op-morph__words">
-          <span>œuf</span>
-          <span className="op-dash">–</span>
-          <span>œuf</span>
+/** 0 → 1 as p moves from a to b. */
+function ramp(p: number, a: number, b: number) {
+  return Math.max(0, Math.min(1, (p - a) / (b - a)));
+}
+
+const DEUCE = ["40–40", "Deuce", "Advantage A", "Deuce", "Advantage B", "Deuce", "Advantage A", "Game, A"];
+const LADDER = ["love", "15", "30", "40", "game"];
+
+function makeScenes(reduced: boolean): Scene[] {
+  return [
+    // 0. spoken
+    () => (
+      <div className="op-scene op-scene--spoken">
+        <p className="op-spoken">
+          Thirty<span className="op-dash">–</span>love.
         </p>
-        <p className="op-morph__nums num">
-          <span>0</span>
-          <span className="op-dash">–</span>
-          <span>0</span>
-        </p>
+        <p className="op-voice">spoken</p>
       </div>
-      <p className="op-voice op-morph__voice">
-        <span>a sound</span> → <span>a shape</span>
-      </p>
-    </div>
-  ),
-  // 3. 15 30 40
-  () => (
-    <div className="op-scene op-scene--ladder">
-      <ClockFace />
-      <ol className="op-ladder num">
-        <li>
-          <span className="op-ladder__spoken">love</span>
-        </li>
-        <li>15</li>
-        <li>30</li>
-        <li className="op-ladder__forty">
-          40
-          <span className="op-ladder__was">45?</span>
-        </li>
-        <li>
-          <span className="op-ladder__spoken">game</span>
-        </li>
-      </ol>
-    </div>
-  ),
-  // 4. deuce
-  () => (
-    <div className="op-scene op-scene--deuce">
-      <ol className="op-deuce">
-        <li className="num">40–40</li>
-        <li className="spoken">Deuce</li>
-        <li className="spoken">Advantage</li>
-        <li className="spoken">Game</li>
-      </ol>
-    </div>
-  ),
-  // 5. 6–6
-  () => (
-    <div className="op-scene op-scene--set">
-      <div className="op-setgrid" aria-hidden="true">
-        {["A", "B"].map((p) => (
-          <div key={p} className="op-setgrid__row">
-            <span className="op-setgrid__name mono">{p}</span>
-            {Array.from({ length: 6 }, (_, i) => (
-              <span key={i} className="op-setgrid__game" style={{ animationDelay: `${i * 90 + (p === "B" ? 45 : 0)}ms` }} />
-            ))}
+    ),
+    // 1. the egg
+    () => (
+      <div className="op-scene op-scene--egg">
+        <Egg className="op-egg" />
+        <p className="op-egg-word">l’œuf</p>
+        <p className="op-voice">“the egg” · folk etymology?</p>
+      </div>
+    ),
+    // 2. œuf – œuf becomes 0 – 0, played by scrolling
+    (_active, p) => {
+      const out = ramp(p, 0.2, 0.55);
+      const inn = ramp(p, 0.35, 0.7);
+      return (
+        <div className="op-scene op-scene--morph">
+          <div className="op-morph">
+            <p
+              className="op-morph__words"
+              style={{
+                opacity: 1 - out,
+                transform: reduced ? undefined : `scale(${1 - 0.5 * out}, ${1 + 0.4 * out})`,
+                filter: reduced ? undefined : `blur(${8 * out}px)`,
+              }}
+            >
+              <span>œuf</span>
+              <span className="op-dash">–</span>
+              <span>œuf</span>
+            </p>
+            <p
+              className="op-morph__nums num"
+              style={{
+                opacity: inn,
+                transform: reduced ? undefined : `scale(${1.5 - 0.5 * inn}, ${0.7 + 0.3 * inn}) rotate(${-10 * (1 - inn)}deg)`,
+              }}
+            >
+              <span>0</span>
+              <span className="op-dash">–</span>
+              <span>0</span>
+            </p>
           </div>
-        ))}
+          <p className="op-voice op-morph__voice">
+            <span style={{ opacity: 1 - inn * 0.6 }}>a sound</span> → <span style={{ opacity: 0.4 + inn * 0.6 }}>a shape</span>
+          </p>
+        </div>
+      );
+    },
+    // 3. love, 15, 30, 40, game: the clock hand follows the scroll
+    (_active, p) => {
+      const idx = Math.min(LADDER.length - 1, Math.floor(p * LADDER.length));
+      const angle = Math.min(3, p * LADDER.length) * 90;
+      return (
+        <div className="op-scene op-scene--ladder">
+          <ClockFace angle={angle} struck={idx >= 3} />
+          <ol className="op-ladder num">
+            {LADDER.map((w, i) => (
+              <li
+                key={w}
+                className={`${i <= idx ? "is-on" : ""}${i === idx ? " is-current" : ""}${i === 3 ? " op-ladder__forty" : ""}`}
+              >
+                {w === "love" || w === "game" ? <span className="op-ladder__spoken">{w}</span> : w}
+                {i === 3 && idx >= 3 && <span className="op-ladder__was">45?</span>}
+              </li>
+            ))}
+          </ol>
+        </div>
+      );
+    },
+    // 4. deuce, advantage, deuce… as long as you keep scrolling
+    (_active, p) => {
+      const idx = Math.min(DEUCE.length - 1, Math.floor(p * DEUCE.length));
+      const call = DEUCE[idx];
+      return (
+        <div className="op-scene op-scene--deuce">
+          <p className={`op-call${idx === 0 ? " num" : " spoken"}${idx === DEUCE.length - 1 ? " is-final" : ""}`} key={idx}>
+            {call}
+          </p>
+          <ol className="op-trail mono">
+            {DEUCE.map((c, i) => (
+              <li key={i} className={i < idx ? "is-past" : i === idx ? "is-now" : ""}>
+                {c}
+              </li>
+            ))}
+          </ol>
+          <p className="op-voice">{idx < DEUCE.length - 1 ? "two points in a row to win" : "finally"}</p>
+        </div>
+      );
+    },
+    // 5. 6–6
+    () => (
+      <div className="op-scene op-scene--set">
+        <div className="op-setgrid" aria-hidden="true">
+          {["A", "B"].map((pl) => (
+            <div key={pl} className="op-setgrid__row">
+              <span className="op-setgrid__name mono">{pl}</span>
+              {Array.from({ length: 6 }, (_, i) => (
+                <span key={i} className="op-setgrid__game" style={{ animationDelay: `${i * 90 + (pl === "B" ? 45 : 0)}ms` }} />
+              ))}
+            </div>
+          ))}
+        </div>
+        <p className="op-big num">6–6</p>
+        <p className="op-voice">games in the set · shown</p>
       </div>
-      <p className="op-big num">6–6</p>
-      <p className="op-voice">games in the set · shown</p>
-    </div>
-  ),
-  // 6. tie-break
-  () => (
-    <div className="op-scene op-scene--tb">
-      <p className="op-count num">
-        {[1, 2, 3, 4, 5, 6, 7].map((n, i) => (
-          <span key={n} style={{ animationDelay: `${i * 160}ms` }}>
-            {n}
-          </span>
-        ))}
-      </p>
-      <p className="op-voice">tie-break · counted like everyone else</p>
-    </div>
-  ),
-  // 7. the question
-  () => (
-    <div className="op-scene op-scene--q">
-      <p className="op-question">
-        Why do sports count the way they do<span className="op-q">?</span>
-      </p>
-    </div>
-  ),
-];
+    ),
+    // 6. tie-break: the count climbs as you scroll
+    (_active, p) => {
+      const count = Math.max(1, Math.min(7, Math.ceil(p * 7)));
+      return (
+        <div className="op-scene op-scene--tb">
+          <p className="op-count num">
+            {[1, 2, 3, 4, 5, 6, 7].map((n) => (
+              <span key={n} className={n <= count ? (n === count ? "is-now" : "is-on") : ""}>
+                {n}
+              </span>
+            ))}
+          </p>
+          <p className="op-voice">tie-break · counted like everyone else</p>
+        </div>
+      );
+    },
+  ];
+}
 
 const steps = [
   <>
@@ -219,7 +262,10 @@ const steps = [
       At 40–40 the numbers give up and language takes over. <em>Deuce.</em> Then <em>advantage.</em> Then{" "}
       <em>game.</em>
     </p>
-    <p>You now need two points in a row. In principle, a single game can go on forever.</p>
+    <p>
+      You now need two points in a row. Lose one and you are back to deuce. In principle, a single game can go on
+      forever. Keep scrolling and see how it feels.
+    </p>
   </>,
   <>
     <p>Six games usually win a set, as long as you are two clear. 6–4 will do. 6–5 won’t.</p>
@@ -236,17 +282,11 @@ const steps = [
       five centuries apart.
     </p>
   </>,
-  <>
-    <p>That absurdity is the question behind this page.</p>
-    <p className="op-thesis">
-      A score begins as memory, becomes language, becomes display, and eventually becomes a tool for redesigning the
-      sport itself.
-    </p>
-    <p>The story starts before anyone kept score at all.</p>
-  </>,
 ];
 
 export default function Prologue() {
+  const reduced = useReducedMotion();
+  const scenes = makeScenes(reduced);
   return (
     <section id="prologue" className="prologue" aria-labelledby="prologue-title">
       <h2 id="prologue-title" className="visually-hidden">
@@ -256,8 +296,44 @@ export default function Prologue() {
         className="scrolly--opening"
         scenes={scenes}
         steps={steps}
+        holds={{ 2: 1.1, 3: 1, 4: 1.6, 6: 0.9 }}
         stageLabel="Animated illustration of tennis scoring: the words thirty–love, an egg, the French word œuf turning into the numeral 0, the sequence 15, 30, 40, deuce and advantage, a 6–6 set and a tie-break counted 1 to 7."
       />
+
+      <Exhibit
+        label="P.1"
+        title="Borg v McEnroe, Wimbledon final, 5 July 1980: the fourth-set tie-break"
+        kind="Film"
+        status="Video published by Wimbledon on YouTube"
+        surface="plain"
+      >
+        <div className="film">
+          <VideoEmbed id="UnwYdF8a5ws" title="Bjorn Borg vs John McEnroe: the 1980 Wimbledon tie-break in full" />
+          <div className="film__text">
+            <p className="kicker">Watch it happen</p>
+            <p className="film__lead">The most famous tie-break ever played.</p>
+            <p>
+              Fourth set, 6–6. It lasted about twenty minutes. McEnroe saved five championship points and won it 18–16.
+              Borg won the match anyway, 8–6 in the fifth set, where there was no tie-break at all.
+              <Cite id={["wiki-1980-final", "tennis-com-1980", "yt-borg-mcenroe"]} />
+            </p>
+          </div>
+        </div>
+      </Exhibit>
+
+      <div className="op-close">
+        <p className="op-question">
+          Why do sports count the way they do<span className="op-q">?</span>
+        </p>
+        <p className="op-close__text">
+          That absurdity is the question behind this page.
+        </p>
+        <p className="op-thesis">
+          A score begins as memory, becomes language, becomes display, and eventually becomes a tool for redesigning the
+          sport itself.
+        </p>
+        <p className="op-close__text">The story starts before anyone kept score at all.</p>
+      </div>
     </section>
   );
 }

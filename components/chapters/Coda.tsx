@@ -1,9 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
-import Scrolly from "@/components/Scrolly";
+import Scrolly, { type Scene } from "@/components/Scrolly";
 
-function Marks({ n }: { n: number }) {
+function Marks({ n, shown }: { n: number; shown: number }) {
   return (
     <svg viewBox="0 0 220 120" className="coda-marks" aria-hidden="true">
       {Array.from({ length: n }, (_, i) => (
@@ -15,7 +15,8 @@ function Marks({ n }: { n: number }) {
           strokeLinecap="round"
           fill="none"
           className="coda-mark"
-          style={{ animationDelay: `${i * 0.35}s` }}
+          style={{ strokeDasharray: 100, strokeDashoffset: 100 * (1 - Math.max(0, Math.min(1, shown * n - i))) }}
+          pathLength={100}
         />
       ))}
       <line x1="118" y1="62" x2="136" y2="62" stroke="var(--ink-3)" strokeWidth="4" />
@@ -24,7 +25,7 @@ function Marks({ n }: { n: number }) {
   );
 }
 
-function Stick() {
+function Stick({ shown }: { shown: number }) {
   return (
     <svg viewBox="0 0 420 110" className="coda-stick" aria-hidden="true">
       <path d="M16 34 Q 6 34 6 56 Q 6 82 18 82 L 400 84 Q 414 84 414 58 Q 414 32 400 30 Z" fill="#c9a263" />
@@ -32,13 +33,18 @@ function Stick() {
         <path key={y} d={`M22 ${y} C 140 ${y - 2}, 260 ${y + 3}, 404 ${y - 1}`} stroke="#8a6437" strokeOpacity="0.35" fill="none" />
       ))}
       {[150, 176].map((x, i) => (
-        <path key={x} d={`M${x - 6} 33 L${x} 58 L${x + 6} 33 Z`} fill="#4a2e14" className="coda-notch" style={{ animationDelay: `${i * 0.4}s` }} />
+        <path
+          key={x}
+          d={`M${x - 6} 33 L${x} 58 L${x + 6} 33 Z`}
+          fill="#4a2e14"
+          style={{ opacity: shown > (i + 0.5) / 2.5 ? 1 : 0, transition: "opacity 0.2s" }}
+        />
       ))}
     </svg>
   );
 }
 
-const scenes: ((active: boolean) => ReactNode)[] = [
+const scenes: Scene[] = [
   () => (
     <div className="op-scene">
       <p className="op-spoken">
@@ -59,15 +65,15 @@ const scenes: ((active: boolean) => ReactNode)[] = [
       <p className="op-voice">recorded</p>
     </div>
   ),
-  () => (
+  (_active, p) => (
     <div className="op-scene">
-      <Marks n={2} />
+      <Marks n={2} shown={p} />
       <p className="op-voice">tallied</p>
     </div>
   ),
-  () => (
+  (_active, p) => (
     <div className="op-scene">
-      <Stick />
+      <Stick shown={p} />
       <p className="op-voice">cut</p>
     </div>
   ),
@@ -94,6 +100,7 @@ export default function Coda() {
         className="scrolly--coda"
         scenes={scenes}
         steps={steps}
+        holds={{ 3: 0.5, 4: 0.6 }}
         stageLabel="The score thirty–love stripped back step by step: 30–0, two points to nil, two tally marks against none, two notches in a stick."
       />
       <div className="coda-end">

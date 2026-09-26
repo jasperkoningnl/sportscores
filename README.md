@@ -7,7 +7,7 @@ It opens with tennis (“Thirty–love.”) and follows one idea through fourtee
 
 | | Chapter | Main interactive |
 |---|---|---|
-| P | Thirty–love | Scroll-driven opening: *l’œuf* → 0, 15-30-40, deuce, tie-break |
+| P | Thirty–love | Scroll-driven opening with “hold” moments (*l’œuf* → 0, 15-30-40, an endless deuce, the tie-break), then the 1980 Borg–McEnroe tie-break on film |
 | 1 | Before scores | Order, state, measure |
 | 2 | The cut in the stick | Carve a cricket notcher’s tally stick, then read it as a number |
 | 3 | Ancient scoreboards | Maya ballgame stone (schematic), the ulama *urra*, Roman lap counter with eggs and dolphins, the pentathlon puzzle |
@@ -57,7 +57,7 @@ The build output in `out/` is plain HTML, CSS and JavaScript, so any static host
 - Hand-written CSS with design tokens (`app/styles/tokens.css`), light and dark themes, no CSS framework
 - Custom SVG for every visual; no chart or animation library
 - Fonts self-hosted through Fontsource: Newsreader (the “spoken” voice), Big Shoulders Display (numbers “shown” on boards), IBM Plex Mono (“recorded” data and labels), plus IM FELL English and Homemade Apple for the 1744 scorecard reconstruction
-- No backend, no tracking, no external requests at runtime
+- No backend. The only external requests are the embedded YouTube clips (loaded lazily from youtube-nocookie.com)
 
 ```
 app/
@@ -80,6 +80,7 @@ lib/
 - Every factual claim cites a source from `lib/sources.ts` with `<Cite id="…" />`. The number shown is the source’s position in that list.
 - Uncertainty is kept, not smoothed over. Claims that are theories, disputed, folklore, proposals or unknown carry a small stamp (`<Certainty level="theory" />` etc.).
 - No archival images are reproduced. Historical objects (the Maya stone, the Roman spina, the 1744 scorecard, the Wrigley board) are original, schematic reconstructions, labelled as such. The Maya stone deliberately shows no glyphs or figures. Links to the real objects are in the sources.
+- Video clips are embedded from the rights holders’ own YouTube uploads, never re-cut. `docs/media-plan.md` lists the clips in use, what still needs checking and the archive photos still to add.
 - Teams, players and matches in the interactive examples are invented and labelled as such. The volleyball and xG simulations are simple models, not match data.
 - Chart colours were checked for colour-blind separation and contrast in both themes.
 

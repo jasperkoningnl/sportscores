@@ -1262,28 +1262,14 @@
   height: auto;
 }
 
-.is-active .coda-mark {
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  animation: draw 0.5s var(--ease-out) forwards;
-}
 
-@keyframes draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
 
 .coda-stick {
   width: min(520px, 90vw);
   height: auto;
 }
 
-.is-active .coda-notch {
-  transform-box: fill-box;
-  transform-origin: 50% 0;
-  animation: notch-cut 0.4s var(--ease-out) both;
-}
+
 
 .coda-end {
   max-width: var(--wide);

@@ -9,6 +9,8 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-padding-top: calc(var(--bar-h) + 16px);
+  /* Gentle "walls": only the scrollytelling hold steps are snap points. */
+  scroll-snap-type: y proximity;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -860,6 +862,47 @@ p {
   align-items: center;
 }
 
+.scrolly__step.scrolly__step--hold {
+  --hold-top: calc(var(--bar-h) + 48vh);
+  min-height: calc(62vh + var(--hold, 1) * 100vh);
+  align-items: flex-start;
+  padding-top: var(--hold-top);
+  scroll-snap-align: start;
+}
+
+.scrolly__step--hold .scrolly__card {
+  position: sticky;
+  top: var(--hold-top);
+}
+
+.scrolly__hold {
+  display: grid;
+  gap: 6px;
+  margin-top: 0.3em;
+}
+
+.scrolly__hold-label {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.scrolly__hold-bar {
+  display: block;
+  height: 3px;
+  background: var(--rule);
+  overflow: hidden;
+}
+
+.scrolly__hold-bar span {
+  display: block;
+  height: 100%;
+  background: var(--red);
+  transform-origin: 0 50%;
+  transition: transform 0.12s linear;
+}
+
 .scrolly__card {
   background: var(--paper);
   border: 1px solid var(--rule);
@@ -899,6 +942,10 @@ p {
   }
   .scrolly__step {
     min-height: 85vh;
+  }
+  .scrolly__step.scrolly__step--hold {
+    --hold-top: 30vh;
+    min-height: calc(85vh + var(--hold, 1) * 100vh);
   }
   .scrolly__card {
     border: 0;
