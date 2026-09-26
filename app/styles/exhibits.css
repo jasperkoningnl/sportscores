@@ -834,3 +834,54 @@
   letter-spacing: 0.04em;
   color: var(--ink-2);
 }
+
+.video--link {
+  text-decoration: none;
+  color: #f1efe6;
+}
+
+.video__frame--card {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  padding: 24px;
+  text-align: center;
+  background: radial-gradient(circle at 50% 40%, #1f4a35, #0b0b0a 75%);
+}
+
+.video__play {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  position: relative;
+}
+
+.video__play::after {
+  content: "";
+  position: absolute;
+  left: 25px;
+  top: 19px;
+  border-left: 20px solid currentColor;
+  border-top: 13px solid transparent;
+  border-bottom: 13px solid transparent;
+}
+
+.video__card-title {
+  font-style: italic;
+  font-size: var(--step-1);
+  line-height: 1.2;
+  max-width: 28ch;
+}
+
+.video__card-note {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--amber);
+}
+
+.video--link:hover .video__play,
+.video--link:focus-visible .video__play {
+  color: var(--amber);
+}
