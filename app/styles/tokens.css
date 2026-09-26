@@ -1,0 +1,122 @@
+/*
+  Design tokens.
+
+  Three typographic voices, used consistently:
+    spoken   → Newsreader italic   ("Thirty–love", "deuce", chapter titles)
+    shown    → Big Shoulders       (numbers on boards, plates and displays)
+    recorded → IBM Plex Mono       (scorecards, labels, citations, data)
+
+  Two surfaces: ledger paper (history, reading) and scoreboard green
+  (things that display a score). Red is the scorer's red ink.
+*/
+
+:root {
+  --paper: #ecefe7;
+  --paper-2: #e2e6db;
+  --paper-3: #d6dbcd;
+  --ink: #14211a;
+  --ink-2: #3b4a41;
+  --ink-3: #5f6c63;
+  --rule: rgba(20, 33, 26, 0.16);
+  --rule-strong: rgba(20, 33, 26, 0.42);
+  --ledger: rgba(46, 104, 88, 0.12);
+  --red: #b0301d;
+  --red-soft: rgba(176, 48, 29, 0.1);
+
+  --board: #1c3b2d;
+  --board-2: #24493a;
+  --board-edge: #0f2419;
+  --board-ink: #eeede3;
+  --board-ink-2: #b9c7bd;
+  --plate: #f3f1e7;
+  --plate-ink: #141414;
+  --amber: #f2ad1f;
+  --amber-glow: rgba(242, 173, 31, 0.35);
+  --amber-off: rgba(242, 173, 31, 0.12);
+
+  --stone: #8f8a7c;
+  --stone-2: #6f6a5e;
+  --stone-ink: #2a2721;
+
+  --focus: #d4870a;
+
+  /* chart series (validated with the dataviz palette checker, see README) */
+  --series-1: #b0301d;
+  --series-2: #1768b3;
+  --series-3: #a07a12;
+
+  --font-spoken: "Newsreader Variable", "Newsreader", Georgia, "Times New Roman", serif;
+  --font-shown: "Big Shoulders Display Variable", "Big Shoulders Display", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --font-recorded: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --font-period: "IM Fell English", "Iowan Old Style", Georgia, serif;
+  --font-hand: "Homemade Apple", "Bradley Hand", "Segoe Script", cursive;
+
+  --step--1: clamp(0.8125rem, 0.78rem + 0.15vw, 0.875rem);
+  --step-0: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);
+  --step-1: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem);
+  --step-2: clamp(1.75rem, 1.4rem + 1.6vw, 2.625rem);
+  --step-3: clamp(2.25rem, 1.6rem + 3vw, 4rem);
+  --step-4: clamp(3rem, 1.8rem + 6vw, 7rem);
+  --step-5: clamp(4rem, 2rem + 10vw, 11rem);
+
+  --measure: 36rem;
+  --wide: 72rem;
+  --gutter: clamp(16px, 4vw, 40px);
+  --bar-h: 44px;
+  --radius: 3px;
+
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0e1712;
+    --paper-2: #142019;
+    --paper-3: #1b2a21;
+    --ink: #e4e7de;
+    --ink-2: #b7c1b8;
+    --ink-3: #8c988f;
+    --rule: rgba(228, 231, 222, 0.14);
+    --rule-strong: rgba(228, 231, 222, 0.38);
+    --ledger: rgba(120, 190, 160, 0.07);
+    --red: #ef7a62;
+    --red-soft: rgba(239, 122, 98, 0.14);
+    --board: #17352a;
+    --board-2: #1f4435;
+    --board-edge: #0a1a12;
+    --stone: #6d695e;
+    --stone-2: #5a564c;
+    --stone-ink: #ece8dc;
+    --focus: #f2ad1f;
+    --series-1: #e8674d;
+    --series-2: #3f9be0;
+    --series-3: #b8871c;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0e1712;
+  --paper-2: #142019;
+  --paper-3: #1b2a21;
+  --ink: #e4e7de;
+  --ink-2: #b7c1b8;
+  --ink-3: #8c988f;
+  --rule: rgba(228, 231, 222, 0.14);
+  --rule-strong: rgba(228, 231, 222, 0.38);
+  --ledger: rgba(120, 190, 160, 0.07);
+  --red: #ef7a62;
+  --red-soft: rgba(239, 122, 98, 0.14);
+  --board: #17352a;
+  --board-2: #1f4435;
+  --board-edge: #0a1a12;
+  --stone: #6d695e;
+  --stone-2: #5a564c;
+  --stone-ink: #ece8dc;
+  --focus: #f2ad1f;
+  --series-1: #e8674d;
+  --series-2: #3f9be0;
+  --series-3: #b8871c;
+}
