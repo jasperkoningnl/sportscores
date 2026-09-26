@@ -147,88 +147,8 @@
   opacity: 0;
 }
 
-.is-active .op-morph__words span:not(.op-dash) {
-  display: inline-block;
-  animation: op-squeeze 2.6s var(--ease-in-out) both;
-}
-
-.is-active .op-morph__words .op-dash {
-  animation: op-fade-out 2.6s var(--ease-in-out) both;
-}
-
-.is-active .op-morph__nums {
-  animation: op-nums-in 2.6s var(--ease-in-out) both;
-}
-
-.is-active .op-morph__nums span:not(.op-dash) {
-  display: inline-block;
-  animation: op-egg-to-zero 2.6s var(--ease-in-out) both;
-}
-
-@keyframes op-squeeze {
-  0%,
-  40% {
-    opacity: 1;
-    transform: none;
-    filter: blur(0);
-  }
-  70%,
-  100% {
-    opacity: 0;
-    transform: scale(0.5, 1.4);
-    filter: blur(8px);
-  }
-}
-
-@keyframes op-fade-out {
-  0%,
-  40% {
-    opacity: 1;
-  }
-  70%,
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes op-nums-in {
-  0%,
-  45% {
-    opacity: 0;
-  }
-  75%,
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes op-egg-to-zero {
-  0%,
-  45% {
-    transform: scale(1.5, 0.7) rotate(-10deg);
-  }
-  80%,
-  100% {
-    transform: none;
-  }
-}
-
 .op-morph__voice span {
   color: var(--ink);
-}
-
-/* reduced motion: show the end state, the words above as a caption */
-@media (prefers-reduced-motion: reduce) {
-  .op-morph > * {
-    grid-area: auto;
-  }
-  .op-morph__words {
-    font-size: clamp(1.6rem, 1rem + 3vw, 3rem);
-    opacity: 0.6;
-  }
-  .op-morph__nums {
-    opacity: 1;
-  }
 }
 
 /* clock + ladder */
@@ -253,27 +173,6 @@
   text-decoration: line-through;
 }
 
-.is-active .op-clock__hand {
-  transform-origin: 100px 100px;
-  animation: op-hand 3s var(--ease-in-out) both;
-}
-
-@keyframes op-hand {
-  0% {
-    transform: rotate(0);
-  }
-  25% {
-    transform: rotate(90deg);
-  }
-  50% {
-    transform: rotate(180deg);
-  }
-  75%,
-  100% {
-    transform: rotate(270deg);
-  }
-}
-
 .op-ladder {
   list-style: none;
   margin: 0;
@@ -287,23 +186,17 @@
 
 .op-ladder li {
   position: relative;
+  opacity: 0.15;
+  transition: opacity 0.25s, color 0.25s;
 }
 
-.is-active .op-ladder li {
-  animation: op-step-in 0.5s var(--ease-out) both;
+.op-ladder li.is-on {
+  opacity: 1;
 }
 
-.is-active .op-ladder li:nth-child(2) {
-  animation-delay: 0.15s;
-}
-.is-active .op-ladder li:nth-child(3) {
-  animation-delay: 0.3s;
-}
-.is-active .op-ladder li:nth-child(4) {
-  animation-delay: 0.45s;
-}
-.is-active .op-ladder li:nth-child(5) {
-  animation-delay: 0.6s;
+.op-ladder li.is-current,
+.op-ladder li.is-current .op-ladder__spoken {
+  color: var(--red);
 }
 
 @keyframes op-step-in {
@@ -336,48 +229,55 @@
   text-decoration: line-through;
 }
 
-/* deuce */
+/* deuce: one call at a time, with the trail of calls below */
 
-.op-deuce {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 0.1em;
-  justify-items: center;
-  font-size: clamp(2.4rem, 1rem + 6vw, 5.8rem);
-  line-height: 1.02;
+.op-call {
+  font-size: clamp(2.8rem, 1rem + 7vw, 7rem);
+  line-height: 1;
+  min-height: 1.1em;
+  animation: op-step-in 0.35s var(--ease-out) both;
 }
 
-.op-deuce .num {
+.op-call.num {
   font-weight: 800;
 }
 
-.op-deuce .spoken {
+.op-call.spoken {
   font-weight: 400;
 }
 
-.op-deuce li:nth-child(n + 2)::before {
-  content: "↓";
-  display: block;
-  font-family: var(--font-recorded);
-  font-style: normal;
-  font-size: 0.25em;
+.op-call.is-final {
   color: var(--red);
-  line-height: 1.4;
 }
 
-.is-active .op-deuce li {
-  animation: op-step-in 0.5s var(--ease-out) both;
+.op-trail {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 14px;
+  max-width: 34rem;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
-.is-active .op-deuce li:nth-child(2) {
-  animation-delay: 0.35s;
+
+.op-trail li {
+  color: var(--ink-3);
+  opacity: 0.25;
 }
-.is-active .op-deuce li:nth-child(3) {
-  animation-delay: 0.7s;
+
+.op-trail li.is-past {
+  opacity: 0.8;
+  text-decoration: line-through;
+  text-decoration-color: var(--rule-strong);
 }
-.is-active .op-deuce li:nth-child(4) {
-  animation-delay: 1.05s;
+
+.op-trail li.is-now {
+  opacity: 1;
+  color: var(--red);
 }
 
 /* 6–6 */
@@ -435,11 +335,17 @@
   font-size: clamp(3rem, 1rem + 8vw, 8rem);
 }
 
-.is-active .op-count span {
-  animation: op-step-in 0.4s var(--ease-out) both;
+.op-count span {
+  opacity: 0.12;
+  transition: opacity 0.2s;
 }
 
-.op-count span:last-child {
+.op-count span.is-on {
+  opacity: 1;
+}
+
+.op-count span.is-now {
+  opacity: 1;
   color: var(--red);
 }
 
@@ -465,8 +371,11 @@
 
 @media (max-width: 899px) {
   .scrolly--opening .scrolly__stage {
-    height: 46vh;
-    height: 46svh;
+    height: 42vh;
+    height: 42svh;
+  }
+  .scrolly--opening .scrolly__step.scrolly__step--hold {
+    --hold-top: calc(var(--bar-h) + 43vh);
   }
   .op-scene--ladder {
     gap: 12px;
@@ -474,4 +383,22 @@
   .op-clock {
     width: 110px;
   }
+}
+
+/* ---------- Close of the prologue ---------- */
+
+.op-close {
+  max-width: var(--measure);
+  margin: clamp(3rem, 8vw, 6rem) auto 0;
+  display: grid;
+  gap: 1em;
+}
+
+.op-close .op-question {
+  max-width: 14ch;
+}
+
+.op-close__text {
+  font-size: var(--step-1);
+  line-height: 1.4;
 }

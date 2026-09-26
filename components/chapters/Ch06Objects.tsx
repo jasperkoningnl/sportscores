@@ -1,4 +1,5 @@
 import { Chapter, Cite, Exhibit, Prose } from "@/components/ui";
+import { VideoEmbed } from "@/components/Media";
 import { CurlingBoard, FlipBoard, HalfTimeBoard, LineScore } from "@/components/interactives/Boards";
 
 export default function Ch06Objects() {
@@ -52,6 +53,27 @@ export default function Ch06Objects() {
         <LineScore />
       </Exhibit>
 
+      <Exhibit
+        label="6.3"
+        title="Inside the Wrigley Field scoreboard"
+        kind="Film"
+        status="Video published by Great Big Story on YouTube, 2017"
+        surface="plain"
+      >
+        <div className="film">
+          <VideoEmbed id="2F5ovxn0ZdY" title="Inside One of Baseball’s Last Manual Scoreboards" />
+          <div className="film__text">
+            <p className="kicker">Behind the numbers</p>
+            <p className="film__lead">The score, carried by hand.</p>
+            <p>
+              A short film from inside the board: the ladders, the plates and the people who hang them while the game goes
+              on outside.
+              <Cite id="yt-wrigley" />
+            </p>
+          </div>
+        </div>
+      </Exhibit>
+
       <Prose>
         <h3>A, B, C: the half-time board</h3>
         <p>
@@ -65,7 +87,7 @@ export default function Ch06Objects() {
       </Prose>
 
       <Exhibit
-        label="6.3"
+        label="6.4"
         title="Half-time board and programme key"
         status="Invented fixtures"
         surface="plain"
@@ -93,7 +115,7 @@ export default function Ch06Objects() {
       </Prose>
 
       <Exhibit
-        label="6.4"
+        label="6.5"
         title="Curling club scoreboard: points in the middle"
         status="Illustrative game"
         surface="plain"

@@ -1,4 +1,5 @@
 import { Chapter, Cite, Exhibit, Prose, PullLine } from "@/components/ui";
+import { VideoEmbed } from "@/components/Media";
 import RallySim from "@/components/interactives/RallySim";
 
 const TIMELINE = [
@@ -62,7 +63,41 @@ export default function Ch08Television() {
         </p>
       </Prose>
 
-      <Exhibit label="8.1" title="Scoring reforms that tamed the clock" kind="Timeline" surface="plain">
+      <Prose>
+        <h3>What happens without one</h3>
+        <p>
+          Wimbledon kept its final set open-ended for decades. In 2010 John Isner and Nicolas Mahut showed what that can
+          mean: their fifth set finished 70–68, in a first-round match that lasted 11 hours and 5 minutes over three days.
+          <Cite id="wiki-isner-mahut" /> After another marathon, Kevin Anderson’s 26–24 fifth set against Isner in the
+          2018 semi-final, Wimbledon introduced a final-set tie-break at 12–12 from 2019.
+          <Cite id="espn-wimbledon-2019" /> Since 2022 all four Grand Slams play a 10-point tie-break at 6–6 in the final
+          set.
+          <Cite id="tennis-com-2022" />
+        </p>
+      </Prose>
+
+      <Exhibit
+        label="8.1"
+        title="Isner v Mahut, Wimbledon 2010: the set that would not end"
+        kind="Film"
+        status="Video published by Wimbledon on YouTube"
+        surface="plain"
+      >
+        <div className="film">
+          <VideoEmbed id="J9M-XwUhYH4" title="John Isner v Nicolas Mahut, Wimbledon 2010 first round, extended highlights" />
+          <div className="film__text">
+            <p className="kicker">70–68</p>
+            <p className="film__lead">One set, 138 games.</p>
+            <p>
+              Watch the scoreboard more than the tennis. At some point the numbers stop meaning anything to anyone except
+              the two players.
+              <Cite id="yt-isner-mahut" />
+            </p>
+          </div>
+        </div>
+      </Exhibit>
+
+      <Exhibit label="8.2" title="Scoring reforms that tamed the clock" kind="Timeline" surface="plain">
         <ol className="timeline">
           {TIMELINE.map((t) => (
             <li key={t.year + t.sport} className="timeline__item">
@@ -91,7 +126,7 @@ export default function Ch08Television() {
       </Prose>
 
       <Exhibit
-        label="8.2"
+        label="8.3"
         title="How long is a set? Side-out versus rally scoring"
         kind="Simulation"
         surface="paper"

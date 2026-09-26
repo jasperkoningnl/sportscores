@@ -57,6 +57,28 @@ export const SOURCES: Source[] = [
     url: "https://www.tennisfame.com/hall-of-famers/inductees/jimmy-van-alen",
   },
 
+  {
+    id: "wiki-1980-final",
+    chapter: "Prologue",
+    title: "1980 Wimbledon Championships – Men’s singles final",
+    publisher: "Wikipedia",
+    url: "https://en.wikipedia.org/wiki/1980_Wimbledon_Championships_%E2%80%93_Men%27s_singles_final",
+  },
+  {
+    id: "tennis-com-1980",
+    chapter: "Prologue",
+    title: "1980: The War of 18-16: Borg and McEnroe’s Wimbledon Classic",
+    publisher: "Tennis.com",
+    url: "https://www.tennis.com/news/articles/1980-the-war-of-18-16-borg-and-mcenroe-s-wimbledon-classic",
+  },
+  {
+    id: "yt-borg-mcenroe",
+    chapter: "Prologue",
+    title: "Bjorn Borg vs John McEnroe | The 1980 tie-break in full (video)",
+    publisher: "Wimbledon, on YouTube",
+    url: "https://www.youtube.com/watch?v=UnwYdF8a5ws",
+  },
+
   // Chapter 2: the cut in the stick
   {
     id: "etym-score",
@@ -271,6 +293,13 @@ export const SOURCES: Source[] = [
     url: "https://www.wbez.org/curious-city/2015/09/11/the-design-of-the-wrigley-scoreboard-revolutionary-retro-or-both",
   },
   {
+    id: "yt-wrigley",
+    chapter: "6 · The scoreboard becomes an object",
+    title: "Inside One of Baseball’s Last Manual Scoreboards (video)",
+    publisher: "Great Big Story, on YouTube, 2017",
+    url: "https://www.youtube.com/watch?v=2F5ovxn0ZdY",
+  },
+  {
     id: "arsenal-halftime",
     chapter: "6 · The scoreboard becomes an object",
     title: "How did we used to get the half time scores?",
@@ -371,6 +400,27 @@ export const SOURCES: Source[] = [
     title: "All Grand Slams to use 10-point tiebreaker at 6-6 in final set",
     publisher: "Tennis.com, March 2022",
     url: "https://www.tennis.com/news/articles/all-grand-slams-to-use-10-point-tiebreaker-in-final-set",
+  },
+  {
+    id: "wiki-isner-mahut",
+    chapter: "8 · Television arrives",
+    title: "Isner–Mahut match at the 2010 Wimbledon Championships",
+    publisher: "Wikipedia",
+    url: "https://en.wikipedia.org/wiki/Isner%E2%80%93Mahut_match_at_the_2010_Wimbledon_Championships",
+  },
+  {
+    id: "espn-wimbledon-2019",
+    chapter: "8 · Television arrives",
+    title: "Wimbledon to introduce final-set tiebreaks in 2019",
+    publisher: "ESPN, October 2018",
+    url: "https://africa.espn.com/tennis/story/_/id/25022563/wimbledon-introduce-final-set-tiebreaks-2019",
+  },
+  {
+    id: "yt-isner-mahut",
+    chapter: "8 · Television arrives",
+    title: "John Isner v Nicolas Mahut | Wimbledon 2010 first round | Extended Highlights (video)",
+    publisher: "Wimbledon, on YouTube",
+    url: "https://www.youtube.com/watch?v=J9M-XwUhYH4",
   },
   {
     id: "fivb-game",
