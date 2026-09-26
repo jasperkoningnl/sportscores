@@ -1,0 +1,781 @@
+/* ---------- Shared small bits ---------- */
+
+.small-copy {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.divider {
+  border-top: 1px solid var(--rule);
+}
+
+/* ---------- 1.1 Triptych ---------- */
+
+.triptych {
+  display: grid;
+  gap: clamp(20px, 4vw, 48px);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.triptych__item {
+  display: grid;
+  gap: 6px;
+  border-top: 2px solid var(--ink);
+  padding-top: 14px;
+}
+
+.triptych__item svg {
+  width: 100%;
+  height: auto;
+  margin-bottom: 8px;
+}
+
+.triptych__rule {
+  font-family: var(--font-recorded);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 13px;
+  color: var(--red);
+}
+
+.triptych__text {
+  font-style: italic;
+  font-size: var(--step-1);
+  line-height: 1.2;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .race-dot {
+    animation: race 3.2s var(--ease-in-out) infinite;
+  }
+  .race-dot--2 {
+    animation-name: race2;
+  }
+  .race-dot--3 {
+    animation-name: race3;
+  }
+}
+
+@keyframes race {
+  0% {
+    transform: translateX(-120px);
+  }
+  60%,
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes race2 {
+  0% {
+    transform: translateX(-100px);
+  }
+  60%,
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes race3 {
+  0% {
+    transform: translateX(-80px);
+  }
+  60%,
+  100% {
+    transform: none;
+  }
+}
+
+/* ---------- 2.1 Word chain ---------- */
+
+.chain {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0;
+  counter-reset: chain;
+}
+
+.chain__item {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: 14px 18px 18px 0;
+  border-top: 2px solid var(--ink);
+}
+
+.chain__item:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: 6px;
+  top: 10px;
+  font-family: var(--font-recorded);
+  color: var(--red);
+}
+
+.chain__lang {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.chain__word {
+  font-style: italic;
+  font-size: var(--step-2);
+  line-height: 1;
+}
+
+.chain__gloss {
+  font-size: 0.98rem;
+  line-height: 1.4;
+  color: var(--ink-2);
+}
+
+.chain__foot {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--ink-3);
+}
+
+/* ---------- 2.2 Tally stick ---------- */
+
+.tally {
+  display: grid;
+  gap: 20px;
+}
+
+.tally__stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 150px;
+}
+
+.tally__svg {
+  width: 100%;
+  height: auto;
+  transition: opacity 0.5s var(--ease-out), transform 0.6s var(--ease-out), filter 0.5s;
+}
+
+.tally__stage.is-reading .tally__svg {
+  opacity: 0.18;
+  transform: scale(0.92);
+  filter: blur(1.5px);
+}
+
+.tally__reading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 6px;
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease-out), transform 0.6s var(--ease-out);
+}
+
+.tally__stage.is-reading .tally__reading {
+  opacity: 1;
+  transform: none;
+}
+
+.tally__numeral {
+  font-weight: 800;
+  font-size: clamp(5rem, 3rem + 8vw, 9rem);
+  color: var(--ink);
+}
+
+.tally__breakdown {
+  font-size: 14px;
+  color: var(--red);
+  letter-spacing: 0.04em;
+}
+
+.tally__notch.is-new {
+  animation: notch-cut 0.35s var(--ease-out) both;
+}
+
+@keyframes notch-cut {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.tally__chips path {
+  animation: chip 0.6s var(--ease-out) forwards;
+}
+
+.tally__chips path:last-child {
+  animation-name: chip2;
+}
+
+@keyframes chip {
+  to {
+    transform: translate(14px, -18px) rotate(40deg);
+    opacity: 0;
+  }
+}
+
+@keyframes chip2 {
+  to {
+    transform: translate(-12px, -16px) rotate(-50deg);
+    opacity: 0;
+  }
+}
+
+.tally__controls {
+  display: grid;
+  gap: 10px;
+}
+
+.tally__legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  font-size: 12px;
+  color: var(--ink-2);
+}
+
+.tally__legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tally__key {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-top: 10px solid #5a3a1c;
+}
+
+.tally__key--ten {
+  border-left-width: 4px;
+  border-right-width: 4px;
+  border-top-width: 16px;
+}
+
+.tally__key--twenty {
+  border-left-width: 6px;
+  border-right-width: 6px;
+  border-top: 20px solid #3a2410;
+}
+
+/* ---------- 3.1 Stone disc & urra ---------- */
+
+.stone {
+  width: min(100%, 340px);
+  height: auto;
+  margin-inline: auto;
+}
+
+.stone__note {
+  font-family: var(--font-recorded);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: #2a2721;
+}
+
+.stone-quote {
+  font-style: italic;
+  font-size: var(--step-2);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.urra {
+  display: grid;
+  gap: 12px;
+}
+
+.urra__board {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--stone-2);
+  color: #f1ede1;
+  padding: 12px 18px;
+  width: fit-content;
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.25);
+}
+
+.urra__side {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+}
+
+.urra__team {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.urra__score {
+  font-weight: 800;
+  font-size: 3.4rem;
+  line-height: 1;
+}
+
+.urra__score.is-changed {
+  animation: urra 0.7s var(--ease-out);
+  color: var(--amber);
+}
+
+.urra__dash {
+  font-size: 2.4rem;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+@keyframes urra {
+  0% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+/* ---------- 3.2 Lap counter ---------- */
+
+.laps {
+  display: grid;
+  gap: 18px;
+}
+
+.laps__svg {
+  width: 100%;
+  height: auto;
+}
+
+.laps__caption {
+  font-family: var(--font-recorded);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  fill: var(--ink-2);
+}
+
+.lap-egg ellipse {
+  transition: transform 0.6s var(--ease-out), opacity 0.6s;
+}
+
+.lap-egg.is-down ellipse {
+  transform: translateY(20px);
+  opacity: 0.35;
+}
+
+.lap-dolphin {
+  transition: transform 0.7s var(--ease-out), opacity 0.7s;
+}
+
+.lap-dolphin.is-down {
+  transform: rotate(100deg);
+  opacity: 0.45;
+}
+
+.laps__panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+}
+
+.laps__count {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.laps__count .num {
+  font-weight: 800;
+  font-size: 3.2rem;
+}
+
+.laps__count .mono {
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+.laps__panel .live {
+  flex-basis: 100%;
+}
+
+/* ---------- 3.3 Pentathlon ---------- */
+
+.penta {
+  display: grid;
+  gap: 20px;
+}
+
+.penta__events {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+}
+
+.penta__events li {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  border-top: 2px solid var(--ink);
+  padding-top: 8px;
+}
+
+.penta__n {
+  font-weight: 800;
+  font-size: 2rem;
+  color: var(--red);
+}
+
+.penta__name {
+  font-size: 1.15rem;
+  font-style: italic;
+}
+
+.penta__note {
+  font-size: 11px;
+  color: var(--ink-3);
+}
+
+.penta__arrow {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  padding-block: 4px;
+  border-block: 1px dashed var(--rule-strong);
+  text-align: center;
+}
+
+.penta__theories {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.penta__theories li {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+
+.penta__tname {
+  font-family: var(--font-recorded);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+.penta__ttext {
+  font-size: 1rem;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+/* ---------- 4.1 Score archive ---------- */
+
+.arch {
+  display: grid;
+  gap: 16px;
+}
+
+.arch__tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-bottom: 2px solid var(--ink);
+}
+
+.arch__tab {
+  display: grid;
+  gap: 2px;
+  justify-items: start;
+  padding: 10px 10px 12px;
+  background: none;
+  border: 0;
+  border-bottom: 4px solid transparent;
+  margin-bottom: -3px;
+  color: var(--ink-3);
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+}
+
+.arch__tab.is-past {
+  color: var(--ink-2);
+}
+
+.arch__tab.is-on {
+  color: var(--ink);
+  border-bottom-color: var(--red);
+}
+
+.arch__tab-role {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.arch__tab-name {
+  font-style: italic;
+  font-size: clamp(1rem, 0.9rem + 0.6vw, 1.35rem);
+}
+
+.arch__panel {
+  min-height: clamp(220px, 40vw, 330px);
+  display: grid;
+  align-items: center;
+}
+
+.arch__view {
+  animation: arch-in 0.55s var(--ease-out) both;
+  min-width: 0;
+}
+
+@keyframes arch-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+.arch-caption {
+  font-size: 12px;
+  color: var(--ink-2);
+  margin-top: 12px;
+}
+
+.arch-stick svg {
+  width: 100%;
+  height: auto;
+}
+
+.arch-card {
+  background: #f7f1e1;
+  color: #2b2419;
+  padding: clamp(14px, 3vw, 28px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1), 0 10px 30px -18px rgba(0, 0, 0, 0.45);
+  transform: rotate(-0.6deg);
+  max-width: 44rem;
+  margin-inline: auto;
+}
+
+.arch-card .arch-caption {
+  color: #5d5242;
+}
+
+.arch-hand {
+  font-family: var(--font-hand);
+  font-size: clamp(0.8rem, 0.7rem + 0.5vw, 1.05rem);
+  line-height: 1.9;
+}
+
+.arch-hand--title {
+  border-bottom: 1px solid rgba(43, 36, 25, 0.35);
+  margin-bottom: 8px;
+}
+
+.arch-hand--team {
+  text-decoration: underline;
+}
+
+.arch-hand--tot,
+.arch-hand--result {
+  color: #8d2a17;
+}
+
+.arch-card__cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+}
+
+.arch-card__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 4px;
+  border-bottom: 1px dotted rgba(43, 36, 25, 0.25);
+  color: #3b3226;
+}
+
+.arch-scribble {
+  max-width: 60%;
+  height: 12px;
+  opacity: 0.75;
+}
+
+.arch-card__more {
+  font-size: 11px;
+  color: #6c604e;
+  margin-block: 6px;
+}
+
+.arch-book {
+  font-family: var(--font-period);
+  text-align: center;
+  max-width: 30rem;
+  margin-inline: auto;
+  background: #f4efe2;
+  color: #1f1b14;
+  padding: clamp(18px, 4vw, 36px);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+.arch-book .arch-caption {
+  color: #5a5040;
+  font-family: var(--font-recorded);
+  text-align: left;
+}
+
+.arch-book__head {
+  font-size: clamp(1.3rem, 1rem + 1vw, 1.8rem);
+  letter-spacing: 0.04em;
+}
+
+.arch-book__sub {
+  font-style: italic;
+  margin-bottom: 14px;
+}
+
+.arch-book__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.1rem;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.arch-book__table th,
+.arch-book__table td {
+  padding: 6px 8px;
+  border-top: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.arch-book__table thead th {
+  font-weight: normal;
+  font-style: italic;
+  border-top: 0;
+}
+
+.arch-book__table tbody th {
+  text-align: left;
+  font-weight: normal;
+  letter-spacing: 0.05em;
+}
+
+.arch-book__foot {
+  font-style: italic;
+  font-size: 0.95rem;
+  margin-top: 8px;
+}
+
+.arch-db {
+  background: var(--board-edge);
+  color: #cfe3d6;
+  padding: clamp(14px, 3vw, 24px);
+  font-family: var(--font-recorded);
+}
+
+.arch-db .arch-caption {
+  color: #9fb8a8;
+}
+
+.arch-db__scroll {
+  overflow-x: auto;
+}
+
+.arch-db__table {
+  border-collapse: collapse;
+  font-size: 13px;
+  width: 100%;
+  min-width: 520px;
+  font-variant-numeric: tabular-nums;
+}
+
+.arch-db__table th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--amber);
+  border-bottom: 1px solid rgba(207, 227, 214, 0.3);
+  padding: 6px 10px 6px 0;
+}
+
+.arch-db__table td {
+  padding: 6px 10px 6px 0;
+  border-bottom: 1px solid rgba(207, 227, 214, 0.1);
+}
+
+.arch-db__table .is-num {
+  text-align: right;
+}
+
+.arch-db__query {
+  margin-top: 14px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.arch-db__prompt {
+  color: var(--amber);
+}
+
+.arch-db__out {
+  color: #fff;
+}
+
+.arch__foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px 20px;
+  border-top: 1px solid var(--rule);
+  padding-top: 12px;
+}
+
+.arch__holds {
+  font-size: 13px;
+  color: var(--ink-2);
+}
+
+.arch__holds span {
+  color: var(--red);
+}
+
+@media (max-width: 560px) {
+  .arch__tab {
+    padding-inline: 4px;
+  }
+  .arch__tab-role {
+    font-size: 9px;
+  }
+}
