@@ -1,5 +1,7 @@
 import { Certainty, Chapter, Cite, Exhibit, Prose } from "@/components/ui";
+import { Photo } from "@/components/Media";
 import ShotClock from "@/components/interactives/ShotClock";
+import shotClockMonument from "@/media/syracuse-shot-clock-monument-2013.jpg";
 
 export default function Ch09Clock() {
   return (
@@ -56,6 +58,39 @@ export default function Ch09Clock() {
         </div>
       </Exhibit>
 
+      <Exhibit
+        label="9.2"
+        title="The 24-second shot clock monument, Syracuse, October 2013"
+        kind="Photograph"
+        surface="plain"
+      >
+        <div className="film">
+          <Photo
+            image={shotClockMonument}
+            alt="A shot clock on a tall black post in a small brick-paved park, its red digits reading 20, with a round plaque lower on the post. Autumn leaves cover the ground; behind it stands a brick building with signs for an Omnitheater and a planetarium."
+            credit={{
+              author: "Photo: Kai Brinker",
+              source: "Wikimedia Commons",
+              sourceUrl:
+                "https://commons.wikimedia.org/wiki/File:Shot_Clock_Monument_in_Armory_Square_in_Syracuse,_New_York_(2013).jpg",
+              licence: "CC BY-SA 2.0",
+              licenceUrl: "https://creativecommons.org/licenses/by-sa/2.0/",
+              changes: "cropped",
+            }}
+          />
+          <div className="film__text">
+            <p className="kicker">Syracuse remembers</p>
+            <p className="film__lead">A monument that counts down.</p>
+            <p>
+              Syracuse unveiled a shot clock on a post as a monument on 26 March 2005. It stood for over twenty years in a
+              small park on West Jefferson Street, where this picture was taken. In April 2026 it moved to the entrance of
+              the Museum of Science and Technology, the building behind it here.
+              <Cite id={["cny-shotclock-2026", "commons-shotclock-2013"]} />
+            </p>
+          </div>
+        </div>
+      </Exhibit>
+
       <Prose>
         <p>
           The effect was immediate: scoring in the league jumped in the first season with the clock.
@@ -71,7 +106,7 @@ export default function Ch09Clock() {
       </Prose>
 
       <Exhibit
-        label="9.2"
+        label="9.3"
         title="Shot clock"
         surface="board"
         instructions={

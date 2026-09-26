@@ -1,6 +1,9 @@
 import { Chapter, Cite, Exhibit, Prose } from "@/components/ui";
-import { VideoEmbed } from "@/components/Media";
+import { Photo, VideoEmbed } from "@/components/Media";
 import { CurlingBoard, FlipBoard, HalfTimeBoard, LineScore } from "@/components/interactives/Boards";
+import davisCup from "@/media/davis-cup-1914-forest-hills.jpg";
+import davisCupBoard from "@/media/davis-cup-1914-scoreboard-detail.jpg";
+import wrigleyBoard from "@/media/wrigley-field-scoreboard-2012.jpg";
 
 export default function Ch06Objects() {
   return (
@@ -15,6 +18,49 @@ export default function Ch06Objects() {
           For most of the twentieth century, a score was a physical thing: a card on a ring, a steel plate in a slot, a
           painted number on a hook. The design of those objects shaped what spectators could know, and when.
         </p>
+      </Prose>
+
+      <Exhibit
+        label="6.1"
+        title="Davis Cup Challenge Round, Forest Hills, New York, 14 August 1914"
+        kind="Photograph"
+        status="Glass negative, Bain News Service"
+        surface="plain"
+      >
+        <div className="film">
+          <Photo
+            image={davisCup}
+            alt="Black-and-white photograph of a grass tennis court ringed by spectators in straw hats. Four players in white stand near the net, line judges sit on chairs around the court, and at the back a man stands beside a tall board of hanging cards. Written on the negative: “Changing courts 8/14/14”."
+            credit={{
+              author: "Bain News Service",
+              source: "Library of Congress",
+              sourceUrl: "https://www.loc.gov/item/2014697051/",
+              licence: "No known restrictions on publication",
+              licenceUrl: "https://www.loc.gov/rr/print/res/274_bain.html",
+            }}
+          />
+          <div className="film__text">
+            <p className="kicker">Look behind the players</p>
+            <p className="film__lead">Sets and games, hung by hand.</p>
+            <Photo
+              image={davisCupBoard}
+              alt="Close-up of the scoreboard: “SETS 0 0” at the top, name boards reading “Brookes Wilding” and “McLoughlin Bundy”, and “GAMES 1 1” below, with a man in a suit and hat standing beside it."
+              credit={null}
+              className="photo--detail"
+            />
+            <p>
+              The doubles of the 1914 Challenge Round: Norman Brookes and Anthony Wilding of Australasia against Maurice
+              McLoughlin and Thomas Bundy of the United States. Brookes and Wilding won 6–3, 8–6, 9–7.
+              <Cite id={["loc-davis-1914", "wiki-davis-1914"]} />
+            </p>
+            <p>
+              The board has no row for points. Fifteen, thirty and forty stay where the prologue left them: spoken.
+            </p>
+          </div>
+        </div>
+      </Exhibit>
+
+      <Prose>
         <h3>The flip card</h3>
         <p>
           The humblest scoreboard is a stack of numbered cards on rings. You flip one over, and the whole hall sees the
@@ -24,7 +70,7 @@ export default function Ch06Objects() {
       </Prose>
 
       <Exhibit
-        label="6.1"
+        label="6.2"
         title="Flip scoreboard, gymnasium type"
         surface="plain"
         instructions="Change the score and watch the leaves fall."
@@ -44,7 +90,38 @@ export default function Ch06Objects() {
       </Prose>
 
       <Exhibit
-        label="6.2"
+        label="6.3"
+        title="The Wrigley Field centre-field scoreboard, 1 August 2012"
+        kind="Photograph"
+        surface="plain"
+      >
+        <div className="film">
+          <Photo
+            image={wrigleyBoard}
+            alt="The green centre-field scoreboard at Wrigley Field against a blue sky, with a clock and pennant flags on top. Columns headed National and American list major-league games with runs by inning on white plates; the middle section shows the umpires’ numbers, batter, ball, strike and out."
+            credit={{
+              author: "Photo: TonyTheTiger",
+              source: "Wikimedia Commons",
+              sourceUrl: "https://commons.wikimedia.org/wiki/File:201200801_Wrigley_Field_scoreboard.JPG",
+              licence: "CC BY-SA 3.0",
+              licenceUrl: "https://creativecommons.org/licenses/by-sa/3.0/",
+              changes: "cropped",
+            }}
+          />
+          <div className="film__text">
+            <p className="kicker">Both leagues, by hand</p>
+            <p className="film__lead">Line scores by the dozen.</p>
+            <p>
+              Left and right, games from both major leagues, the Cubs’ own among them, inning by inning, each number a
+              steel plate put in by hand. Only the ball, strike and out counts in the middle are electric.
+              <Cite id={["mlb-wrigley", "wbez-wrigley", "commons-wrigley-2012"]} />
+            </p>
+          </div>
+        </div>
+      </Exhibit>
+
+      <Exhibit
+        label="6.4"
         title="Hand-operated line score, after Wrigley Field"
         status="Illustrative game"
         surface="plain"
@@ -54,7 +131,7 @@ export default function Ch06Objects() {
       </Exhibit>
 
       <Exhibit
-        label="6.3"
+        label="6.5"
         title="Inside the Wrigley Field scoreboard"
         kind="Film"
         status="Video published by Great Big Story on YouTube, 2017"
@@ -87,7 +164,7 @@ export default function Ch06Objects() {
       </Prose>
 
       <Exhibit
-        label="6.4"
+        label="6.6"
         title="Half-time board and programme key"
         status="Invented fixtures"
         surface="plain"
@@ -115,7 +192,7 @@ export default function Ch06Objects() {
       </Prose>
 
       <Exhibit
-        label="6.5"
+        label="6.7"
         title="Curling club scoreboard: points in the middle"
         status="Illustrative game"
         surface="plain"

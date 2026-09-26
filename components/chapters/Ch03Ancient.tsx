@@ -1,6 +1,9 @@
 import { Certainty, Chapter, Cite, Exhibit, Prose, PullLine } from "@/components/ui";
+import { Photo } from "@/components/Media";
 import LapCounter from "@/components/interactives/LapCounter";
 import { StoneDisc, UrraSwing } from "@/components/interactives/StoneDisc";
+import mosaicSpina from "@/media/lyon-circus-mosaic-spina.jpg";
+import mosaicCounters from "@/media/lyon-circus-mosaic-lap-counters.jpg";
 
 const EVENTS = [
   { name: "Stadion", note: "a sprint of one length of the stadium" },
@@ -102,14 +105,54 @@ export default function Ch03Ancient() {
           <Cite id="spectacles-circus" />
         </p>
         <p>
-          You can still see the system at work in a 2nd-century mosaic from Lyon: seven eggs and seven dolphins on the
-          barrier, the dolphins tipping downward as laps are run.
+          You can still see the system in a 2nd-century mosaic found in Lyon in 1806. On the central barrier stand a row
+          of dolphins and a frame of posts carrying balls, the eggs. The museum that holds the mosaic describes both as
+          there to count the laps.
           <Cite id="lugdunum-mosaic" />
         </p>
       </Prose>
 
       <Exhibit
         label="3.2"
+        title="The circus games mosaic, Lyon, 2nd century CE"
+        kind="Photograph"
+        status="Lugdunum – Musée et théâtres romains"
+        surface="plain"
+      >
+        <div className="film">
+          <Photo
+            image={mosaicSpina}
+            alt="Part of a Roman floor mosaic on a black ground: four-horse chariots race on both sides of a long central barrier with two pools and an obelisk. Two small frames stand in the pools. At the far left, the turning posts; lower left, a crashed chariot; at right, a plain grey patch."
+            credit={{
+              author: "Photo: Romainbehar, 2022",
+              source: "Wikimedia Commons",
+              sourceUrl:
+                "https://commons.wikimedia.org/wiki/File:Lyon_5e_-_Mus%C3%A9e_Lugdunum_-_Mosa%C3%AFque_du_cirque_-_D%C3%A9tail_01.jpg",
+              licence: "CC0",
+              licenceUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
+              changes: "cropped",
+            }}
+          />
+          <div className="film__text">
+            <p className="kicker">The real thing</p>
+            <p className="film__lead">A lap counter, in stone.</p>
+            <Photo
+              image={mosaicCounters}
+              alt="Close-up of the central barrier: in each of the two pools stands a small frame on posts, one with a row of round objects on top, the other with shapes tilted to one side."
+              credit={null}
+              className="photo--detail"
+            />
+            <p>
+              Look along the spina. The two small frames in the pools are the counters: one carries dolphins, the other
+              balls on posts.
+              <Cite id={["lugdunum-mosaic", "commons-lyon-mosaic"]} />
+            </p>
+          </div>
+        </div>
+      </Exhibit>
+
+      <Exhibit
+        label="3.3"
         title="Lap counter on the spina of a Roman circus"
         status="Reconstruction, not to scale"
         surface="paper"
@@ -137,7 +180,7 @@ export default function Ch03Ancient() {
         </p>
       </Prose>
 
-      <Exhibit label="3.3" title="The ancient pentathlon: five known events, three rival theories" kind="Diagram" surface="plain">
+      <Exhibit label="3.4" title="The ancient pentathlon: five known events, three rival theories" kind="Diagram" surface="plain">
         <div className="penta">
           <ol className="penta__events">
             {EVENTS.map((e, i) => (

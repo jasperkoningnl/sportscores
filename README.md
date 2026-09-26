@@ -79,8 +79,9 @@ lib/
 
 - Every factual claim cites a source from `lib/sources.ts` with `<Cite id="…" />`. The number shown is the source’s position in that list.
 - Uncertainty is kept, not smoothed over. Claims that are theories, disputed, folklore, proposals or unknown carry a small stamp (`<Certainty level="theory" />` etc.).
-- No archival images are reproduced. Historical objects (the Maya stone, the Roman spina, the 1744 scorecard, the Wrigley board) are original, schematic reconstructions, labelled as such. The Maya stone deliberately shows no glyphs or figures. Links to the real objects are in the sources.
-- Video clips are embedded from the rights holders’ own YouTube uploads, never re-cut. `docs/media-plan.md` lists the clips in use, what still needs checking and the archive photos still to add.
+- Photographs are only reproduced when they are public domain or CC0, CC BY or CC BY-SA. They live in `media/`, are imported by the chapters (so the build hashes them and respects a `basePath`), and carry their credit, licence and any cropping underneath (`Photo` in `components/Media.tsx`). The file page of each one is in `lib/sources.ts`.
+- Historical objects that cannot be photographed freely (the Maya stone, the 1744 scorecard) and the interactives (the Roman spina, the Wrigley line score) are original, schematic reconstructions, labelled as such. The Maya stone deliberately shows no glyphs or figures. Links to the real objects are in the sources.
+- Video clips are embedded from the rights holders’ own YouTube uploads, never re-cut. `docs/media-plan.md` lists the clips and photos in use, how each was checked, and what is still open.
 - Teams, players and matches in the interactive examples are invented and labelled as such. The volleyball and xG simulations are simple models, not match data.
 - Chart colours were checked for colour-blind separation and contrast in both themes.
 
