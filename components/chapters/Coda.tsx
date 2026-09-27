@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import Link from "next/link";
 import Scrolly, { type Scene } from "@/components/Scrolly";
 
 function Marks({ n, shown }: { n: number; shown: number }) {
@@ -106,6 +107,11 @@ export default function Coda() {
       <div className="coda-end">
         <p className="coda-end__big">A score looks like a number.</p>
         <p className="coda-end__small">Dig into one and you find centuries of people deciding what counts.</p>
+        <p className="coda-end__more">
+          <Link href="/quiz" className="mono">
+            Now read the scoreboard: a ten-question quiz <span aria-hidden="true">→</span>
+          </Link>
+        </p>
       </div>
     </section>
   );

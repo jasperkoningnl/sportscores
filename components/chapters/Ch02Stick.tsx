@@ -14,7 +14,7 @@ const CHAIN = [
 export default function Ch02Stick() {
   return (
     <Chapter
-      id="ch-02"
+      id="cut-in-the-stick"
       number={2}
       title="The cut in the stick"
       dek="The English word “score” began as something you did with a knife."
@@ -35,7 +35,7 @@ export default function Ch02Stick() {
       </Prose>
 
       <Exhibit
-        label="2.1"
+        id="tally-sticks-photo"
         title="Medieval tally sticks, Winchester City Council Museums"
         kind="Photograph"
         surface="plain"
@@ -60,7 +60,7 @@ export default function Ch02Stick() {
         />
       </Exhibit>
 
-      <Exhibit label="2.2" title="From a cut to a game: the drift of one word" kind="Word history" surface="plain">
+      <Exhibit id="word-history" title="From a cut to a game: the drift of one word" kind="Word history" surface="plain">
         <ol className="chain">
           {CHAIN.map((c, i) => (
             <li key={i} className="chain__item">
@@ -94,7 +94,7 @@ export default function Ch02Stick() {
       <PullLine>Score once meant a cut. In early cricket, a score could literally be a cut.</PullLine>
 
       <Exhibit
-        label="2.3"
+        id="tally-stick"
         title="The notcher’s stick"
         status="Reconstruction"
         surface="paper"

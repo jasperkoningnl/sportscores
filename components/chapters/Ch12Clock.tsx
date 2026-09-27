@@ -3,11 +3,11 @@ import { Photo } from "@/components/Media";
 import ShotClock from "@/components/interactives/ShotClock";
 import shotClockMonument from "@/media/syracuse-shot-clock-monument-2013.jpg";
 
-export default function Ch09Clock() {
+export default function Ch12Clock() {
   return (
     <Chapter
-      id="ch-09"
-      number={9}
+      id="clock-in-the-score"
+      number={12}
       title="The clock becomes part of the score"
       dek="A second number joins the scoreboard. It doesn’t say what you have done, only how long you have left to do it."
     >
@@ -28,7 +28,7 @@ export default function Ch09Clock() {
         </p>
       </Prose>
 
-      <Exhibit label="9.1" title="The shot-clock sum" kind="Arithmetic" surface="plain" width="text">
+      <Exhibit id="shot-clock-sum" title="The shot-clock sum" kind="Arithmetic" surface="plain" width="text">
         <div className="sum">
           <div className="sum__row">
             <span className="sum__op" aria-hidden="true" />
@@ -59,7 +59,7 @@ export default function Ch09Clock() {
       </Exhibit>
 
       <Exhibit
-        label="9.2"
+        id="shot-clock-monument"
         title="The 24-second shot clock monument, Syracuse, October 2013"
         kind="Photograph"
         surface="plain"
@@ -106,7 +106,7 @@ export default function Ch09Clock() {
       </Prose>
 
       <Exhibit
-        label="9.3"
+        id="shot-clock"
         title="Shot clock"
         surface="board"
         instructions={

@@ -1,52 +1,18 @@
 import { Chapter, Cite, Exhibit, Prose, PullLine } from "@/components/ui";
 import { VideoEmbed } from "@/components/Media";
 import RallySim from "@/components/interactives/RallySim";
+import { EVENTS } from "@/lib/events";
+import { SPORTS } from "@/lib/sports";
 
-const TIMELINE = [
-  {
-    year: "1970",
-    sport: "Tennis",
-    change: "A Grand Slam uses a tie-break at 6–6 for the first time, at the US Open: a nine-point, sudden-death version.",
-    cite: ["usopen-tiebreak", "tennis-com-1970"],
-  },
-  {
-    year: "1971",
-    sport: "Tennis",
-    change: "Wimbledon adopts a tie-break, at eight games all.",
-    cite: ["wiki-tennis-scoring", "tennis-com-1970"],
-  },
-  {
-    year: "1999",
-    sport: "Volleyball",
-    change: "Rally-point scoring replaces side-out scoring internationally; sets go from 15 to 25 points.",
-    cite: ["fivb-game"],
-  },
-  {
-    year: "2001",
-    sport: "Table tennis",
-    change: "Games are cut from 21 points to 11.",
-    cite: ["megaspin-11"],
-  },
-  {
-    year: "2006",
-    sport: "Badminton",
-    change: "21-point rally scoring replaces 15-point games in which only the server could score.",
-    cite: ["badminton-asia"],
-  },
-  {
-    year: "2022",
-    sport: "Tennis",
-    change: "All four Grand Slams settle a final set at 6–6 with the same 10-point tie-break.",
-    cite: ["tennis-com-2022"],
-  },
-];
+// The reform timeline is drawn from lib/events.ts.
+const TIMELINE = EVENTS.filter((e) => e.list === "reforms");
 
-export default function Ch08Television() {
+export default function Ch11OnTime() {
   return (
     <Chapter
-      id="ch-08"
-      number={8}
-      title="Television arrives"
+      id="score-learns-to-stop"
+      number={11}
+      title="The score learns to stop"
       dek="A score has to decide a winner. Increasingly, it also has to end on time."
     >
       <Prose>
@@ -77,7 +43,7 @@ export default function Ch08Television() {
       </Prose>
 
       <Exhibit
-        label="8.1"
+        id="isner-mahut-film"
         title="Isner v Mahut, Wimbledon 2010: the set that would not end"
         kind="Film"
         status="Video published by Wimbledon on YouTube"
@@ -97,15 +63,15 @@ export default function Ch08Television() {
         </div>
       </Exhibit>
 
-      <Exhibit label="8.2" title="Scoring reforms that tamed the clock" kind="Timeline" surface="plain">
+      <Exhibit id="reform-timeline" title="Scoring reforms that tamed the clock" kind="Timeline" surface="plain">
         <ol className="timeline">
           {TIMELINE.map((t) => (
-            <li key={t.year + t.sport} className="timeline__item">
+            <li key={t.id} className="timeline__item">
               <span className="timeline__year num">{t.year}</span>
-              <span className="timeline__sport mono">{t.sport}</span>
+              <span className="timeline__sport mono">{t.sport ? SPORTS[t.sport] : ""}</span>
               <span className="timeline__change">
-                {t.change}
-                <Cite id={t.cite} />
+                {t.text}
+                <Cite id={t.sources} />
               </span>
             </li>
           ))}
@@ -126,7 +92,7 @@ export default function Ch08Television() {
       </Prose>
 
       <Exhibit
-        label="8.3"
+        id="rally-sim"
         title="How long is a set? Side-out versus rally scoring"
         kind="Simulation"
         surface="paper"

@@ -4,7 +4,7 @@ import { EloCalc, XgReplay } from "@/components/interactives/BehindScore";
 export default function Ch14Behind() {
   return (
     <Chapter
-      id="ch-14"
+      id="score-behind-the-score"
       number={14}
       title="The score behind the score"
       dek="The official result is no longer the last word. Now we keep score of the score."
@@ -24,7 +24,7 @@ export default function Ch14Behind() {
       </Prose>
 
       <Exhibit
-        label="14.1"
+        id="xg-replay"
         title="A 1–0 that might have been something else"
         status="Invented match"
         surface="paper"
@@ -38,7 +38,7 @@ export default function Ch14Behind() {
           Other sports have their own shadow scores. Baseball’s WAR, wins above replacement, estimates how many extra wins
           a player is worth compared with the kind of player a team could sign at short notice.
           <Cite id="fangraphs-war" /> Basketball analysts talk in points per possession and the expected value of each
-          shot: the same arithmetic that makes the three-pointer of chapter 7 so attractive.
+          shot: the same arithmetic that makes the three-pointer of chapter 10 so attractive.
         </p>
         <p>
           And then there are ratings, which score teams rather than games. The Elo system, devised by Arpad Elo and
@@ -50,7 +50,7 @@ export default function Ch14Behind() {
       </Prose>
 
       <Exhibit
-        label="14.2"
+        id="elo"
         title="An Elo update"
         surface="paper"
         instructions="Set two ratings and a result."

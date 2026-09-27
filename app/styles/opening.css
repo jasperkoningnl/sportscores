@@ -26,7 +26,7 @@
 }
 
 .op-scrollhint {
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ink-3);
@@ -42,7 +42,7 @@
 
 .op-voice {
   font-family: var(--font-recorded);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-3);
@@ -259,7 +259,7 @@
   justify-content: center;
   gap: 6px 14px;
   max-width: 34rem;
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }

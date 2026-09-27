@@ -117,7 +117,7 @@
 }
 
 .chain__lang {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-3);
@@ -137,7 +137,7 @@
 
 .chain__foot {
   margin-top: 12px;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ink-3);
 }
 
@@ -244,7 +244,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px 20px;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ink-2);
 }
 
@@ -321,7 +321,7 @@
 }
 
 .urra__team {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   opacity: 0.85;
@@ -453,7 +453,7 @@
 }
 
 .penta__note {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--ink-3);
 }
 
@@ -534,7 +534,7 @@
 }
 
 .arch__tab-role {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -569,7 +569,7 @@
 }
 
 .arch-caption {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ink-2);
   margin-top: 12px;
 }
@@ -635,7 +635,7 @@
 }
 
 .arch-card__more {
-  font-size: 11px;
+  font-size: 13px;
   color: #6c604e;
   margin-block: 6px;
 }
@@ -776,7 +776,8 @@
     padding-inline: 4px;
   }
   .arch__tab-role {
-    font-size: 9px;
+    font-size: 13px;
+    letter-spacing: 0;
   }
 }
 
@@ -797,7 +798,7 @@
 }
 
 .photo__credit {
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.45;
   letter-spacing: 0.02em;
   color: var(--ink-3);
@@ -864,7 +865,7 @@
 
 .video__link {
   justify-self: start;
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.04em;
   color: var(--ink-2);
 }
@@ -910,7 +911,7 @@
 }
 
 .video__card-note {
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.06em;
   color: var(--amber);
 }

@@ -16,11 +16,32 @@ import "./styles/opening.css";
 import "./styles/exhibits.css";
 import "./styles/boards.css";
 import "./styles/closing.css";
+import "./styles/wayfinding.css";
+import "./styles/quiz.css";
+
+const title = "The Archaeology of Sports Scores";
+const description =
+  "An interactive visual essay on how sports learned to keep score: from notches in a stick and Roman lap-counting dolphins to tie-breaks, shot clocks, score bugs and expected goals.";
+
+// Link previews need absolute URLs. The public production address is the
+// default; set NEXT_PUBLIC_SITE_URL when the essay is hosted somewhere else.
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://sportscores-history.vercel.app";
 
 export const metadata: Metadata = {
-  title: "The Archaeology of Sports Scores",
-  description:
-    "An interactive visual essay on how sports learned to keep score: from notches in a stick and Roman lap-counting dolphins to tie-breaks, shot clocks, score bugs and expected goals.",
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  alternates: { canonical: "/" },
+  // The share image itself is app/opengraph-image.png (made from docs/og-image.html).
+  openGraph: {
+    type: "article",
+    title,
+    description,
+    siteName: title,
+    url: "/",
+    locale: "en_GB",
+  },
+  twitter: { card: "summary_large_image", title, description },
 };
 
 export const viewport: Viewport = {

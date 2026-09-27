@@ -5,6 +5,7 @@ import Scrolly, { type Scene } from "@/components/Scrolly";
 import { useReducedMotion } from "@/lib/hooks";
 import { Certainty, Cite, Exhibit } from "@/components/ui";
 import { VideoEmbed } from "@/components/Media";
+import WaysIn from "@/components/WaysIn";
 
 function Egg({ className = "" }: { className?: string }) {
   // An egg: an ellipse whose top is narrower than its bottom.
@@ -214,7 +215,7 @@ function makeScenes(reduced: boolean): Scene[] {
 
 const steps = [
   <>
-    <p className="kicker">An interactive history in fourteen chapters</p>
+    <p className="kicker">An interactive history in five parts</p>
     <h1 className="op-title">The Archaeology of Sports Scores</h1>
     <p className="op-lead">
       <em>“Thirty–love.”</em> Most people know at once that this is tennis. Nobody needs to see a racket.
@@ -301,7 +302,7 @@ export default function Prologue() {
       />
 
       <Exhibit
-        label="P.1"
+        id="tie-break-film"
         title="Borg v McEnroe, Wimbledon final, 5 July 1980: the fourth-set tie-break"
         kind="Film"
         status="Video published by Wimbledon on YouTube"
@@ -329,9 +330,10 @@ export default function Prologue() {
           That absurdity is the question behind this page.
         </p>
         <p className="op-thesis">
-          A score begins as memory, becomes language, becomes display, and eventually becomes a tool for redesigning the
-          sport itself.
+          A score begins as memory, becomes language, becomes display, turns into a tool for redesigning the sport
+          itself, and ends up being scored in its turn.
         </p>
+        <WaysIn />
         <p className="op-close__text">The story starts before anyone kept score at all.</p>
       </div>
     </section>

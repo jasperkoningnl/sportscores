@@ -10,7 +10,7 @@
   flex-wrap: wrap;
   gap: 8px 20px;
   font-family: var(--font-recorded);
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ink-2);
 }
 
@@ -76,7 +76,7 @@
   background: var(--ink);
   color: var(--paper);
   font-family: var(--font-recorded);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.4;
   pointer-events: none;
   white-space: nowrap;
@@ -90,13 +90,13 @@
 
 .rchart__slider label,
 .rchart__slider output {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ink-2);
 }
 
 .datatable summary {
   cursor: pointer;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ink-2);
   letter-spacing: 0.04em;
 }
@@ -180,7 +180,7 @@
 }
 
 .shotmap__stat .mono {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-3);
@@ -213,7 +213,7 @@
 
 .league__head {
   font-family: var(--font-recorded);
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-3);
@@ -287,7 +287,7 @@
 }
 
 .timeline__sport {
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-2);
@@ -355,7 +355,7 @@
 }
 
 .rally__stat dt {
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink-3);
@@ -443,7 +443,7 @@
 }
 
 .shotclock__team .mono {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--board-ink-2);
@@ -465,7 +465,7 @@
 }
 
 .shotclock__label {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #bdb8a8;
@@ -526,7 +526,7 @@
 
 .samalog__head {
   font-family: var(--font-recorded);
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-3);
@@ -638,7 +638,7 @@
 }
 
 .deca__out .mono {
-  font-size: 12px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--ink-3);
@@ -657,7 +657,7 @@
 
 .formula summary {
   cursor: pointer;
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--red);
@@ -735,7 +735,7 @@
 }
 
 .nordic__jump {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ink-3);
   width: 5.2rem;
 }
@@ -840,7 +840,7 @@
 }
 
 .odd__tag {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--red);
@@ -855,7 +855,7 @@
 }
 
 .odd__meta {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-3);
@@ -905,7 +905,7 @@
 }
 
 .qboard__side .mono {
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--board-ink-2);
@@ -1026,7 +1026,7 @@
 }
 
 .bug__slider label {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ink-2);
 }
 
@@ -1093,7 +1093,7 @@
 }
 
 .xg__team .mono {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--board-ink-2);
@@ -1126,7 +1126,7 @@
 }
 
 .xg__rowname {
-  font-size: 12px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--ink-3);
@@ -1226,7 +1226,7 @@
 }
 
 .elo__out .mono {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-3);
@@ -1332,7 +1332,7 @@
 .sources__chapter {
   font-family: var(--font-recorded);
   font-weight: 500;
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--red);
@@ -1378,7 +1378,7 @@
 
 .sources__pub {
   font-family: var(--font-recorded);
-  font-size: 12px;
+  font-size: 13px;
   color: var(--ink-2);
 }
 
@@ -1396,7 +1396,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 8px;
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink-2);

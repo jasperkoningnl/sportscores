@@ -4,7 +4,7 @@ import ScoreArchive from "@/components/interactives/ScoreArchive";
 export default function Ch04Data() {
   return (
     <Chapter
-      id="ch-04"
+      id="match-becomes-data"
       number={4}
       title="When the match becomes data"
       dek="A notch remembers a total. A scorecard remembers a match."
@@ -30,7 +30,7 @@ export default function Ch04Data() {
       </Prose>
 
       <Exhibit
-        label="4.1"
+        id="score-archive"
         title="One match, four media: Kent v All England, 18 June 1744"
         status="Team totals as recorded; layouts are reconstructions"
         surface="paper"

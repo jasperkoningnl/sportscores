@@ -31,7 +31,7 @@ const THEORIES = [
 export default function Ch03Ancient() {
   return (
     <Chapter
-      id="ch-03"
+      id="ancient-scoreboards"
       number={3}
       title="Ancient scoreboards"
       dek="Organised scoring is far older than modern sport. The surviving objects, though, rarely come with instructions."
@@ -55,7 +55,7 @@ export default function Ch03Ancient() {
       </Prose>
 
       <Exhibit
-        label="3.1"
+        id="stone-disc"
         title="Ballgame marker, volcanic stone, c. 650–850 CE (after the FIFA Museum object)"
         kind="Schematic drawing"
         status="Carvings deliberately left blank"
@@ -113,7 +113,7 @@ export default function Ch03Ancient() {
       </Prose>
 
       <Exhibit
-        label="3.2"
+        id="circus-mosaic"
         title="The circus games mosaic, Lyon, 2nd century CE"
         kind="Photograph"
         status="Lugdunum – Musée et théâtres romains"
@@ -152,7 +152,7 @@ export default function Ch03Ancient() {
       </Exhibit>
 
       <Exhibit
-        label="3.3"
+        id="lap-counter"
         title="Lap counter on the spina of a Roman circus"
         status="Reconstruction, not to scale"
         surface="paper"
@@ -180,7 +180,7 @@ export default function Ch03Ancient() {
         </p>
       </Prose>
 
-      <Exhibit label="3.4" title="The ancient pentathlon: five known events, three rival theories" kind="Diagram" surface="plain">
+      <Exhibit id="pentathlon" title="The ancient pentathlon: five known events, three rival theories" kind="Diagram" surface="plain">
         <div className="penta">
           <ol className="penta__events">
             {EVENTS.map((e, i) => (
