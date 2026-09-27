@@ -41,7 +41,10 @@
   outline-offset: -3px;
 }
 
-.contents__quiz {
+.contents__more {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
   margin: 18px 0 0;
   padding-top: 12px;
   border-top: 2px solid var(--ink);
@@ -50,12 +53,16 @@
   text-transform: uppercase;
 }
 
-.contents__quiz a {
+.contents__more a {
   color: var(--red);
   text-decoration: none;
 }
 
-.contents__quiz a:hover {
+.contents__more a::after {
+  content: " →";
+}
+
+.contents__more a:hover {
   text-decoration: underline;
 }
 
@@ -492,4 +499,23 @@
 
 .coda-end__more a {
   color: var(--red);
+}
+
+.coda-end__also {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.coda-end__also a,
+.ways__also a {
+  color: var(--ink-2);
+}
+
+.ways__also {
+  margin: 10px 0 0;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
 }

@@ -1,6 +1,7 @@
 import { Chapter, Cite, Exhibit, Prose, PullLine } from "@/components/ui";
 import { VideoEmbed } from "@/components/Media";
 import RallySim from "@/components/interactives/RallySim";
+import Link from "next/link";
 import { EVENTS } from "@/lib/events";
 import { SPORTS } from "@/lib/sports";
 
@@ -63,7 +64,17 @@ export default function Ch11OnTime() {
         </div>
       </Exhibit>
 
-      <Exhibit id="reform-timeline" title="Scoring reforms that tamed the clock" kind="Timeline" surface="plain">
+      <Exhibit
+        id="reform-timeline"
+        title="Scoring reforms that tamed the clock"
+        kind="Timeline"
+        surface="plain"
+        instructions={
+          <>
+            Every date in the essay, {EVENTS.length} of them, is on the <Link href="/timeline">timeline</Link>.
+          </>
+        }
+      >
         <ol className="timeline">
           {TIMELINE.map((t) => (
             <li key={t.id} className="timeline__item">

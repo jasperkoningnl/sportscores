@@ -1,0 +1,686 @@
+/*
+  The pages beside the essay: quiz, timeline and poster. They share a header
+  with a way back to the essay.
+*/
+
+.side-page {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: clamp(24px, 5vw, 56px) var(--gutter) clamp(48px, 10vw, 96px);
+}
+
+.side-page--wide {
+  max-width: 60rem;
+}
+
+.side-page__head {
+  display: grid;
+  gap: 10px;
+  margin-bottom: clamp(20px, 4vw, 36px);
+}
+
+.side-page__back {
+  justify-self: start;
+  margin-bottom: clamp(12px, 3vw, 28px);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+.side-page__back:hover {
+  color: var(--red);
+}
+
+.side-page__title {
+  font-family: var(--font-spoken);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--step-4);
+  line-height: 1;
+  letter-spacing: -0.015em;
+  max-width: 18ch;
+}
+
+.side-page__lead {
+  font-size: var(--step-1);
+  line-height: 1.4;
+  color: var(--ink-2);
+  max-width: 40ch;
+}
+
+/* ================= Timeline ================= */
+
+.tl {
+  display: grid;
+  gap: 28px;
+}
+
+.tl__filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.tl__sport,
+.tl__parts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+}
+
+.tl__sport > span,
+.tl__parts > span {
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.tl__sport select {
+  min-height: 40px;
+  padding: 6px 10px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+  font: inherit;
+  font-size: 1rem;
+}
+
+.tl__part {
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0 10px;
+  background: none;
+  border: 1.5px solid var(--ink);
+  color: var(--ink);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+.tl__part[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.tl__part:focus-visible,
+.tl__sport select:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.tl__count {
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+.tl__strip-wrap {
+  margin: 0;
+}
+
+.tl__strip {
+  position: relative;
+}
+
+.tl__panel {
+  position: absolute;
+  bottom: 0;
+  height: 1px;
+  background: var(--rule-strong);
+}
+
+.tl__dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 0 0 2px var(--paper);
+  transition: opacity 0.2s, background 0.2s;
+}
+
+/* A hit area bigger than the dot */
+.tl__dot::before {
+  content: "";
+  position: absolute;
+  inset: -7px;
+}
+
+.tl__dot.is-off {
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.tl__dot.is-hover,
+.tl__dot:focus-visible {
+  background: var(--red);
+  outline: none;
+  z-index: 2;
+}
+
+.tl__tip {
+  position: absolute;
+  z-index: 3;
+  transform: translateX(-50%);
+  width: 220px;
+  padding: 8px 10px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 0.92rem;
+  line-height: 1.35;
+  pointer-events: none;
+  box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.5);
+}
+
+.tl__tip strong {
+  font-size: 1.1rem;
+}
+
+.tl__tip .mono {
+  font-size: 13px;
+}
+
+.tl__tip-text {
+  display: block;
+  margin-top: 2px;
+}
+
+.tl__axis {
+  position: relative;
+  height: 22px;
+  margin-top: 4px;
+}
+
+.tl__tick {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  font-size: 13px;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.tl__tick.is-start {
+  transform: none;
+}
+
+.tl__tick.is-end {
+  transform: translateX(-100%);
+}
+
+.tl__strip-note {
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+
+.tl__period-title {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.tl__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tl__item {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  gap: 4px 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
+  scroll-margin-top: calc(var(--bar-h) + 24px);
+}
+
+.tl__item:target {
+  background: var(--red-soft);
+  box-shadow: -12px 0 0 var(--red-soft), 12px 0 0 var(--red-soft);
+}
+
+.tl__year {
+  font-weight: 700;
+  font-size: 1.7rem;
+  line-height: 1.1;
+  color: var(--red);
+}
+
+.tl__body {
+  display: grid;
+  gap: 6px;
+}
+
+.tl__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.tl__text {
+  font-size: var(--step-0);
+  line-height: 1.45;
+}
+
+.tl__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  align-items: baseline;
+}
+
+.tl__links > a {
+  color: var(--ink);
+  text-decoration-color: var(--red);
+  text-underline-offset: 3px;
+}
+
+.tl__links > a .num {
+  font-weight: 700;
+  color: var(--red);
+}
+
+.tl__sources {
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+.tl__sources a {
+  color: var(--ink-2);
+}
+
+@media (max-width: 599px) {
+  .tl__item {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tl__count {
+    margin-left: 0;
+  }
+}
+
+/* ================= Poster ================= */
+
+.side-page--poster {
+  max-width: 78rem;
+}
+
+.side-page__head--tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+}
+
+.side-page__head--tools .side-page__back {
+  margin-bottom: 0;
+}
+
+.side-page__tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+
+.side-page__tools-note {
+  font-size: 13px;
+  color: var(--ink-3);
+  max-width: 34ch;
+}
+
+.poster {
+  display: grid;
+  gap: clamp(20px, 3vw, 36px);
+  padding: clamp(18px, 4vw, 48px);
+  background: var(--paper);
+  border: 1px solid var(--rule-strong);
+  box-shadow: 0 24px 60px -36px rgba(0, 0, 0, 0.45);
+}
+
+.poster__head {
+  display: grid;
+  gap: 10px;
+  padding-bottom: clamp(14px, 2vw, 24px);
+  border-bottom: 3px solid var(--ink);
+}
+
+.poster__kicker {
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.poster__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 0.3em;
+  font-family: var(--font-spoken);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--step-4);
+  line-height: 1;
+  letter-spacing: -0.015em;
+}
+
+.poster__count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.3em;
+  padding: 0.06em 0.12em;
+  background: var(--board);
+  color: var(--plate);
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0;
+  box-shadow: inset 0 0 0 3px var(--board-edge);
+}
+
+.poster__lead {
+  font-size: var(--step-1);
+  line-height: 1.35;
+  color: var(--ink-2);
+  max-width: 48ch;
+}
+
+.poster__group {
+  display: grid;
+  gap: 12px;
+}
+
+.poster__group-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.poster__group-title {
+  font-family: var(--font-recorded);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+.poster__group-note {
+  font-style: italic;
+  color: var(--ink-2);
+  line-height: 1.35;
+}
+
+.poster__tiles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  gap: 12px;
+}
+
+.poster__tile {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+}
+
+.poster__sport {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.poster__ref {
+  color: var(--ink-3);
+  text-decoration: none;
+}
+
+.poster__ref:hover {
+  color: var(--red);
+}
+
+.poster__plate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 84px;
+  padding: 10px;
+  background: var(--board);
+  color: var(--amber);
+  box-shadow: inset 0 0 0 3px var(--board-edge);
+}
+
+.poster__plate .num {
+  font-weight: 800;
+  font-size: 2.5rem;
+  line-height: 1;
+  text-align: center;
+}
+
+.poster__tag {
+  padding: 1px 5px;
+  border: 1.5px solid currentColor;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.poster__tile-title {
+  font-family: var(--font-spoken);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.15;
+}
+
+.poster__reading {
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+.poster__sources {
+  margin-top: auto;
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+.poster__foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 20px;
+  padding-top: 10px;
+  border-top: 3px solid var(--ink);
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+/* ---------- The poster on paper: one A2 portrait sheet ---------- */
+
+@page poster {
+  size: 420mm 594mm;
+  margin: 14mm;
+}
+
+@media print {
+  :root,
+  :root:not([data-theme="light"]),
+  :root[data-theme="dark"] {
+    color-scheme: light;
+    --paper: #ffffff;
+    --paper-2: #f3f4ef;
+    --ink: #14211a;
+    --ink-2: #3b4a41;
+    --ink-3: #5f6c63;
+    --rule: rgba(20, 33, 26, 0.16);
+    --rule-strong: rgba(20, 33, 26, 0.42);
+    --red: #b0301d;
+    --board: #1c3b2d;
+    --board-edge: #0f2419;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  .side-page--poster {
+    page: poster;
+    max-width: none;
+    padding: 0;
+  }
+
+  .side-page__head--tools {
+    display: none;
+  }
+
+  .poster {
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+    gap: 18px;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .poster__title {
+    font-size: 80px;
+  }
+
+  .poster__lead {
+    font-size: 24px;
+  }
+
+  /* Group title beside its tiles, four tiles to a row */
+  .poster__group {
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 24px;
+    break-inside: avoid;
+  }
+
+  .poster__group-head {
+    flex-direction: column;
+    align-items: flex-start;
+    border-bottom: 0;
+    border-top: 3px solid var(--red);
+    padding-top: 10px;
+  }
+
+  .poster__group-title {
+    font-size: 16px;
+  }
+
+  .poster__group-note {
+    font-size: 17px;
+  }
+
+  .poster__tiles {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .poster__tile {
+    break-inside: avoid;
+    gap: 7px;
+    padding: 12px;
+  }
+
+  .poster__plate {
+    min-height: 80px;
+  }
+
+  .poster__plate .num {
+    font-size: 42px;
+  }
+
+  .poster__tile-title {
+    font-size: 22px;
+  }
+
+  .poster__reading {
+    font-size: 14.5px;
+    line-height: 1.4;
+  }
+
+  .poster__ref {
+    color: var(--ink-3);
+  }
+}
+
+/* ---------- Navigation between the essay and its side pages ---------- */
+
+.side-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 20px;
+  margin-bottom: clamp(12px, 3vw, 28px);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.side-nav a {
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+.side-nav a:hover {
+  color: var(--red);
+}
+
+.side-nav__pages {
+  display: flex;
+  gap: 16px;
+}
+
+.side-nav__pages a[aria-current="page"] {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--red);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+
+.side-page__head--tools .side-nav {
+  flex: 1 1 100%;
+  margin-bottom: 0;
+}
+
+@media print {
+  .side-nav {
+    display: none;
+  }
+}

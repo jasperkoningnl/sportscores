@@ -56,7 +56,7 @@ The facts that more than one part of the site needs live in `lib/`, once, with t
 | `chapters.ts` | parts and chapters, with their stable ids | title cards, contents, reading score |
 | `places.ts` | every exhibit in reading order, its short name and sports | exhibit numbers, index by sport, route, quiz links |
 | `notations.ts` | how each sport writes its score and what it means | chapter 5 gallery headers, chapter 7 cases, the quiz |
-| `events.ts` | 51 dated moments told in the essay | chapter 11’s reform timeline (ready for a timeline page) |
+| `events.ts` | 50 dated moments told in the essay | the timeline page and chapter 11’s reform timeline |
 | `route.ts` | the short route | contents, route bar, four ways in |
 | `quiz.ts` | the quiz questions (explanations come from `notations.ts`) | `/quiz` |
 
