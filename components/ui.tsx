@@ -49,7 +49,6 @@ export function Chapter({
   title,
   dek,
   children,
-  tone = "paper",
 }: {
   id: string;
   number: number;
@@ -60,20 +59,32 @@ export function Chapter({
 }) {
   const plate = String(number).padStart(2, "0");
   return (
-    <section id={id} className={`chapter chapter--${tone}`} aria-labelledby={`${id}-title`} data-chapter={id}>
-      <header className="chapter-head">
-        <div className="chapter-plate" aria-hidden="true">
-          <span className="chapter-plate__bolt" />
-          <span className="chapter-plate__num">{plate}</span>
-          <span className="chapter-plate__bolt" />
+    <section id={id} className="chapter" aria-labelledby={`${id}-title`} data-chapter={id}>
+      {/* A full-screen title card: the reader's scroll pauses here briefly (see StopAndGo). */}
+      <header className="chapter-card" data-stop>
+        <div className="chapter-card__inner">
+          <div className="chapter-card__plate" aria-hidden="true">
+            <span className="chapter-plate__bolt" />
+            {plate.split("").map((d, i) => (
+              <span key={i} className="chapter-card__digit num" style={{ animationDelay: `${i * 120}ms` }}>
+                {d}
+              </span>
+            ))}
+            <span className="chapter-plate__bolt" />
+          </div>
+          <p className="chapter-card__kicker mono">Chapter {number} of 14</p>
+          <h2 id={`${id}-title`} className="chapter-card__title">
+            {title}
+          </h2>
+          {dek && <p className="chapter-card__dek">{dek}</p>}
         </div>
-        <p className="kicker">Chapter {number}</p>
-        <h2 id={`${id}-title`} className="chapter-title">
-          {title}
-        </h2>
-        {dek && <p className="chapter-dek">{dek}</p>}
+        <a className="chapter-card__go mono" href={`#${id}-body`}>
+          Continue <span aria-hidden="true">↓</span>
+        </a>
       </header>
-      {children}
+      <div id={`${id}-body`} className="chapter-body">
+        {children}
+      </div>
     </section>
   );
 }

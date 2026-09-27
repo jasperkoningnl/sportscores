@@ -264,7 +264,7 @@ const steps = [
     </p>
     <p>
       You now need two points in a row. Lose one and you are back to deuce. In principle, a single game can go on
-      forever. Keep scrolling and see how it feels.
+      forever.
     </p>
   </>,
   <>
@@ -296,7 +296,7 @@ export default function Prologue() {
         className="scrolly--opening"
         scenes={scenes}
         steps={steps}
-        holds={{ 2: 1.1, 3: 1, 4: 1.6, 6: 0.9 }}
+        autoplay={{ 2: 2400, 3: 2600, 4: 4800, 6: 2000 }}
         stageLabel="Animated illustration of tennis scoring: the words thirty–love, an egg, the French word œuf turning into the numeral 0, the sequence 15, 30, 40, deuce and advantage, a 6–6 set and a tie-break counted 1 to 7."
       />
 
