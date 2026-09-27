@@ -98,3 +98,27 @@ export function sportsAt(place: Place): { sport: SportId; anchor: string }[] {
   if (place.sports) return place.sports.map((sport) => ({ sport, anchor: place.id }));
   return NOTATIONS.filter((n) => n.place === place.id).map((n) => ({ sport: n.sport, anchor: anchorOf(n) }));
 }
+
+export type Whereabouts = { href: string; label: string; name: string; chapter: string };
+
+/**
+ * Resolves any address in the essay (a chapter, an exhibit or case, or a tab
+ * of the notation gallery) to a number and a name, e.g. "3.3 · A Roman lap
+ * counter" or "Chapter 3 · Ancient scoreboards". Unknown addresses throw, so a
+ * typo in the data stops the build.
+ */
+export function whereIs(anchor: string): Whereabouts {
+  const place = PLACES.find((p) => p.id === anchor);
+  if (place) return { href: `#${anchor}`, label: placeLabel(anchor), name: place.name, chapter: place.chapter };
+  const chapter = CHAPTERS.find((c) => c.id === anchor);
+  if (chapter) {
+    const label = /^\d+$/.test(chapter.n) ? `Chapter ${chapter.n}` : chapter.id === "prologue" ? "Prologue" : chapter.title;
+    return { href: `#${anchor}`, label, name: chapter.title, chapter: chapter.id };
+  }
+  const n = NOTATIONS.find((x) => anchorOf(x) === anchor);
+  if (n) {
+    const p = placeById(n.place);
+    return { href: `#${anchor}`, label: placeLabel(p.id), name: `${p.name}: ${n.title}`, chapter: p.chapter };
+  }
+  throw new Error(`Unknown address in the essay: #${anchor}`);
+}

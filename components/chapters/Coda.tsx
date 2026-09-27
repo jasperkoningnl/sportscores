@@ -112,6 +112,10 @@ export default function Coda() {
             Now read the scoreboard: a ten-question quiz <span aria-hidden="true">→</span>
           </Link>
         </p>
+        <p className="coda-end__also mono">
+          Or see every date on the <Link href="/timeline">timeline</Link>, and every notation on the{" "}
+          <Link href="/poster">poster</Link>.
+        </p>
       </div>
     </section>
   );

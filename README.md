@@ -39,6 +39,8 @@ Each chapter card names its part. Scrolling down pauses at a card for about half
   - *Short route*: seven exhibits, one for each step of the thesis. Starting it shows a bar at the bottom of the screen that takes the reader from stop to stop.
 - **Four ways in** at the end of the prologue: read it all, the short route, find your sport, or the quiz.
 - **The quiz**, “Read the scoreboard” (`/quiz`): ten scores from ten sports, played against the board. Each answer shows the essay’s own explanation, its sources, and a link to where the essay shows it.
+- **The timeline** (`/timeline`): every date the essay tells, as a strip of dots on two scales (antiquity to 1500, and 1700 onwards) and a list by period, filterable by sport and part, each with its sources and a link back.
+- **The poster** (`/poster`): all 18 notations on one sheet, grouped by what makes them unusual. It prints on one A2 portrait page (print or save as PDF from the browser, with background graphics on).
 - A returning reader is offered a jump back to where they stopped; the position is kept only in that browser (`localStorage`).
 
 ### Stable addresses
@@ -56,9 +58,10 @@ The facts that more than one part of the site needs live in `lib/`, once, with t
 | `chapters.ts` | parts and chapters, with their stable ids | title cards, contents, reading score |
 | `places.ts` | every exhibit in reading order, its short name and sports | exhibit numbers, index by sport, route, quiz links |
 | `notations.ts` | how each sport writes its score and what it means | chapter 5 gallery headers, chapter 7 cases, the quiz |
-| `events.ts` | 51 dated moments told in the essay | chapter 11’s reform timeline (ready for a timeline page) |
+| `events.ts` | 50 dated moments told in the essay | the timeline page and chapter 11’s reform timeline |
 | `route.ts` | the short route | contents, route bar, four ways in |
 | `quiz.ts` | the quiz questions (explanations come from `notations.ts`) | `/quiz` |
+| `poster.ts` | the poster’s groups (an editorial reading; texts come from `notations.ts`) | `/poster` |
 
 A numbered bibliography with every source sits at the bottom of the page.
 
@@ -100,7 +103,7 @@ Link previews (Open Graph and X cards) need the site’s full address. It defaul
 ```
 app/
   layout.tsx, page.tsx
-  styles/         tokens, base layout, one stylesheet per group of exhibits, wayfinding, quiz
+  styles/         tokens, base layout, one stylesheet per group of exhibits, wayfinding, side pages, quiz
 components/
   chapters/       one file per chapter, with the essay copy
   interactives/   the exhibits (tally stick, lap counter, boards, simulations…)
@@ -112,6 +115,9 @@ components/
   ShortRoute.tsx  the short route: list and bar
   WaysIn.tsx      “four ways in” at the end of the prologue
   Quiz.tsx        the quiz (page: app/quiz/page.tsx)
+  Timeline.tsx    the timeline (page: app/timeline/page.tsx)
+  Poster.tsx      the poster (page: app/poster/page.tsx)
+  SideNav.tsx     navigation between the essay and the side pages
   StopAndGo.tsx   the brief pause at each chapter title card
   ShareLink.tsx   “Copy link” on each chapter card
   ResumeReading.tsx  “continue where you left off”
@@ -119,14 +125,22 @@ components/
   Media.tsx       archive photographs with credits, embedded YouTube clips (with a link-card fallback)
 lib/
   sources.ts      the bibliography; citations are numbered from this list
-  chapters.ts, places.ts, notations.ts, events.ts, route.ts, quiz.ts, sports.ts
+  chapters.ts, places.ts, notations.ts, events.ts, route.ts, quiz.ts, poster.ts, sports.ts
                   the shared facts (see “One source for the facts”)
   reading.ts      counts reading time from the page
+  share.ts        site address and share image for the side pages
   hooks.ts        reduced motion, scroll steps, element width, seeded PRNG
 docs/
   media-plan.md   photos and clips in use, and how each was checked
   og-image.html   source of the share image
+scripts/
+  record-clips.mjs  records short vertical videos of the essay’s own animations
 ```
+
+## Beyond the site
+
+- **Short videos** for social media: `scripts/record-clips.mjs` records five vertical clips (1080×1920) of the essay’s own animations (the prologue, the notcher’s stick, the Roman lap counter, the rugby points chart and the coda), each with a title card and the site’s address. They contain no photographs or embedded films.
+- **A slide deck** for talks lives outside the repository, as a claude.ai Slides artifact built from the same facts and with screenshots of the essay’s exhibits.
 
 ## Editorial rules used
 

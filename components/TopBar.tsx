@@ -184,10 +184,10 @@ export default function TopBar() {
             {tab === "route" && <RouteList onGo={close} />}
           </div>
 
-          <p className="contents__quiz">
-            <Link href="/quiz" className="mono">
-              Quiz: read the scoreboard <span aria-hidden="true">→</span>
-            </Link>
+          <p className="contents__more mono">
+            <Link href="/quiz">Quiz</Link>
+            <Link href="/timeline">Timeline</Link>
+            <Link href="/poster">Poster</Link>
           </p>
         </div>
       </dialog>

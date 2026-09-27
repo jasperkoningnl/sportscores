@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { measureReading } from "@/lib/reading";
+import { EVENTS } from "@/lib/events";
+import { NOTATIONS } from "@/lib/notations";
 import { QUESTIONS } from "@/lib/quiz";
 import { SHORT_ROUTE } from "@/lib/route";
 import { SPORT_ROWS } from "@/components/SportIndex";
@@ -60,6 +62,10 @@ export default function WaysIn() {
           </Link>
         </li>
       </ul>
+      <p className="ways__also mono">
+        Also beside the essay: the <Link href="/timeline">timeline</Link> of {EVENTS.length} dates and the{" "}
+        <Link href="/poster">poster</Link> of {NOTATIONS.length} notations.
+      </p>
     </nav>
   );
 }

@@ -10,6 +10,8 @@ import "@fontsource/im-fell-english/latin-400.css";
 import "@fontsource/im-fell-english/latin-400-italic.css";
 import "@fontsource/homemade-apple/latin-400.css";
 
+import { SITE_URL } from "@/lib/share";
+
 import "./styles/tokens.css";
 import "./styles/base.css";
 import "./styles/opening.css";
@@ -17,18 +19,16 @@ import "./styles/exhibits.css";
 import "./styles/boards.css";
 import "./styles/closing.css";
 import "./styles/wayfinding.css";
+import "./styles/sidepages.css";
 import "./styles/quiz.css";
 
 const title = "The Archaeology of Sports Scores";
 const description =
   "An interactive visual essay on how sports learned to keep score: from notches in a stick and Roman lap-counting dolphins to tie-breaks, shot clocks, score bugs and expected goals.";
 
-// Link previews need absolute URLs. The public production address is the
-// default; set NEXT_PUBLIC_SITE_URL when the essay is hosted somewhere else.
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://sportscores-history.vercel.app";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
   title,
   description,
   alternates: { canonical: "/" },
