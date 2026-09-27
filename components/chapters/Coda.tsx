@@ -100,7 +100,7 @@ export default function Coda() {
         className="scrolly--coda"
         scenes={scenes}
         steps={steps}
-        holds={{ 3: 0.5, 4: 0.6 }}
+        autoplay={{ 3: 1400, 4: 1400 }}
         stageLabel="The score thirty–love stripped back step by step: 30–0, two points to nil, two tally marks against none, two notches in a stick."
       />
       <div className="coda-end">

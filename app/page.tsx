@@ -1,4 +1,5 @@
 import TopBar from "@/components/TopBar";
+import StopAndGo from "@/components/StopAndGo";
 import Prologue from "@/components/chapters/Prologue";
 import Ch01Before from "@/components/chapters/Ch01Before";
 import Ch02Stick from "@/components/chapters/Ch02Stick";
@@ -24,6 +25,7 @@ export default function Page() {
         Skip the opening
       </a>
       <TopBar />
+      <StopAndGo />
       <main id="main">
         <Prologue />
         <Ch01Before />

@@ -9,7 +9,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-padding-top: calc(var(--bar-h) + 16px);
-  /* Gentle "walls": only the scrollytelling hold steps are snap points. */
+  /* Chapter title cards are the only snap points (see StopAndGo). */
   scroll-snap-type: y proximity;
 }
 
@@ -516,46 +516,168 @@ p {
 /* ---------- Chapters ---------- */
 
 .chapter {
-  padding-block: clamp(5rem, 12vw, 10rem) clamp(2rem, 5vw, 4rem);
   position: relative;
+  padding-bottom: clamp(2rem, 5vw, 4rem);
 }
 
-.chapter + .chapter::before {
+/* Full-screen chapter title card: a scoreboard between the "periods" of the essay. */
+.chapter-card {
+  position: relative;
+  margin-inline: calc(var(--gutter) * -1);
+  min-height: calc(100vh - var(--bar-h));
+  min-height: calc(100svh - var(--bar-h) - env(safe-area-inset-top, 0px));
+  display: grid;
+  grid-template-rows: 1fr auto;
+  place-items: center;
+  padding: clamp(24px, 5vw, 56px) var(--gutter) 20px;
+  background: var(--board);
+  color: var(--board-ink);
+  box-shadow: inset 0 0 0 1px var(--board-edge);
+  scroll-snap-align: start;
+  scroll-margin-top: -16px;
+  overflow: hidden;
+}
+
+.chapter-card::before {
+  /* faint grid of an old scoreboard face */
   content: "";
   position: absolute;
-  top: 0;
-  left: 50%;
-  width: min(var(--wide), 100%);
-  transform: translateX(-50%);
-  border-top: 1px solid var(--rule);
+  inset: 0;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
 }
 
-.chapter-head {
-  max-width: var(--measure);
-  margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+.chapter-card__inner {
+  position: relative;
   display: grid;
-  gap: 12px;
-  justify-items: start;
+  justify-items: center;
+  gap: 16px;
+  text-align: center;
+  max-width: 46rem;
 }
 
-.chapter-plate {
+.chapter-card__plate {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: var(--board);
-  color: var(--board-ink);
-  padding: 6px 12px 4px;
-  margin-bottom: 8px;
-  box-shadow: inset 0 0 0 2px var(--board-edge);
+  padding: 10px 16px;
+  background: var(--board-edge);
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.35);
+  perspective: 600px;
 }
 
-.chapter-plate__num {
-  font-family: var(--font-shown);
-  font-size: clamp(3.5rem, 2.5rem + 4vw, 6rem);
+.chapter-card__digit {
+  display: grid;
+  place-items: center;
+  width: clamp(3.4rem, 2.4rem + 4vw, 5.6rem);
+  height: clamp(4.6rem, 3.2rem + 5.5vw, 7.6rem);
+  background: var(--plate);
+  color: var(--plate-ink);
   font-weight: 800;
-  line-height: 0.85;
-  letter-spacing: 0.01em;
-  font-variant-numeric: tabular-nums;
+  font-size: clamp(3.6rem, 2.4rem + 5vw, 6.6rem);
+  line-height: 1;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.35);
+  transform-origin: 50% 0;
+}
+
+.chapter-card.is-in .chapter-card__digit {
+  animation: plate-hang 0.6s var(--ease-out) both;
+}
+
+@keyframes plate-hang {
+  0% {
+    transform: rotateX(-95deg);
+  }
+  60% {
+    transform: rotateX(12deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+.chapter-card__kicker {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--board-ink-2);
+  margin-top: 6px;
+}
+
+.chapter-card__title {
+  font-family: var(--font-spoken);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--step-4);
+  line-height: 1;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.chapter-card__dek {
+  font-size: var(--step-1);
+  line-height: 1.35;
+  color: var(--board-ink-2);
+  max-width: 34ch;
+  text-wrap: balance;
+}
+
+.chapter-card.is-in .chapter-card__title,
+.chapter-card.is-in .chapter-card__dek,
+.chapter-card.is-in .chapter-card__kicker {
+  animation: op-step-in 0.6s var(--ease-out) both;
+}
+
+.chapter-card.is-in .chapter-card__title {
+  animation-delay: 0.15s;
+}
+
+.chapter-card.is-in .chapter-card__dek {
+  animation-delay: 0.3s;
+}
+
+.chapter-card__go {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--board-ink-2);
+  text-decoration: none;
+}
+
+.chapter-card__go:hover {
+  color: var(--amber);
+}
+
+.chapter-card__go span {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .chapter-card.is-in .chapter-card__go span {
+    animation: go-nudge 1.6s ease-in-out 1s infinite;
+  }
+}
+
+@keyframes go-nudge {
+  0%,
+  60%,
+  100% {
+    transform: none;
+  }
+  30% {
+    transform: translateY(5px);
+  }
+}
+
+.chapter-body {
+  padding-top: clamp(3.5rem, 9vw, 7rem);
 }
 
 .chapter-plate__bolt {
@@ -563,22 +685,6 @@ p {
   height: 7px;
   border-radius: 50%;
   background: radial-gradient(circle at 35% 35%, #d9d6c6, #6d6a5c);
-}
-
-.chapter-title {
-  font-family: var(--font-spoken);
-  font-style: italic;
-  font-weight: 400;
-  font-size: var(--step-3);
-  line-height: 1.02;
-  letter-spacing: -0.01em;
-}
-
-.chapter-dek {
-  font-size: var(--step-1);
-  line-height: 1.35;
-  color: var(--ink-2);
-  max-width: 32ch;
 }
 
 /* ---------- Prose ---------- */
@@ -862,47 +968,6 @@ p {
   align-items: center;
 }
 
-.scrolly__step.scrolly__step--hold {
-  --hold-top: calc(var(--bar-h) + 48vh);
-  min-height: calc(62vh + var(--hold, 1) * 100vh);
-  align-items: flex-start;
-  padding-top: var(--hold-top);
-  scroll-snap-align: start;
-}
-
-.scrolly__step--hold .scrolly__card {
-  position: sticky;
-  top: var(--hold-top);
-}
-
-.scrolly__hold {
-  display: grid;
-  gap: 6px;
-  margin-top: 0.3em;
-}
-
-.scrolly__hold-label {
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-}
-
-.scrolly__hold-bar {
-  display: block;
-  height: 3px;
-  background: var(--rule);
-  overflow: hidden;
-}
-
-.scrolly__hold-bar span {
-  display: block;
-  height: 100%;
-  background: var(--red);
-  transform-origin: 0 50%;
-  transition: transform 0.12s linear;
-}
-
 .scrolly__card {
   background: var(--paper);
   border: 1px solid var(--rule);
@@ -943,10 +1008,7 @@ p {
   .scrolly__step {
     min-height: 85vh;
   }
-  .scrolly__step.scrolly__step--hold {
-    --hold-top: 30vh;
-    min-height: calc(85vh + var(--hold, 1) * 100vh);
-  }
+
   .scrolly__card {
     border: 0;
     background: transparent;

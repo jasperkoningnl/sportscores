@@ -7,7 +7,7 @@ It opens with tennis (“Thirty–love.”) and follows one idea through fourtee
 
 | | Chapter | Main interactive |
 |---|---|---|
-| P | Thirty–love | Scroll-driven opening with “hold” moments (*l’œuf* → 0, 15-30-40, an endless deuce, the tie-break), then the 1980 Borg–McEnroe tie-break on film |
+| P | Thirty–love | Scroll-driven opening with short animations (*l’œuf* → 0, 15-30-40, an endless deuce, the tie-break), then the 1980 Borg–McEnroe tie-break on film |
 | 1 | Before scores | Order, state, measure |
 | 2 | The cut in the stick | Carve a cricket notcher’s tally stick, then read it as a number |
 | 3 | Ancient scoreboards | Maya ballgame stone (schematic), the ulama *urra*, Roman lap counter with eggs and dolphins, the pentathlon puzzle |
@@ -23,6 +23,8 @@ It opens with tennis (“Thirty–love.”) and follows one idea through fourtee
 | 13 | The score moves onto television | From the stadium board to the score bug |
 | 14 | The score behind the score | xG replay simulation, Elo update |
 | C | Two cuts in a stick | Scroll-driven coda |
+
+Each chapter opens with a full-screen scoreboard title card. Scrolling down pauses there for about half a second before carrying on (“stop and go”); scrolling up and the contents links are never stopped.
 
 A numbered bibliography with every source sits at the bottom of the page.
 
@@ -69,6 +71,8 @@ components/
   ui.tsx          Chapter, Exhibit, Cite, Certainty stamps, PullLine
   Scrolly.tsx     sticky-stage scrollytelling used by the opening and the coda
   TopBar.tsx      progress bar and contents dialog
+  StopAndGo.tsx   the brief pause at each chapter title card
+  Media.tsx       embedded YouTube clips (with a link-card fallback)
 lib/
   sources.ts      the bibliography; citations are numbered from this list
   chapters.ts     chapter list for the contents dialog
