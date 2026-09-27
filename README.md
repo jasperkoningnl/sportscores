@@ -29,11 +29,36 @@ It opens with tennis (“Thirty–love.”) and follows one idea through five pa
 | 14 | The score behind the score | xG replay simulation, Elo update |
 | C | Two cuts in a stick | Scroll-driven coda |
 
-The parts are listed, with a reading time for each, in the contents dialog; each chapter card names its part.
+Each chapter card names its part. Scrolling down pauses at a card for about half a second before carrying on (“stop and go”); scrolling up and the contents links are never stopped. Each card has a **Copy link** button that copies a link straight to that chapter.
 
-Each chapter opens with a full-screen scoreboard title card. Scrolling down pauses there for about half a second before carrying on (“stop and go”); scrolling up and the contents links are never stopped. Each card has a **Copy link** button that copies a link straight to that chapter (`…/#ch-05`).
+### Ways in
 
-The contents dialog shows the reading time of each part, counted from the page itself at 238 words a minute (the average silent reading rate for non-fiction found by Brysbaert, 2019). A returning reader is offered a jump back to where they stopped; the position is kept only in that browser (`localStorage`).
+- **Contents** (the top bar) has three tabs:
+  - *Chapters*, headed by the **reading score**: a line score with one column per part, like innings, and a total. The top row is the essay’s minutes of reading; the “You” row fills in with the minutes already behind the reader. Words are counted from the page itself at 238 a minute (the average silent reading rate for non-fiction found by Brysbaert, 2019).
+  - *By sport*: every sport, the parts it appears in, and the exhibits that show it.
+  - *Short route*: seven exhibits, one for each step of the thesis. Starting it shows a bar at the bottom of the screen that takes the reader from stop to stop.
+- **Four ways in** at the end of the prologue: read it all, the short route, find your sport, or the quiz.
+- **The quiz**, “Read the scoreboard” (`/quiz`): ten scores from ten sports, played against the board. Each answer shows the essay’s own explanation, its sources, and a link to where the essay shows it.
+- A returning reader is offered a jump back to where they stopped; the position is kept only in that browser (`localStorage`).
+
+### Stable addresses
+
+Every chapter and exhibit has an address that names its subject, not its position: `/#cut-in-the-stick`, `/#tally-stick`, `/#line-score`, and for the tabs of the notation gallery `/#notation-afl`. Moving or renumbering chapters does not break links. The numbered addresses of the first version (`/#ch-06` and so on) are sent on to the chapter they meant (`LEGACY_IDS` in `lib/chapters.ts`).
+
+Exhibit numbers such as “2.3” are not written anywhere: they are worked out from the order of `lib/places.ts`.
+
+### One source for the facts
+
+The facts that more than one part of the site needs live in `lib/`, once, with the ids of their sources:
+
+| File | Holds | Used by |
+|---|---|---|
+| `chapters.ts` | parts and chapters, with their stable ids | title cards, contents, reading score |
+| `places.ts` | every exhibit in reading order, its short name and sports | exhibit numbers, index by sport, route, quiz links |
+| `notations.ts` | how each sport writes its score and what it means | chapter 5 gallery headers, chapter 7 cases, the quiz |
+| `events.ts` | 51 dated moments told in the essay | chapter 11’s reform timeline (ready for a timeline page) |
+| `route.ts` | the short route | contents, route bar, four ways in |
+| `quiz.ts` | the quiz questions (explanations come from `notations.ts`) | `/quiz` |
 
 A numbered bibliography with every source sits at the bottom of the page.
 
@@ -70,30 +95,37 @@ Link previews (Open Graph and X cards) need the site’s full address. It defaul
 - Hand-written CSS with design tokens (`app/styles/tokens.css`), light and dark themes, no CSS framework
 - Custom SVG for every visual; no chart or animation library
 - Fonts self-hosted through Fontsource: Newsreader (the “spoken” voice), Big Shoulders Display (numbers “shown” on boards), IBM Plex Mono (“recorded” data and labels), plus IM FELL English and Homemade Apple for the 1744 scorecard reconstruction
-- No backend. The only external requests are the YouTube clips, and only after the reader presses play: until then each clip is a card drawn by the page, then the player loads from youtube-nocookie.com
+- No backend. The only external requests are the embedded YouTube clips (loaded lazily from youtube-nocookie.com)
 
 ```
 app/
   layout.tsx, page.tsx
-  styles/         tokens, base layout, one stylesheet per group of exhibits
+  styles/         tokens, base layout, one stylesheet per group of exhibits, wayfinding, quiz
 components/
   chapters/       one file per chapter, with the essay copy
   interactives/   the exhibits (tally stick, lap counter, boards, simulations…)
   ui.tsx          Chapter, Exhibit, Cite, Certainty stamps, PullLine
   Scrolly.tsx     sticky-stage scrollytelling used by the opening and the coda
-  TopBar.tsx      progress bar and contents dialog (parts, reading times)
+  TopBar.tsx      progress bar and the contents dialog with its three tabs
+  ReadingScore.tsx   reading time as a line score
+  SportIndex.tsx  the index by sport
+  ShortRoute.tsx  the short route: list and bar
+  WaysIn.tsx      “four ways in” at the end of the prologue
+  Quiz.tsx        the quiz (page: app/quiz/page.tsx)
   StopAndGo.tsx   the brief pause at each chapter title card
   ShareLink.tsx   “Copy link” on each chapter card
   ResumeReading.tsx  “continue where you left off”
-  Media.tsx       archive photographs with credits
-  VideoEmbed.tsx  YouTube clips that load on click (with a link-card fallback)
+  LegacyLinks.tsx sends old #ch-NN links on
+  Media.tsx       archive photographs with credits, embedded YouTube clips (with a link-card fallback)
 lib/
   sources.ts      the bibliography; citations are numbered from this list
-  chapters.ts     parts and chapters, for the contents dialog and the title cards
+  chapters.ts, places.ts, notations.ts, events.ts, route.ts, quiz.ts, sports.ts
+                  the shared facts (see “One source for the facts”)
+  reading.ts      counts reading time from the page
+  hooks.ts        reduced motion, scroll steps, element width, seeded PRNG
 docs/
   media-plan.md   photos and clips in use, and how each was checked
   og-image.html   source of the share image
-  hooks.ts        reduced motion, scroll steps, element width, seeded PRNG
 ```
 
 ## Editorial rules used

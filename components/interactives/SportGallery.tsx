@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   AflSpecimen,
   BaseballSpecimen,
@@ -36,6 +36,17 @@ const COMPONENTS: Record<string, () => ReactNode> = {
 export default function SportGallery({ items }: { items: GalleryItem[] }) {
   const [active, setActive] = useState(0);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  // Each tab has its own address (…/#notation-afl): opening it selects that sport.
+  useEffect(() => {
+    const select = () => {
+      const i = items.findIndex((it) => `#notation-${it.key}` === window.location.hash);
+      if (i >= 0) setActive(i);
+    };
+    select();
+    window.addEventListener("hashchange", select);
+    return () => window.removeEventListener("hashchange", select);
+  }, [items]);
 
   const focusTab = (i: number) => {
     const n = (i + items.length) % items.length;
@@ -75,7 +86,7 @@ export default function SportGallery({ items }: { items: GalleryItem[] }) {
             }}
             type="button"
             role="tab"
-            id={`gal-tab-${it.key}`}
+            id={`notation-${it.key}`}
             aria-controls={`gal-panel-${it.key}`}
             aria-selected={i === active}
             tabIndex={i === active ? 0 : -1}
@@ -92,7 +103,7 @@ export default function SportGallery({ items }: { items: GalleryItem[] }) {
         className="gallery__panel"
         role="tabpanel"
         id={`gal-panel-${item.key}`}
-        aria-labelledby={`gal-tab-${item.key}`}
+        aria-labelledby={`notation-${item.key}`}
         key={item.key}
       >
         <div className="gallery__display">{COMPONENTS[item.key]()}</div>

@@ -4,7 +4,7 @@ import ScoreBug from "@/components/interactives/ScoreBug";
 export default function Ch09Bug() {
   return (
     <Chapter
-      id="ch-09"
+      id="score-on-television"
       number={9}
       title="The score moves onto television"
       dek="For decades, a viewer who tuned in late had to wait to find out the score."
@@ -29,7 +29,7 @@ export default function Ch09Bug() {
       </Prose>
 
       <Exhibit
-        label="9.1"
+        id="score-bug"
         title="From the stadium board to the score bug"
         status="Schematic broadcast frames"
         surface="plain"

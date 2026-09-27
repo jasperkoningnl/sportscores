@@ -5,6 +5,7 @@ import Scrolly, { type Scene } from "@/components/Scrolly";
 import { useReducedMotion } from "@/lib/hooks";
 import { Certainty, Cite, Exhibit } from "@/components/ui";
 import { VideoEmbed } from "@/components/Media";
+import WaysIn from "@/components/WaysIn";
 
 function Egg({ className = "" }: { className?: string }) {
   // An egg: an ellipse whose top is narrower than its bottom.
@@ -301,18 +302,14 @@ export default function Prologue() {
       />
 
       <Exhibit
-        label="P.1"
+        id="tie-break-film"
         title="Borg v McEnroe, Wimbledon final, 5 July 1980: the fourth-set tie-break"
         kind="Film"
         status="Video published by Wimbledon on YouTube"
         surface="plain"
       >
         <div className="film">
-          <VideoEmbed
-            id="UnwYdF8a5ws"
-            title="Bjorn Borg vs John McEnroe: the 1980 Wimbledon tie-break in full"
-            by="Wimbledon"
-          />
+          <VideoEmbed id="UnwYdF8a5ws" title="Bjorn Borg vs John McEnroe: the 1980 Wimbledon tie-break in full" />
           <div className="film__text">
             <p className="kicker">Watch it happen</p>
             <p className="film__lead">The most famous tie-break ever played.</p>
@@ -336,6 +333,7 @@ export default function Prologue() {
           A score begins as memory, becomes language, becomes display, turns into a tool for redesigning the sport
           itself, and ends up being scored in its turn.
         </p>
+        <WaysIn />
         <p className="op-close__text">The story starts before anyone kept score at all.</p>
       </div>
     </section>

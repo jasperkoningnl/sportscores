@@ -8,7 +8,7 @@ import wrigleyBoard from "@/media/wrigley-field-scoreboard-2012.jpg";
 export default function Ch08Objects() {
   return (
     <Chapter
-      id="ch-08"
+      id="scoreboard-objects"
       number={8}
       title="The scoreboard becomes an object"
       dek="Before screens, a score had weight. Someone had to lift it into place."
@@ -21,7 +21,7 @@ export default function Ch08Objects() {
       </Prose>
 
       <Exhibit
-        label="8.1"
+        id="davis-cup-photo"
         title="Davis Cup Challenge Round, Forest Hills, New York, 14 August 1914"
         kind="Photograph"
         status="Glass negative, Bain News Service"
@@ -70,7 +70,7 @@ export default function Ch08Objects() {
       </Prose>
 
       <Exhibit
-        label="8.2"
+        id="flip-board"
         title="Flip scoreboard, gymnasium type"
         surface="plain"
         instructions="Change the score and watch the leaves fall."
@@ -90,7 +90,7 @@ export default function Ch08Objects() {
       </Prose>
 
       <Exhibit
-        label="8.3"
+        id="wrigley-photo"
         title="The Wrigley Field centre-field scoreboard, 1 August 2012"
         kind="Photograph"
         surface="plain"
@@ -121,7 +121,7 @@ export default function Ch08Objects() {
       </Exhibit>
 
       <Exhibit
-        label="8.4"
+        id="line-score"
         title="Hand-operated line score, after Wrigley Field"
         status="Illustrative game"
         surface="plain"
@@ -131,14 +131,14 @@ export default function Ch08Objects() {
       </Exhibit>
 
       <Exhibit
-        label="8.5"
+        id="wrigley-film"
         title="Inside the Wrigley Field scoreboard"
         kind="Film"
         status="Video published by Great Big Story on YouTube, 2017"
         surface="plain"
       >
         <div className="film">
-          <VideoEmbed id="2F5ovxn0ZdY" title="Inside One of Baseball’s Last Manual Scoreboards" by="Great Big Story" />
+          <VideoEmbed id="2F5ovxn0ZdY" title="Inside One of Baseball’s Last Manual Scoreboards" />
           <div className="film__text">
             <p className="kicker">Behind the numbers</p>
             <p className="film__lead">The score, carried by hand.</p>
@@ -164,7 +164,7 @@ export default function Ch08Objects() {
       </Prose>
 
       <Exhibit
-        label="8.6"
+        id="half-time-board"
         title="Half-time board and programme key"
         status="Invented fixtures"
         surface="plain"
@@ -192,7 +192,7 @@ export default function Ch08Objects() {
       </Prose>
 
       <Exhibit
-        label="8.7"
+        id="curling-board"
         title="Curling club scoreboard: points in the middle"
         status="Illustrative game"
         surface="plain"

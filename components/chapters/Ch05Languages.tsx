@@ -1,12 +1,17 @@
 import { Chapter, Cite, Exhibit, Prose } from "@/components/ui";
 import SportGallery, { type GalleryItem } from "@/components/interactives/SportGallery";
+import { notationById } from "@/lib/notations";
+import { SPORTS } from "@/lib/sports";
+
+// Each display's notation and headline come from lib/notations.ts (shared with the quiz).
+const fromNotation = (id: string) => {
+  const n = notationById(id);
+  return { key: n.id, sport: SPORTS[n.sport], sample: n.notation, headline: n.title };
+};
 
 const ITEMS: GalleryItem[] = [
   {
-    key: "tennis",
-    sport: "Tennis",
-    sample: "30–15",
-    headline: "Three nested counts, and two vocabularies",
+    ...fromNotation("tennis"),
     body: (
       <>
         <p>
@@ -19,10 +24,7 @@ const ITEMS: GalleryItem[] = [
     ),
   },
   {
-    key: "cricket",
-    sport: "Cricket",
-    sample: "247/6",
-    headline: "A decimal point that isn’t one",
+    ...fromNotation("cricket"),
     body: (
       <>
         <p>
@@ -34,10 +36,7 @@ const ITEMS: GalleryItem[] = [
     ),
   },
   {
-    key: "golf",
-    sport: "Golf",
-    sample: "−4",
-    headline: "Scored against an imaginary opponent",
+    ...fromNotation("golf"),
     body: (
       <>
         <p>
@@ -49,10 +48,7 @@ const ITEMS: GalleryItem[] = [
     ),
   },
   {
-    key: "darts",
-    sport: "Darts",
-    sample: "501",
-    headline: "A score that counts down",
+    ...fromNotation("darts"),
     body: (
       <>
         <p>
@@ -64,10 +60,7 @@ const ITEMS: GalleryItem[] = [
     ),
   },
   {
-    key: "bowling",
-    sport: "Tenpin bowling",
-    sample: "X /",
-    headline: "Scores that depend on the future",
+    ...fromNotation("bowling"),
     body: (
       <>
         <p>
@@ -80,10 +73,7 @@ const ITEMS: GalleryItem[] = [
     ),
   },
   {
-    key: "rugby",
-    sport: "Rugby union",
-    sample: "5·2·3·3",
-    headline: "A try that was once only a try",
+    ...fromNotation("rugby"),
     body: (
       <>
         <p>
@@ -97,10 +87,7 @@ const ITEMS: GalleryItem[] = [
     ),
   },
   {
-    key: "afl",
-    sport: "Australian football",
-    sample: "10.6 (66)",
-    headline: "The workings are part of the score",
+    ...fromNotation("afl"),
     body: (
       <>
         <p>
@@ -112,10 +99,7 @@ const ITEMS: GalleryItem[] = [
     ),
   },
   {
-    key: "gaelic",
-    sport: "Gaelic football",
-    sample: "2–11",
-    headline: "Goals and points, kept apart",
+    ...fromNotation("gaelic"),
     body: (
       <>
         <p>
@@ -129,10 +113,7 @@ const ITEMS: GalleryItem[] = [
     ),
   },
   {
-    key: "baseball",
-    sport: "Baseball",
-    sample: "R H E",
-    headline: "Simple score, dense display",
+    ...fromNotation("baseball"),
     body: (
       <>
         <p>
@@ -149,7 +130,7 @@ const ITEMS: GalleryItem[] = [
 export default function Ch05Languages() {
   return (
     <Chapter
-      id="ch-05"
+      id="sport-languages"
       number={5}
       title="Every sport invents its own language"
       dek="Once a score is written down, it needs a grammar. Each sport wrote a different one."
@@ -167,7 +148,7 @@ export default function Ch05Languages() {
       </Prose>
 
       <Exhibit
-        label="5.1"
+        id="notation-gallery"
         title="Specimens of sporting notation"
         surface="paper"
         instructions="Pick a sport with the tabs (arrow keys move between them). Every display can be played with."

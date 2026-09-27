@@ -1,24 +1,35 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { CHAPTERS, PARTS, type ChapterMeta } from "@/lib/chapters";
+import { measureReading, type ReadingColumn } from "@/lib/reading";
+import ReadingScore from "@/components/ReadingScore";
+import SportIndex from "@/components/SportIndex";
+import { RouteList } from "@/components/ShortRoute";
 
-// Average silent reading rate of adults for non-fiction in English
-// (Brysbaert 2019, Journal of Memory and Language 109, 104047).
-const WORDS_PER_MINUTE = 238;
+type Tab = "chapters" | "sports" | "route";
 
-const wordsIn = (id: string) => {
-  const el = document.getElementById(id);
-  return el ? el.innerText.split(/\s+/).filter(Boolean).length : 0;
-};
+const TABS: { id: Tab; label: string }[] = [
+  { id: "chapters", label: "Chapters" },
+  { id: "sports", label: "By sport" },
+  { id: "route", label: "Short route" },
+];
 
-const minutes = (words: number) => Math.max(1, Math.round(words / WORDS_PER_MINUTE));
+const OPEN = "contents:open";
+
+/** Open the contents dialog on a given tab, from anywhere on the page. */
+export function openContents(tab: Tab = "chapters") {
+  window.dispatchEvent(new CustomEvent<Tab>(OPEN, { detail: tab }));
+}
 
 export default function TopBar() {
   const [progress, setProgress] = useState(0);
   const [current, setCurrent] = useState(0);
-  const [readingTime, setReadingTime] = useState<Record<string, number> | null>(null);
+  const [tab, setTab] = useState<Tab>("chapters");
+  const [reading, setReading] = useState<ReadingColumn[] | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const tabRefs = useRef<Record<Tab, HTMLButtonElement | null>>({ chapters: null, sports: null, route: null });
 
   useEffect(() => {
     let raf = 0;
@@ -47,23 +58,21 @@ export default function TopBar() {
     };
   }, []);
 
-  const chapter = CHAPTERS[current];
-  const open = () => {
-    // Reading time is counted from the page itself, once, when the contents are first opened.
-    if (!readingTime) {
-      const times: Record<string, number> = {};
-      let total = 0;
-      for (const p of PARTS) {
-        const words = CHAPTERS.filter((c) => c.part === p.id).reduce((n, c) => n + wordsIn(c.id), 0);
-        times[p.id] = minutes(words);
-        total += words;
-      }
-      times.total = minutes(total + wordsIn("prologue"));
-      setReadingTime(times);
-    }
-    dialogRef.current?.showModal();
+  const open = (t: Tab = "chapters") => {
+    // The reading score is measured from the page itself, each time the contents open.
+    setReading(measureReading());
+    setTab(t);
+    if (!dialogRef.current?.open) dialogRef.current?.showModal();
   };
   const close = () => dialogRef.current?.close();
+
+  useEffect(() => {
+    const onOpen = (e: Event) => open((e as CustomEvent<Tab>).detail);
+    window.addEventListener(OPEN, onOpen);
+    return () => window.removeEventListener(OPEN, onOpen);
+  });
+
+  const chapter = CHAPTERS[current];
 
   const item = (c: ChapterMeta) => (
     <li key={c.id} className={c.id === chapter.id ? "is-current" : undefined}>
@@ -74,13 +83,19 @@ export default function TopBar() {
     </li>
   );
 
+  const moveTab = (step: number) => {
+    const i = (TABS.findIndex((t) => t.id === tab) + step + TABS.length) % TABS.length;
+    setTab(TABS[i].id);
+    tabRefs.current[TABS[i].id]?.focus();
+  };
+
   return (
     <>
       <div className="topbar" role="banner">
         <a className="topbar__title" href="#prologue">
           The Archaeology of Sports Scores
         </a>
-        <button type="button" className="topbar__chapter" onClick={open} aria-haspopup="dialog">
+        <button type="button" className="topbar__chapter" onClick={() => open()} aria-haspopup="dialog">
           <span className="topbar__n" aria-hidden="true">
             {chapter.n}
           </span>
@@ -107,26 +122,73 @@ export default function TopBar() {
               Close
             </button>
           </div>
-          {readingTime && (
-            <p className="contents__time mono">
-              About {readingTime.total} minutes of reading, plus the interactives and films.
-            </p>
-          )}
-          <ol className="contents__list">
-            {CHAPTERS.filter((c) => !c.part && c.id !== "sources").map(item)}
-            {PARTS.map((p) => (
-              <li key={p.id} className="contents__part">
-                <p className="contents__part-head mono">
-                  <span>
-                    Part {p.n} · {p.title}
-                  </span>
-                  {readingTime && <span className="contents__part-time">{readingTime[p.id]} min</span>}
-                </p>
-                <ol className="contents__list">{CHAPTERS.filter((c) => c.part === p.id).map(item)}</ol>
-              </li>
+
+          <div
+            className="contents__tabs"
+            role="tablist"
+            aria-label="Ways into the essay"
+            onKeyDown={(e) => {
+              if (e.key === "ArrowRight") {
+                e.preventDefault();
+                moveTab(1);
+              } else if (e.key === "ArrowLeft") {
+                e.preventDefault();
+                moveTab(-1);
+              }
+            }}
+          >
+            {TABS.map((t) => (
+              <button
+                key={t.id}
+                ref={(el) => {
+                  tabRefs.current[t.id] = el;
+                }}
+                type="button"
+                role="tab"
+                id={`contents-tab-${t.id}`}
+                aria-controls={`contents-panel-${t.id}`}
+                aria-selected={tab === t.id}
+                tabIndex={tab === t.id ? 0 : -1}
+                className={`contents__tab mono${tab === t.id ? " is-on" : ""}`}
+                onClick={() => setTab(t.id)}
+              >
+                {t.label}
+              </button>
             ))}
-            {CHAPTERS.filter((c) => c.id === "sources").map(item)}
-          </ol>
+          </div>
+
+          <div
+            className="contents__panel"
+            role="tabpanel"
+            id={`contents-panel-${tab}`}
+            aria-labelledby={`contents-tab-${tab}`}
+          >
+            {tab === "chapters" && (
+              <>
+                {reading && <ReadingScore columns={reading} />}
+                <ol className="contents__list">
+                  {CHAPTERS.filter((c) => !c.part && c.id !== "sources").map(item)}
+                  {PARTS.map((p) => (
+                    <li key={p.id} className="contents__part">
+                      <p className="contents__part-head mono">
+                        Part {p.n} · {p.title}
+                      </p>
+                      <ol className="contents__list">{CHAPTERS.filter((c) => c.part === p.id).map(item)}</ol>
+                    </li>
+                  ))}
+                  {CHAPTERS.filter((c) => c.id === "sources").map(item)}
+                </ol>
+              </>
+            )}
+            {tab === "sports" && <SportIndex onGo={close} />}
+            {tab === "route" && <RouteList onGo={close} />}
+          </div>
+
+          <p className="contents__quiz">
+            <Link href="/quiz" className="mono">
+              Quiz: read the scoreboard <span aria-hidden="true">→</span>
+            </Link>
+          </p>
         </div>
       </dialog>
     </>

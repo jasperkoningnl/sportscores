@@ -1,6 +1,8 @@
 import TopBar from "@/components/TopBar";
 import StopAndGo from "@/components/StopAndGo";
 import ResumeReading from "@/components/ResumeReading";
+import LegacyLinks from "@/components/LegacyLinks";
+import { RouteBar } from "@/components/ShortRoute";
 import Prologue from "@/components/chapters/Prologue";
 import Ch01Before from "@/components/chapters/Ch01Before";
 import Ch02Stick from "@/components/chapters/Ch02Stick";
@@ -22,12 +24,14 @@ import Sources from "@/components/chapters/Sources";
 export default function Page() {
   return (
     <>
-      <a className="skip-link" href="#ch-01">
+      <a className="skip-link" href="#before-scores">
         Skip the opening
       </a>
       <TopBar />
       <StopAndGo />
       <ResumeReading />
+      <LegacyLinks />
+      <RouteBar />
       <main id="main">
         <Prologue />
         {/* Part I · Memory */}

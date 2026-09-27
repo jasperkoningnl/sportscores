@@ -844,8 +844,6 @@
 
 .video {
   display: grid;
-  /* minmax(0, …): the 16:9 box must not widen the column to fit its content. */
-  grid-template-columns: minmax(0, 1fr);
   gap: 8px;
 }
 
@@ -919,46 +917,6 @@
 }
 
 .video--link:hover .video__play,
-.video--link:focus-visible .video__play,
-.video__facade:hover .video__play,
-.video__facade:focus-visible .video__play {
+.video--link:focus-visible .video__play {
   color: var(--amber);
-}
-
-/* The click-to-play card that stands in for the YouTube player. */
-.video__facade {
-  width: 100%;
-  border: 0;
-  color: #f1efe6;
-  font: inherit;
-  cursor: pointer;
-}
-
-.video__facade:focus-visible {
-  outline: 3px solid var(--focus);
-  outline-offset: 3px;
-}
-
-@media (max-width: 559px) {
-  .video__frame--card {
-    gap: 8px;
-    padding: 12px 16px;
-  }
-
-  .video__play {
-    width: 44px;
-    height: 44px;
-  }
-
-  .video__play::after {
-    left: 17px;
-    top: 12px;
-    border-left-width: 14px;
-    border-top-width: 9px;
-    border-bottom-width: 9px;
-  }
-
-  .video__card-title {
-    font-size: var(--step-0);
-  }
 }

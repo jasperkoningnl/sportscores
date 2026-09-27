@@ -52,7 +52,7 @@ function Jump() {
 
 export default function Ch01Before() {
   return (
-    <Chapter id="ch-01" number={1} title="Before scores" dek="Many of the oldest contests never needed a number.">
+    <Chapter id="before-scores" number={1} title="Before scores" dek="Many of the oldest contests never needed a number.">
       <Prose>
         <p className="lede">
           Put two people on a track and tell them to run. You do not need a scoreboard to know what happened. Whoever
@@ -66,7 +66,7 @@ export default function Ch01Before() {
       </Prose>
 
       <Exhibit
-        label="1.1"
+        id="three-ways"
         title="Three ways to win without keeping score"
         kind="Diagram"
         surface="plain"

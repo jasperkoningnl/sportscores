@@ -4,7 +4,7 @@ import { EloCalc, XgReplay } from "@/components/interactives/BehindScore";
 export default function Ch14Behind() {
   return (
     <Chapter
-      id="ch-14"
+      id="score-behind-the-score"
       number={14}
       title="The score behind the score"
       dek="The official result is no longer the last word. Now we keep score of the score."
@@ -24,7 +24,7 @@ export default function Ch14Behind() {
       </Prose>
 
       <Exhibit
-        label="14.1"
+        id="xg-replay"
         title="A 1–0 that might have been something else"
         status="Invented match"
         surface="paper"
@@ -50,7 +50,7 @@ export default function Ch14Behind() {
       </Prose>
 
       <Exhibit
-        label="14.2"
+        id="elo"
         title="An Elo update"
         surface="paper"
         instructions="Set two ratings and a result."

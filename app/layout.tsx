@@ -16,6 +16,8 @@ import "./styles/opening.css";
 import "./styles/exhibits.css";
 import "./styles/boards.css";
 import "./styles/closing.css";
+import "./styles/wayfinding.css";
+import "./styles/quiz.css";
 
 const title = "The Archaeology of Sports Scores";
 const description =

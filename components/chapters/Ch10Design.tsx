@@ -6,7 +6,7 @@ import { BasketballCourt, GaelicArc } from "@/components/interactives/Courts";
 export default function Ch10Design() {
   return (
     <Chapter
-      id="ch-10"
+      id="score-designs-game"
       number={10}
       title="The score starts designing the game"
       dek="Change what a score is worth and players change what they do."
@@ -30,7 +30,7 @@ export default function Ch10Design() {
       </Prose>
 
       <Exhibit
-        label="10.1"
+        id="rugby-chart"
         title="What each score was worth in rugby union, 1890–today"
         kind="Chart"
         surface="paper"
@@ -60,7 +60,7 @@ export default function Ch10Design() {
       </Prose>
 
       <Exhibit
-        label="10.2"
+        id="three-point-court"
         title="Half court, NBA dimensions"
         surface="paper"
         instructions="Click to take a shot, or focus the court and use the arrow keys and Enter. Every shot here goes in; only its value changes."
@@ -91,7 +91,7 @@ export default function Ch10Design() {
       </Prose>
 
       <Exhibit
-        label="10.3"
+        id="league-table"
         title="One season, two points systems"
         status="Invented teams"
         surface="paper"
@@ -116,7 +116,7 @@ export default function Ch10Design() {
       </Prose>
 
       <Exhibit
-        label="10.4"
+        id="gaelic-arc"
         title="The two-point arc: one end of a Gaelic football pitch"
         status="Schematic"
         surface="paper"
