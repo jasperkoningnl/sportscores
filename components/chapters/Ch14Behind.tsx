@@ -38,7 +38,7 @@ export default function Ch14Behind() {
           Other sports have their own shadow scores. Baseball’s WAR, wins above replacement, estimates how many extra wins
           a player is worth compared with the kind of player a team could sign at short notice.
           <Cite id="fangraphs-war" /> Basketball analysts talk in points per possession and the expected value of each
-          shot: the same arithmetic that makes the three-pointer of chapter 7 so attractive.
+          shot: the same arithmetic that makes the three-pointer of chapter 10 so attractive.
         </p>
         <p>
           And then there are ratings, which score teams rather than games. The Elo system, devised by Arpad Elo and

@@ -1,11 +1,23 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { CHAPTERS } from "@/lib/chapters";
+import { CHAPTERS, PARTS, type ChapterMeta } from "@/lib/chapters";
+
+// Average silent reading rate of adults for non-fiction in English
+// (Brysbaert 2019, Journal of Memory and Language 109, 104047).
+const WORDS_PER_MINUTE = 238;
+
+const wordsIn = (id: string) => {
+  const el = document.getElementById(id);
+  return el ? el.innerText.split(/\s+/).filter(Boolean).length : 0;
+};
+
+const minutes = (words: number) => Math.max(1, Math.round(words / WORDS_PER_MINUTE));
 
 export default function TopBar() {
   const [progress, setProgress] = useState(0);
   const [current, setCurrent] = useState(0);
+  const [readingTime, setReadingTime] = useState<Record<string, number> | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -36,8 +48,31 @@ export default function TopBar() {
   }, []);
 
   const chapter = CHAPTERS[current];
-  const open = () => dialogRef.current?.showModal();
+  const open = () => {
+    // Reading time is counted from the page itself, once, when the contents are first opened.
+    if (!readingTime) {
+      const times: Record<string, number> = {};
+      let total = 0;
+      for (const p of PARTS) {
+        const words = CHAPTERS.filter((c) => c.part === p.id).reduce((n, c) => n + wordsIn(c.id), 0);
+        times[p.id] = minutes(words);
+        total += words;
+      }
+      times.total = minutes(total + wordsIn("prologue"));
+      setReadingTime(times);
+    }
+    dialogRef.current?.showModal();
+  };
   const close = () => dialogRef.current?.close();
+
+  const item = (c: ChapterMeta) => (
+    <li key={c.id} className={c.id === chapter.id ? "is-current" : undefined}>
+      <a href={`#${c.id}`} onClick={close}>
+        <span className="contents__n">{c.n}</span>
+        <span>{c.title}</span>
+      </a>
+    </li>
+  );
 
   return (
     <>
@@ -72,15 +107,25 @@ export default function TopBar() {
               Close
             </button>
           </div>
+          {readingTime && (
+            <p className="contents__time mono">
+              About {readingTime.total} minutes of reading, plus the interactives and films.
+            </p>
+          )}
           <ol className="contents__list">
-            {CHAPTERS.map((c, i) => (
-              <li key={c.id} className={i === current ? "is-current" : undefined}>
-                <a href={`#${c.id}`} onClick={close}>
-                  <span className="contents__n">{c.n}</span>
-                  <span>{c.title}</span>
-                </a>
+            {CHAPTERS.filter((c) => !c.part && c.id !== "sources").map(item)}
+            {PARTS.map((p) => (
+              <li key={p.id} className="contents__part">
+                <p className="contents__part-head mono">
+                  <span>
+                    Part {p.n} · {p.title}
+                  </span>
+                  {readingTime && <span className="contents__part-time">{readingTime[p.id]} min</span>}
+                </p>
+                <ol className="contents__list">{CHAPTERS.filter((c) => c.part === p.id).map(item)}</ol>
               </li>
             ))}
+            {CHAPTERS.filter((c) => c.id === "sources").map(item)}
           </ol>
         </div>
       </dialog>

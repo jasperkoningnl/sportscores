@@ -214,7 +214,7 @@ function makeScenes(reduced: boolean): Scene[] {
 
 const steps = [
   <>
-    <p className="kicker">An interactive history in fourteen chapters</p>
+    <p className="kicker">An interactive history in five parts</p>
     <h1 className="op-title">The Archaeology of Sports Scores</h1>
     <p className="op-lead">
       <em>“Thirty–love.”</em> Most people know at once that this is tennis. Nobody needs to see a racket.
@@ -308,7 +308,11 @@ export default function Prologue() {
         surface="plain"
       >
         <div className="film">
-          <VideoEmbed id="UnwYdF8a5ws" title="Bjorn Borg vs John McEnroe: the 1980 Wimbledon tie-break in full" />
+          <VideoEmbed
+            id="UnwYdF8a5ws"
+            title="Bjorn Borg vs John McEnroe: the 1980 Wimbledon tie-break in full"
+            by="Wimbledon"
+          />
           <div className="film__text">
             <p className="kicker">Watch it happen</p>
             <p className="film__lead">The most famous tie-break ever played.</p>
@@ -329,8 +333,8 @@ export default function Prologue() {
           That absurdity is the question behind this page.
         </p>
         <p className="op-thesis">
-          A score begins as memory, becomes language, becomes display, and eventually becomes a tool for redesigning the
-          sport itself.
+          A score begins as memory, becomes language, becomes display, turns into a tool for redesigning the sport
+          itself, and ends up being scored in its turn.
         </p>
         <p className="op-close__text">The story starts before anyone kept score at all.</p>
       </div>

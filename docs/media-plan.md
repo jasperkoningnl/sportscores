@@ -17,13 +17,13 @@ Checked on 26 September 2026 through YouTube’s oEmbed endpoint, which answers 
 | Where | Video ID | Title (as published) | Published by | Checked |
 |---|---|---|---|---|
 | Prologue, P.1 | `UnwYdF8a5ws` | Bjorn Borg vs John McEnroe \| The 1980 tie-break in full | Wimbledon (@Wimbledon) | yes, 26 Sep 2026 |
-| Chapter 6, 6.5 | `2F5ovxn0ZdY` | Inside One of Baseball’s Last Manual Scoreboards | Great Big Story (@GreatBigStory) | yes, 26 Sep 2026 |
-| Chapter 8, 8.1 | `J9M-XwUhYH4` | John Isner v Nicolas Mahut \| Wimbledon 2010 first round \| Extended Highlights | Wimbledon (@Wimbledon) | yes, 26 Sep 2026 |
+| Chapter 8, 8.5 | `2F5ovxn0ZdY` | Inside One of Baseball’s Last Manual Scoreboards | Great Big Story (@GreatBigStory) | yes, 26 Sep 2026 |
+| Chapter 11, 11.1 | `J9M-XwUhYH4` | John Isner v Nicolas Mahut \| Wimbledon 2010 first round \| Extended Highlights | Wimbledon (@Wimbledon) | yes, 26 Sep 2026 |
 
 Candidates not yet used:
 
 - `_90PPjyGBgk`, “How I Play Tennis - By Mlle. Suzanne Lenglen (1925)”. Published by **British Pathé**, which holds the archive, so embedding it fits the rules. Hosting a copy instead is not straightforward: the film is public domain in the US, but British Pathé is a UK company and UK film copyright runs on different terms, so embed rather than host. The essay has no passage about Lenglen yet; it needs a reason to be there.
-- `hKWj8OkHp2A`, “Proposed football rules explained - Scoring system”. Published by **RTÉ Sport**, not the GAA. RTÉ made the explainer, so it is the rights holder’s own upload, but it explains the rules as *proposed*; check it still matches the rules that were adopted before using it in chapter 7.
+- `hKWj8OkHp2A`, “Proposed football rules explained - Scoring system”. Published by **RTÉ Sport**, not the GAA. RTÉ made the explainer, so it is the rights holder’s own upload, but it explains the rules as *proposed*; check it still matches the rules that were adopted before using it in chapter 10.
 
 ## Archive photos (in the page now)
 
@@ -33,9 +33,9 @@ Files live in `media/`, cropped and resized from the originals.
 |---|---|---|---|---|
 | 2.1 | `winchester-medieval-tally-sticks.jpg` | Medieval tally sticks (not identified as Exchequer tallies) | Winchester City Council Museums, CC BY-SA 2.0 | [Commons](https://commons.wikimedia.org/wiki/File:Medieval_tally_sticks.jpg) |
 | 3.2 | `lyon-circus-mosaic-spina.jpg`, `lyon-circus-mosaic-lap-counters.jpg` | Circus games mosaic, Lyon: the spina with both lap counters | Romainbehar (2022), CC0; cropped. The mosaic itself is 2nd century. | [Commons](https://commons.wikimedia.org/wiki/File:Lyon_5e_-_Mus%C3%A9e_Lugdunum_-_Mosa%C3%AFque_du_cirque_-_D%C3%A9tail_01.jpg) |
-| 6.1 | `davis-cup-1914-forest-hills.jpg`, `davis-cup-1914-scoreboard-detail.jpg` | Davis Cup doubles, Forest Hills, 14 Aug 1914, with a hand-hung sets/games board | Bain News Service, Library of Congress, no known restrictions; made from the master TIFF | [LoC](https://www.loc.gov/item/2014697051/) |
-| 6.3 | `wrigley-field-scoreboard-2012.jpg` | Wrigley Field centre-field scoreboard, 1 Aug 2012 | TonyTheTiger, CC BY-SA 3.0; cropped | [Commons](https://commons.wikimedia.org/wiki/File:201200801_Wrigley_Field_scoreboard.JPG) |
-| 9.2 | `syracuse-shot-clock-monument-2013.jpg` | Shot clock monument, Syracuse, Oct 2013 | Kai Brinker, CC BY-SA 2.0; cropped | [Commons](https://commons.wikimedia.org/wiki/File:Shot_Clock_Monument_in_Armory_Square_in_Syracuse,_New_York_(2013).jpg) |
+| 8.1 | `davis-cup-1914-forest-hills.jpg`, `davis-cup-1914-scoreboard-detail.jpg` | Davis Cup doubles, Forest Hills, 14 Aug 1914, with a hand-hung sets/games board | Bain News Service, Library of Congress, no known restrictions; made from the master TIFF | [LoC](https://www.loc.gov/item/2014697051/) |
+| 8.3 | `wrigley-field-scoreboard-2012.jpg` | Wrigley Field centre-field scoreboard, 1 Aug 2012 | TonyTheTiger, CC BY-SA 3.0; cropped | [Commons](https://commons.wikimedia.org/wiki/File:201200801_Wrigley_Field_scoreboard.JPG) |
+| 12.2 | `syracuse-shot-clock-monument-2013.jpg` | Shot clock monument, Syracuse, Oct 2013 | Kai Brinker, CC BY-SA 2.0; cropped | [Commons](https://commons.wikimedia.org/wiki/File:Shot_Clock_Monument_in_Armory_Square_in_Syracuse,_New_York_(2013).jpg) |
 
 Notes:
 
@@ -49,10 +49,10 @@ Notes:
 |---|---|---|
 | Prologue | Suzanne Lenglen in play, 1920 (`File:Suzanne_Lenglen_playing_1920_(cropped).jpg`) | Checked: public domain in France, the EU and the US (Agence Meurisse, via Gallica/BnF). Not added: the essay does not mention Lenglen, so the photo would be decoration. Add it together with a sentence that gives it a job. |
 | 2 | Exchequer tally sticks, Science Museum Group (co60506) | **Link only.** The museum’s licence is CC BY-NC-SA 4.0 (non-commercial), which the rules exclude. The British Museum Exchequer tally on Commons (`Britmustallystickcern.jpg`, CC BY-SA 3.0) is only 250 × 968 px, too small to use. |
-| 3 | Early sport films (1890s), Edison collection | Not added to chapter 3: an 1890s film has no link to ancient scoreboards. Better fit: chapter 8. The Leonard–Cushing fight (1894), filmed for Edison’s Kinetoscope in a small ring with rounds of about a minute and sold by the round, is an early case of a sport reshaped for a camera. A public-domain fragment is at the [Library of Congress](https://www.loc.gov/item/00694127) and on Commons. Needs new text and sources before it goes in. |
+| 3 | Early sport films (1890s), Edison collection | Not added to chapter 3: an 1890s film has no link to ancient scoreboards. Better fit: chapter 11. The Leonard–Cushing fight (1894), filmed for Edison’s Kinetoscope in a small ring with rounds of about a minute and sold by the round, is an early case of a sport reshaped for a camera. A public-domain fragment is at the [Library of Congress](https://www.loc.gov/item/00694127) and on Commons. Needs new text and sources before it goes in. |
 | 4 | 1744 scorecard, West Sussex Record Office | Link only (no reusable copy found). |
-| 9 | Syracuse shot-clock historical marker, HMdb page 145115 | HMdb photos belong to their contributors, and the site blocks automated access. Replaced by the free photo of the shot clock monument (9.2). |
-| 13 | Early TV score graphics | Not reusable; describe and link. |
+| 9 | Early TV score graphics | Not reusable; describe and link. |
+| 12 | Syracuse shot-clock historical marker, HMdb page 145115 | HMdb photos belong to their contributors, and the site blocks automated access. Replaced by the free photo of the shot clock monument (12.2). |
 
 ## How to add an image
 

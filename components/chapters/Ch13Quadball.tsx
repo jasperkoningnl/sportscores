@@ -1,11 +1,11 @@
 import { Certainty, Chapter, Cite, Exhibit, Prose, PullLine } from "@/components/ui";
 import Quadball from "@/components/interactives/Quadball";
 
-export default function Ch12Quadball() {
+export default function Ch13Quadball() {
   return (
     <Chapter
-      id="ch-12"
-      number={12}
+      id="ch-13"
+      number={13}
       title="When the scoreboard changes the rules"
       dek="For most of history the game told the scoreboard what to show. Occasionally the scoreboard answers back."
     >
@@ -28,7 +28,7 @@ export default function Ch12Quadball() {
       </Prose>
 
       <Exhibit
-        label="12.1"
+        label="13.1"
         title="Same game, one digit fewer"
         status="Illustrative scores"
         surface="board"

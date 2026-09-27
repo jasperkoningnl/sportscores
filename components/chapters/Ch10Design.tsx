@@ -3,11 +3,11 @@ import RugbyChart from "@/components/interactives/RugbyChart";
 import LeagueTable from "@/components/interactives/LeagueTable";
 import { BasketballCourt, GaelicArc } from "@/components/interactives/Courts";
 
-export default function Ch07Design() {
+export default function Ch10Design() {
   return (
     <Chapter
-      id="ch-07"
-      number={7}
+      id="ch-10"
+      number={10}
       title="The score starts designing the game"
       dek="Change what a score is worth and players change what they do."
       tone="deep"
@@ -30,7 +30,7 @@ export default function Ch07Design() {
       </Prose>
 
       <Exhibit
-        label="7.1"
+        label="10.1"
         title="What each score was worth in rugby union, 1890–today"
         kind="Chart"
         surface="paper"
@@ -60,7 +60,7 @@ export default function Ch07Design() {
       </Prose>
 
       <Exhibit
-        label="7.2"
+        label="10.2"
         title="Half court, NBA dimensions"
         surface="paper"
         instructions="Click to take a shot, or focus the court and use the arrow keys and Enter. Every shot here goes in; only its value changes."
@@ -91,7 +91,7 @@ export default function Ch07Design() {
       </Prose>
 
       <Exhibit
-        label="7.3"
+        label="10.3"
         title="One season, two points systems"
         status="Invented teams"
         surface="paper"
@@ -116,7 +116,7 @@ export default function Ch07Design() {
       </Prose>
 
       <Exhibit
-        label="7.4"
+        label="10.4"
         title="The two-point arc: one end of a Gaelic football pitch"
         status="Schematic"
         surface="paper"

@@ -92,7 +92,7 @@ const ITEMS: GalleryItem[] = [
           to kick. Only goals decided matches.
           <Cite id={["wrm-points", "rugby365-scoring"]} />
         </p>
-        <p>How the try went from worthless to the most valuable score is the story of chapter 7.</p>
+        <p>How the try went from worthless to the most valuable score is the story of chapter 10.</p>
       </>
     ),
   },
@@ -124,7 +124,7 @@ const ITEMS: GalleryItem[] = [
           to three in 1896.
           <Cite id="wiki-gaelic-scoring" />
         </p>
-        <p>The newest addition, a two-point score from distance, comes back in chapter 7.</p>
+        <p>The newest addition, a two-point score from distance, comes back in chapter 10.</p>
       </>
     ),
   },

@@ -1,11 +1,11 @@
 import { Chapter, Cite, Exhibit, Prose, PullLine } from "@/components/ui";
 import { DecathlonFormula, NordicCombined, Samalog } from "@/components/interactives/Translators";
 
-export default function Ch10Translate() {
+export default function Ch06Translate() {
   return (
     <Chapter
-      id="ch-10"
-      number={10}
+      id="ch-06"
+      number={6}
       title="Scores that translate the incomparable"
       dek="How do you add a sprint to a marathon? Invent an exchange rate."
     >
@@ -29,7 +29,7 @@ export default function Ch10Translate() {
       </Prose>
 
       <Exhibit
-        label="10.1"
+        label="6.1"
         title="Samalog calculator"
         surface="paper"
         instructions="Type your own times. Equal pace gives equal points."
@@ -48,7 +48,7 @@ export default function Ch10Translate() {
       </Prose>
 
       <Exhibit
-        label="10.2"
+        label="6.2"
         title="Decathlon points for the 100 metres"
         surface="paper"
         instructions="Enter a 100 m time. Open the formula to see the arithmetic."
@@ -71,7 +71,7 @@ export default function Ch10Translate() {
       </Prose>
 
       <Exhibit
-        label="10.3"
+        label="6.3"
         title="From jump points to start gaps"
         status="Invented athletes"
         surface="paper"

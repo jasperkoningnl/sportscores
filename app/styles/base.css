@@ -151,7 +151,7 @@ p {
   backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--rule);
   font-family: var(--font-recorded);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -306,6 +306,104 @@ p {
   color: var(--red);
 }
 
+.contents__time {
+  font-size: 13px;
+  color: var(--ink-3);
+  margin: 4px 0 8px;
+}
+
+.contents__part-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 18px 0 0;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule-strong);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.contents__part-time {
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+/* ---------- "Continue where you left off" ---------- */
+
+.resume {
+  position: fixed;
+  z-index: 60;
+  left: 50%;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  width: min(34rem, calc(100vw - 2 * var(--gutter)));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 12px 12px 18px;
+  background: var(--paper-2);
+  color: var(--ink);
+  border: 1px solid var(--rule-strong);
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.45);
+}
+
+.resume__text {
+  flex: 1;
+  display: grid;
+  gap: 2px;
+  margin: 0;
+}
+
+.resume__kicker {
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.resume__go {
+  font-size: 1.05rem;
+  line-height: 1.3;
+  color: var(--ink);
+  text-decoration-color: var(--red);
+  text-underline-offset: 3px;
+}
+
+.resume__close {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  background: none;
+  border: 1px solid var(--rule-strong);
+  color: var(--ink-2);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.resume__close:hover {
+  color: var(--red);
+  border-color: var(--red);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .resume {
+    animation: resume-in 0.4s var(--ease-out) both;
+  }
+}
+
+@keyframes resume-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 12px);
+  }
+}
+
 /* ---------- Buttons & controls ---------- */
 
 .btn {
@@ -357,7 +455,7 @@ p {
 .btn--small {
   min-height: 32px;
   padding: 4px 10px;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .btn--red {
@@ -412,7 +510,7 @@ p {
 
 .field label {
   font-family: var(--font-recorded);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: inherit;
@@ -452,7 +550,7 @@ p {
 
 .cite {
   font-family: var(--font-recorded);
-  font-size: 0.6em;
+  font-size: max(11px, 0.6em);
   line-height: 0;
   margin-left: 1px;
   letter-spacing: 0;
@@ -475,7 +573,7 @@ p {
   gap: 5px;
   font-family: var(--font-recorded);
   font-style: normal;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -599,11 +697,27 @@ p {
 }
 
 .chapter-card__kicker {
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--board-ink-2);
   margin-top: 6px;
+  text-align: center;
+}
+
+.chapter-card__part.is-opening {
+  color: var(--amber);
+}
+
+@media (max-width: 559px) {
+  /* Part and chapter on two lines rather than one long wrapped line. */
+  .chapter-card__part {
+    display: block;
+  }
+
+  .chapter-card__sep {
+    display: none;
+  }
 }
 
 .chapter-card__title {
@@ -644,7 +758,7 @@ p {
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--board-ink-2);
@@ -653,6 +767,33 @@ p {
 
 .chapter-card__go:hover {
   color: var(--amber);
+}
+
+/* "Copy link" to this chapter, tucked into the card's top corner. */
+.chapter-card__share {
+  position: absolute;
+  top: 12px;
+  right: var(--gutter);
+  z-index: 1;
+  min-height: 32px;
+  padding: 6px 10px;
+  background: none;
+  border: 1px solid rgba(238, 237, 227, 0.28);
+  color: var(--board-ink-2);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.chapter-card__share:hover {
+  color: var(--amber);
+  border-color: var(--amber);
+}
+
+.chapter-card__share:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
 }
 
 .chapter-card__go span {
@@ -844,7 +985,7 @@ p {
 .exhibit-label__meta {
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  font-size: 11px;
+  font-size: 13px;
   color: var(--ink-3);
 }
 

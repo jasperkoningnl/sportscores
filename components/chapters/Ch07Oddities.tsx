@@ -99,11 +99,11 @@ const CASES: { sport: string; title: string; show: ReactNode; text: ReactNode }[
   },
 ];
 
-export default function Ch11Oddities() {
+export default function Ch07Oddities() {
   return (
     <Chapter
-      id="ch-11"
-      number={11}
+      id="ch-07"
+      number={7}
       title="Strange but useful"
       dek="A small cabinet of curiosities. Each one solves a real problem."
     >
@@ -121,7 +121,7 @@ export default function Ch11Oddities() {
             </div>
             <div className="odd__text">
               <p className="odd__meta mono">
-                <span className="odd__no">11.{i + 1}</span> {c.sport}
+                <span className="odd__no">7.{i + 1}</span> {c.sport}
               </p>
               <h3 className="odd__title">{c.title}</h3>
               <p>{c.text}</p>

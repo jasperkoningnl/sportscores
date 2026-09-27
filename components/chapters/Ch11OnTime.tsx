@@ -41,12 +41,12 @@ const TIMELINE = [
   },
 ];
 
-export default function Ch08Television() {
+export default function Ch11OnTime() {
   return (
     <Chapter
-      id="ch-08"
-      number={8}
-      title="Television arrives"
+      id="ch-11"
+      number={11}
+      title="The score learns to stop"
       dek="A score has to decide a winner. Increasingly, it also has to end on time."
     >
       <Prose>
@@ -77,14 +77,18 @@ export default function Ch08Television() {
       </Prose>
 
       <Exhibit
-        label="8.1"
+        label="11.1"
         title="Isner v Mahut, Wimbledon 2010: the set that would not end"
         kind="Film"
         status="Video published by Wimbledon on YouTube"
         surface="plain"
       >
         <div className="film">
-          <VideoEmbed id="J9M-XwUhYH4" title="John Isner v Nicolas Mahut, Wimbledon 2010 first round, extended highlights" />
+          <VideoEmbed
+            id="J9M-XwUhYH4"
+            title="John Isner v Nicolas Mahut, Wimbledon 2010 first round, extended highlights"
+            by="Wimbledon"
+          />
           <div className="film__text">
             <p className="kicker">70–68</p>
             <p className="film__lead">One set, 138 games.</p>
@@ -97,7 +101,7 @@ export default function Ch08Television() {
         </div>
       </Exhibit>
 
-      <Exhibit label="8.2" title="Scoring reforms that tamed the clock" kind="Timeline" surface="plain">
+      <Exhibit label="11.2" title="Scoring reforms that tamed the clock" kind="Timeline" surface="plain">
         <ol className="timeline">
           {TIMELINE.map((t) => (
             <li key={t.year + t.sport} className="timeline__item">
@@ -126,7 +130,7 @@ export default function Ch08Television() {
       </Prose>
 
       <Exhibit
-        label="8.3"
+        label="11.3"
         title="How long is a set? Side-out versus rally scoring"
         kind="Simulation"
         surface="paper"

@@ -103,11 +103,11 @@ export function FlipBoard() {
 
 /* ================= Wrigley-style line score ================= */
 
-type Row = { name: string; runs: (number | null)[]; h: number; e: number };
+type Row = { name: string; short: string; runs: (number | null)[]; h: number; e: number };
 
 const START: Row[] = [
-  { name: "Visitors", runs: [0, 0, 2, 0, 1, null, null, null, null], h: 6, e: 1 },
-  { name: "Cubs", runs: [1, 0, 0, 3, null, null, null, null, null], h: 7, e: 0 },
+  { name: "Visitors", short: "Vis", runs: [0, 0, 2, 0, 1, null, null, null, null], h: 6, e: 1 },
+  { name: "Cubs", short: "Cubs", runs: [1, 0, 0, 3, null, null, null, null, null], h: 7, e: 0 },
 ];
 
 export function LineScore() {
@@ -164,7 +164,11 @@ export function LineScore() {
               return (
                 <tr key={row.name}>
                   <th scope="row" className="wrigley__team">
-                    {row.name}
+                    {/* Narrow screens show the short name so all nine innings and R H E fit. */}
+                    <span className="wrigley__long">{row.name}</span>
+                    <span className="wrigley__short" aria-hidden="true">
+                      {row.short}
+                    </span>
                   </th>
                   {row.runs.map((v, k) => (
                     <td key={k}>

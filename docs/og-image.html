@@ -1,0 +1,47 @@
+<!doctype html>
+<!--
+  Source of app/opengraph-image.png, the picture shown when the essay's link is
+  shared. Render it at 1200 × 630 and save a screenshot, e.g. with Playwright:
+    page.setViewportSize({ width: 1200, height: 630 }); page.screenshot({ path: "app/opengraph-image.png" })
+  The fonts are loaded from node_modules, so run `npm install` first.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Share image</title>
+<style>
+  @font-face { font-family: "Newsreader"; font-style: italic; src: url("../node_modules/@fontsource-variable/newsreader/files/newsreader-latin-opsz-italic.woff2") format("woff2"); }
+  @font-face { font-family: "Big Shoulders"; font-weight: 100 900; src: url("../node_modules/@fontsource-variable/big-shoulders-display/files/big-shoulders-display-latin-wght-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Plex Mono"; font-weight: 500; src: url("../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2") format("woff2"); }
+  html, body { margin: 0; }
+  body {
+    width: 1200px; height: 630px; box-sizing: border-box; overflow: hidden;
+    background: #1c3b2d; color: #eeede3;
+    background-image: linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+    background-size: 48px 48px;
+    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 56px;
+    padding: 72px 80px;
+    border: 14px solid #0f2419;
+  }
+  .kicker { font: 500 20px "Plex Mono", monospace; letter-spacing: 0.14em; text-transform: uppercase; color: #b9c7bd; margin: 0 0 22px; }
+  h1 { font: italic 400 92px/0.98 "Newsreader", Georgia, serif; letter-spacing: -0.015em; margin: 0; }
+  .spoken { font: italic 400 34px "Newsreader", Georgia, serif; color: #b9c7bd; margin: 30px 0 0; }
+  .board { background: #0f2419; padding: 22px 22px 18px; box-shadow: inset 0 0 0 3px #0a1a12; }
+  .plates { display: flex; align-items: center; gap: 10px; }
+  .plate { display: grid; place-items: center; width: 96px; height: 136px; background: #f3f1e7; color: #141414; font: 800 112px/1 "Big Shoulders", sans-serif; box-shadow: 0 3px 0 rgba(0,0,0,0.4); }
+  .dash { font: 800 72px/1 "Big Shoulders", sans-serif; color: #eeede3; padding: 0 6px; }
+  .label { font: 500 16px "Plex Mono", monospace; letter-spacing: 0.14em; text-transform: uppercase; color: #f2ad1f; text-align: center; margin: 14px 0 0; }
+</style>
+</head>
+<body>
+  <div>
+    <p class="kicker">An interactive history in five parts</p>
+    <h1>The Archaeology of Sports&nbsp;Scores</h1>
+    <p class="spoken">From a cut in a stick to expected goals.</p>
+  </div>
+  <div class="board">
+    <div class="plates"><span class="plate">3</span><span class="plate">0</span><span class="dash">–</span><span class="plate">0</span></div>
+    <p class="label">Thirty–love</p>
+  </div>
+</body>
+</html>

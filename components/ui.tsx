@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 import { SOURCES, sourceNumber } from "@/lib/sources";
+import { CHAPTERS, CHAPTER_COUNT, partOf } from "@/lib/chapters";
+import ShareLink from "@/components/ShareLink";
 
 /** Unobtrusive numbered citation(s) pointing into the bibliography. */
 export function Cite({ id }: { id: string | string[] }) {
@@ -58,6 +60,9 @@ export function Chapter({
   tone?: "paper" | "deep";
 }) {
   const plate = String(number).padStart(2, "0");
+  const part = partOf(id);
+  // The first chapter of each part announces the part more loudly.
+  const opensPart = part !== undefined && CHAPTERS.find((c) => c.part === part.id)?.id === id;
   return (
     <section id={id} className="chapter" aria-labelledby={`${id}-title`} data-chapter={id}>
       {/* A full-screen title card: the reader's scroll pauses here briefly (see StopAndGo). */}
@@ -72,12 +77,28 @@ export function Chapter({
             ))}
             <span className="chapter-plate__bolt" />
           </div>
-          <p className="chapter-card__kicker mono">Chapter {number} of 14</p>
+          <p className="chapter-card__kicker mono">
+            {part && (
+              <>
+                <span className={`chapter-card__part${opensPart ? " is-opening" : ""}`}>
+                  Part {part.n} · {part.title}
+                </span>
+                <span className="chapter-card__sep" aria-hidden="true">
+                  {" "}
+                  —{" "}
+                </span>
+              </>
+            )}
+            <span>
+              Chapter {number} of {CHAPTER_COUNT}
+            </span>
+          </p>
           <h2 id={`${id}-title`} className="chapter-card__title">
             {title}
           </h2>
           {dek && <p className="chapter-card__dek">{dek}</p>}
         </div>
+        <ShareLink id={id} label={`chapter ${number}, ${CHAPTERS.find((c) => c.id === id)?.title ?? ""}`} />
         <a className="chapter-card__go mono" href={`#${id}-body`}>
           Continue <span aria-hidden="true">↓</span>
         </a>

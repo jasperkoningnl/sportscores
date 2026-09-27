@@ -2,29 +2,38 @@
 
 An interactive visual essay about the history, oddity and evolution of scoring in sport.
 
-It opens with tennis (“Thirty–love.”) and follows one idea through fourteen chapters:
-**a score begins as memory, becomes language, becomes display, and eventually becomes a tool for redesigning the sport itself.**
+It opens with tennis (“Thirty–love.”) and follows one idea through five parts and fourteen chapters:
+**a score begins as memory, becomes language, becomes display, turns into a tool for redesigning the sport itself, and ends up being scored in its turn.**
 
 | | Chapter | Main interactive |
 |---|---|---|
 | P | Thirty–love | Scroll-driven opening with short animations (*l’œuf* → 0, 15-30-40, an endless deuce, the tie-break), then the 1980 Borg–McEnroe tie-break on film |
+| **I** | **Memory** | |
 | 1 | Before scores | Order, state, measure |
 | 2 | The cut in the stick | Carve a cricket notcher’s tally stick, then read it as a number |
 | 3 | Ancient scoreboards | Maya ballgame stone (schematic), the ulama *urra*, Roman lap counter with eggs and dolphins, the pentathlon puzzle |
 | 4 | When the match becomes data | Kent v All England, 1744: stick → scorecard → scorebook → database |
+| **II** | **Language** | |
 | 5 | Every sport invents its own language | Nine playable score displays: tennis, cricket, golf, darts, bowling, rugby, AFL, Gaelic football, baseball |
-| 6 | The scoreboard becomes an object | Flip board, Wrigley-style line score, half-time A/B/C board with programme key, curling board |
-| 7 | The score starts designing the game | Rugby points chart, basketball court (2/3/4 points), 2 vs 3 points for a win, Gaelic two-point arc |
-| 8 | Television arrives | Reform timeline; side-out vs rally scoring simulation |
-| 9 | The clock becomes part of the score | 24-second arithmetic; live basketball/korfball shot clock |
-| 10 | Scores that translate the incomparable | Speed-skating samalog calculator, decathlon formula, Nordic combined start gaps and race |
-| 11 | Strange but useful | NHL shootout goal, pickleball 0–0–2, cornhole, shuffleboard, sailing, roller derby, kabaddi |
-| 12 | When the scoreboard changes the rules | Quadball’s proposed 10 → 1 scoring |
-| 13 | The score moves onto television | From the stadium board to the score bug |
+| 6 | Scores that translate the incomparable | Speed-skating samalog calculator, decathlon formula, Nordic combined start gaps and race |
+| 7 | Strange but useful | NHL shootout goal, pickleball 0–0–2, cornhole, shuffleboard, sailing, roller derby, kabaddi |
+| **III** | **Display** | |
+| 8 | The scoreboard becomes an object | Flip board, Wrigley-style line score, half-time A/B/C board with programme key, curling board |
+| 9 | The score moves onto television | From the stadium board to the score bug |
+| **IV** | **Redesign** | |
+| 10 | The score starts designing the game | Rugby points chart, basketball court (2/3/4 points), 2 vs 3 points for a win, Gaelic two-point arc |
+| 11 | The score learns to stop | Reform timeline; side-out vs rally scoring simulation |
+| 12 | The clock becomes part of the score | 24-second arithmetic; live basketball/korfball shot clock |
+| 13 | When the scoreboard changes the rules | Quadball’s proposed 10 → 1 scoring |
+| **V** | **Scoring the score** | |
 | 14 | The score behind the score | xG replay simulation, Elo update |
 | C | Two cuts in a stick | Scroll-driven coda |
 
-Each chapter opens with a full-screen scoreboard title card. Scrolling down pauses there for about half a second before carrying on (“stop and go”); scrolling up and the contents links are never stopped.
+The parts are listed, with a reading time for each, in the contents dialog; each chapter card names its part.
+
+Each chapter opens with a full-screen scoreboard title card. Scrolling down pauses there for about half a second before carrying on (“stop and go”); scrolling up and the contents links are never stopped. Each card has a **Copy link** button that copies a link straight to that chapter (`…/#ch-05`).
+
+The contents dialog shows the reading time of each part, counted from the page itself at 238 words a minute (the average silent reading rate for non-fiction found by Brysbaert, 2019). A returning reader is offered a jump back to where they stopped; the position is kept only in that browser (`localStorage`).
 
 A numbered bibliography with every source sits at the bottom of the page.
 
@@ -53,13 +62,15 @@ The build output in `out/` is plain HTML, CSS and JavaScript, so any static host
 - **Netlify / Cloudflare Pages**: build command `npm run build`, publish directory `out`.
 - **GitHub Pages under a sub-path** (e.g. `/sportscores/`): add `basePath: "/sportscores"` to `next.config.ts` before building.
 
+Link previews (Open Graph and X cards) need the site’s full address. It defaults to the public production address, `https://sportscores-history.vercel.app`; on any other host, build with `NEXT_PUBLIC_SITE_URL` set to the real address (including a sub-path, if any). The share image is `app/opengraph-image.png`, rendered from `docs/og-image.html`.
+
 ## Tech
 
 - Next.js 16 (App Router, `output: "export"`), React 19, TypeScript
 - Hand-written CSS with design tokens (`app/styles/tokens.css`), light and dark themes, no CSS framework
 - Custom SVG for every visual; no chart or animation library
 - Fonts self-hosted through Fontsource: Newsreader (the “spoken” voice), Big Shoulders Display (numbers “shown” on boards), IBM Plex Mono (“recorded” data and labels), plus IM FELL English and Homemade Apple for the 1744 scorecard reconstruction
-- No backend. The only external requests are the embedded YouTube clips (loaded lazily from youtube-nocookie.com)
+- No backend. The only external requests are the YouTube clips, and only after the reader presses play: until then each clip is a card drawn by the page, then the player loads from youtube-nocookie.com
 
 ```
 app/
@@ -70,12 +81,18 @@ components/
   interactives/   the exhibits (tally stick, lap counter, boards, simulations…)
   ui.tsx          Chapter, Exhibit, Cite, Certainty stamps, PullLine
   Scrolly.tsx     sticky-stage scrollytelling used by the opening and the coda
-  TopBar.tsx      progress bar and contents dialog
+  TopBar.tsx      progress bar and contents dialog (parts, reading times)
   StopAndGo.tsx   the brief pause at each chapter title card
-  Media.tsx       embedded YouTube clips (with a link-card fallback)
+  ShareLink.tsx   “Copy link” on each chapter card
+  ResumeReading.tsx  “continue where you left off”
+  Media.tsx       archive photographs with credits
+  VideoEmbed.tsx  YouTube clips that load on click (with a link-card fallback)
 lib/
   sources.ts      the bibliography; citations are numbered from this list
-  chapters.ts     chapter list for the contents dialog
+  chapters.ts     parts and chapters, for the contents dialog and the title cards
+docs/
+  media-plan.md   photos and clips in use, and how each was checked
+  og-image.html   source of the share image
   hooks.ts        reduced motion, scroll steps, element width, seeded PRNG
 ```
 
@@ -106,6 +123,7 @@ Points worth knowing:
 ## Accessibility
 
 - All interactives work with a keyboard; the basketball court and Gaelic pitch take arrow keys and Enter.
+- Running text, labels and instructions are at least 13 px; on phones the line score and the curling board fit the screen without sideways scrolling.
 - State changes are announced through `aria-live` regions.
 - `prefers-reduced-motion` turns off decorative motion and shows end states instead.
 - Colour is never the only carrier of meaning in charts (direct labels, dash patterns, data tables).

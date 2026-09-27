@@ -47,7 +47,7 @@
 }
 
 .gallery__sport {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: nowrap;
@@ -144,7 +144,7 @@
 }
 
 .tboard__head {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--board-ink-2);
@@ -210,7 +210,7 @@
 }
 
 .cboard__overs .mono {
-  font-size: 12px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -265,7 +265,7 @@
 }
 
 .dboard__label {
-  font-size: 12px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--board-ink-2);
@@ -305,7 +305,7 @@
 }
 
 .bsheet__no {
-  font-size: 11px;
+  font-size: 13px;
   text-align: center;
   color: var(--ink-3);
   border-bottom: 1px solid var(--rule-strong);
@@ -513,7 +513,7 @@
 }
 
 .bbsimple .mono {
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -559,7 +559,7 @@
   text-align: left;
   font-family: var(--font-recorded);
   font-weight: 400;
-  font-size: 12px;
+  font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
@@ -581,7 +581,7 @@
 }
 
 .bbstate__item .mono {
-  font-size: 10px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--board-ink-2);
@@ -644,7 +644,7 @@
 }
 
 .flipboard__label {
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #cfcabb;
@@ -846,6 +846,64 @@
   gap: 8px;
 }
 
+.wrigley__short {
+  display: none;
+}
+
+/* On a phone the whole board fits: all nine innings and R H E stay in view. */
+@media (max-width: 719px) {
+  .wrigley__scroll {
+    padding: 8px;
+  }
+
+  .wrigley__board {
+    min-width: 300px;
+    border-spacing: 2px;
+  }
+
+  .wrigley__board thead th {
+    font-size: 1rem;
+  }
+
+  .wrigley__team {
+    font-size: 1rem;
+    padding-right: 4px;
+  }
+
+  .wrigley__long {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .wrigley__short {
+    display: inline;
+  }
+
+  .wrigley__board .is-sep {
+    padding-left: 4px;
+  }
+
+  .plate-slot {
+    min-width: 0;
+    height: 40px;
+  }
+
+  .plate {
+    width: calc(100% - 2px);
+    height: 34px;
+    font-size: 1.3rem;
+  }
+
+  .plate--total {
+    min-width: 0;
+    height: 40px;
+  }
+}
+
 /* ================= 6.3 Half-time board ================= */
 
 .halftime {
@@ -871,7 +929,7 @@
 }
 
 .halftime__title {
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #bfc2c0;
@@ -955,7 +1013,7 @@
 }
 
 .programme__price {
-  font-size: 12px;
+  font-size: 13px;
   color: #6a5a40;
 }
 
@@ -1019,7 +1077,7 @@
 }
 
 .curling__rowname {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #1c1c1c;
@@ -1076,6 +1134,42 @@
   padding: 4px 0;
 }
 
+/* On a phone all twelve points fit without sideways scrolling. */
+@media (max-width: 719px) {
+  .curling__board {
+    min-width: 300px;
+    gap: 3px;
+    padding: 6px;
+  }
+
+  .curling__row,
+  .curling__points {
+    grid-template-columns: 3.3rem repeat(12, minmax(0, 1fr));
+    gap: 2px;
+  }
+
+  .curling__rowname {
+    letter-spacing: 0.02em;
+  }
+
+  .curling__slot {
+    height: 38px;
+  }
+
+  .curling__card {
+    width: calc(100% - 2px);
+    max-width: 30px;
+    height: 32px;
+    font-size: 1.15rem;
+    border-top-width: 3px;
+  }
+
+  .curling__pt {
+    font-size: 1.05rem;
+    padding: 3px 0;
+  }
+}
+
 .curling__controls {
   display: flex;
   flex-wrap: wrap;
@@ -1093,7 +1187,7 @@
 }
 
 .seg legend {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-3);

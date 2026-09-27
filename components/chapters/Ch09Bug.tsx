@@ -1,11 +1,11 @@
 import { Chapter, Cite, Exhibit, Prose } from "@/components/ui";
 import ScoreBug from "@/components/interactives/ScoreBug";
 
-export default function Ch13Bug() {
+export default function Ch09Bug() {
   return (
     <Chapter
-      id="ch-13"
-      number={13}
+      id="ch-09"
+      number={9}
       title="The score moves onto television"
       dek="For decades, a viewer who tuned in late had to wait to find out the score."
     >
@@ -29,7 +29,7 @@ export default function Ch13Bug() {
       </Prose>
 
       <Exhibit
-        label="13.1"
+        label="9.1"
         title="From the stadium board to the score bug"
         status="Schematic broadcast frames"
         surface="plain"
@@ -43,7 +43,7 @@ export default function Ch13Bug() {
           Baseball shows how far the compression has gone. The modern graphic fits the inning, the score, the count of
           balls and strikes, the number of outs and the occupied bases, often with a pitch count too, into a strip smaller
           than a postage stamp on a phone.
-          <Cite id="wiki-scorebug" /> It is the old line score from chapter 6, redrawn for a glance instead of a stare.
+          <Cite id="wiki-scorebug" /> It is the old line score from chapter 8, redrawn for a glance instead of a stare.
         </p>
       </Prose>
     </Chapter>
