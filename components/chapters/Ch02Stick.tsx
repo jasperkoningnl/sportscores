@@ -1,5 +1,7 @@
 import { Chapter, Cite, Exhibit, Kbd, Prose, PullLine } from "@/components/ui";
+import { Photo } from "@/components/Media";
 import TallyStick from "@/components/interactives/TallyStick";
+import tallySticks from "@/media/winchester-medieval-tally-sticks.jpg";
 
 const CHAIN = [
   { word: "skor", lang: "Old Norse", gloss: "a notch, a cut, an incision" },
@@ -32,7 +34,33 @@ export default function Ch02Stick() {
         </p>
       </Prose>
 
-      <Exhibit label="2.1" title="From a cut to a game: the drift of one word" kind="Word history" surface="plain">
+      <Exhibit
+        label="2.1"
+        title="Medieval tally sticks, Winchester City Council Museums"
+        kind="Photograph"
+        surface="plain"
+        width="text"
+        instructions={
+          <>
+            Look for the notches cut into the edges and the ink writing along the face.
+            <Cite id="commons-winchester-tally" />
+          </>
+        }
+      >
+        <Photo
+          image={tallySticks}
+          alt="Two long, narrow pieces of pale wood on a white background. The upper one has a square hole at one end, a line of ink handwriting along its face and small notches in its top edge; the lower one is split and cracked along its length and also notched."
+          credit={{
+            author: "Photo: Winchester City Council Museums",
+            source: "Wikimedia Commons",
+            sourceUrl: "https://commons.wikimedia.org/wiki/File:Medieval_tally_sticks.jpg",
+            licence: "CC BY-SA 2.0",
+            licenceUrl: "https://creativecommons.org/licenses/by-sa/2.0/",
+          }}
+        />
+      </Exhibit>
+
+      <Exhibit label="2.2" title="From a cut to a game: the drift of one word" kind="Word history" surface="plain">
         <ol className="chain">
           {CHAIN.map((c, i) => (
             <li key={i} className="chain__item">
@@ -66,7 +94,7 @@ export default function Ch02Stick() {
       <PullLine>Score once meant a cut. In early cricket, a score could literally be a cut.</PullLine>
 
       <Exhibit
-        label="2.2"
+        label="2.3"
         title="The notcher’s stick"
         status="Reconstruction"
         surface="paper"

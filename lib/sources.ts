@@ -111,6 +111,13 @@ export const SOURCES: Source[] = [
     url: "https://collection.sciencemuseumgroup.org.uk/objects/co60506/medieval-exchequer-tally-sticks",
   },
   {
+    id: "commons-winchester-tally",
+    chapter: "2 · The cut in the stick",
+    title: "Medieval tally sticks (photograph by Winchester City Council Museums, CC BY-SA 2.0)",
+    publisher: "Wikimedia Commons",
+    url: "https://commons.wikimedia.org/wiki/File:Medieval_tally_sticks.jpg",
+  },
+  {
     id: "earlycricket-officials",
     chapter: "2 · The cut in the stick",
     title: "Officials",
@@ -203,9 +210,17 @@ export const SOURCES: Source[] = [
   {
     id: "lugdunum-mosaic",
     chapter: "3 · Ancient scoreboards",
-    title: "The circus games mosaic",
+    title: "La mosaïque des jeux du cirque (collection record, in French)",
     publisher: "Lugdunum – Musée et théâtres romains, Lyon",
-    url: "https://lugdunum.grandlyon.com/en/Highlighted-work/14016-The-circus-games-mosaic",
+    url: "https://lugdunum.grandlyon.com/Oeuvre/14016-Mosaique-des-Jeux-du-cirque",
+    note: "2nd century, found in Lyon in 1806; the rows of dolphins and wooden balls on the spina “servent à compter les tours” (serve to count the laps).",
+  },
+  {
+    id: "commons-lyon-mosaic",
+    chapter: "3 · Ancient scoreboards",
+    title: "Lyon 5e – Musée Lugdunum – Mosaïque du cirque – Détail 01 (photograph by Romainbehar, 2022, CC0)",
+    publisher: "Wikimedia Commons",
+    url: "https://commons.wikimedia.org/wiki/File:Lyon_5e_-_Mus%C3%A9e_Lugdunum_-_Mosa%C3%AFque_du_cirque_-_D%C3%A9tail_01.jpg",
   },
   {
     id: "openlearn-pentathlon",
@@ -279,6 +294,21 @@ export const SOURCES: Source[] = [
 
   // Chapter 6: the scoreboard becomes an object
   {
+    id: "loc-davis-1914",
+    chapter: "6 · The scoreboard becomes an object",
+    title: "Changing Courts, 8/14/14 (Tennis), glass negative, Bain News Service, LC-DIG-ggbain-16897",
+    publisher: "Library of Congress, Prints & Photographs Division",
+    url: "https://www.loc.gov/item/2014697051/",
+    note: "No known restrictions on publication.",
+  },
+  {
+    id: "wiki-davis-1914",
+    chapter: "6 · The scoreboard becomes an object",
+    title: "1914 International Lawn Tennis Challenge (Challenge Round results)",
+    publisher: "Wikipedia",
+    url: "https://en.wikipedia.org/wiki/1914_International_Lawn_Tennis_Challenge",
+  },
+  {
     id: "mlb-wrigley",
     chapter: "6 · The scoreboard becomes an object",
     title: "Wrigley Field Scoreboard History",
@@ -291,6 +321,13 @@ export const SOURCES: Source[] = [
     title: "The Design of the Wrigley Scoreboard: Revolutionary, Retro or Both?",
     publisher: "WBEZ Chicago, 2015",
     url: "https://www.wbez.org/curious-city/2015/09/11/the-design-of-the-wrigley-scoreboard-revolutionary-retro-or-both",
+  },
+  {
+    id: "commons-wrigley-2012",
+    chapter: "6 · The scoreboard becomes an object",
+    title: "201200801 Wrigley Field scoreboard (photograph by TonyTheTiger, 1 August 2012, CC BY-SA 3.0)",
+    publisher: "Wikimedia Commons",
+    url: "https://commons.wikimedia.org/wiki/File:201200801_Wrigley_Field_scoreboard.JPG",
   },
   {
     id: "yt-wrigley",
@@ -472,6 +509,21 @@ export const SOURCES: Source[] = [
     title: "From Slow Time to Show Time",
     publisher: "The Sports Museum, Boston",
     url: "https://www.sportsmuseum.org/curators-corner/from-slow-time-to-show-time/",
+  },
+  {
+    id: "cny-shotclock-2026",
+    chapter: "9 · The clock becomes part of the score",
+    title: "Syracuse’s famous 24-second shot clock goes back up in new downtown location",
+    publisher: "This Is CNY (Syracuse.com), 13 April 2026",
+    url: "https://www.thisiscny.com/living/2026/04/syracuses-famous-24-second-shot-clock-goes-back-up-in-new-downtown-location.html",
+    note: "Unveiled 26 March 2005; stood for over 20 years outside 290 W. Jefferson St.; moved to the entrance of the MOST.",
+  },
+  {
+    id: "commons-shotclock-2013",
+    chapter: "9 · The clock becomes part of the score",
+    title: "Shot Clock Monument in Armory Square in Syracuse, New York (2013) (photograph by Kai Brinker, CC BY-SA 2.0)",
+    publisher: "Wikimedia Commons",
+    url: "https://commons.wikimedia.org/wiki/File:Shot_Clock_Monument_in_Armory_Square_in_Syracuse,_New_York_(2013).jpg",
   },
   {
     id: "ikf-rules",

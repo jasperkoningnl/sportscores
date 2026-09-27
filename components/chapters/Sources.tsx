@@ -27,11 +27,16 @@ export default function Sources() {
             <em>historians disagree</em>, <em>good story</em>, <em>proposal</em> or <em>unknown</em>.
           </p>
           <p>
-            No archival photographs are reproduced. Every drawing of a historical object, the Maya stone, the Roman lap
-            counter, the 1744 scorecard, the Wrigley board, is an original reconstruction, labelled as such, and
-            deliberately leaves out details such as inscriptions that cannot be verified. Follow the source links to see the
-            real objects. Matches, teams and athletes in the interactive examples are invented unless the label says
-            otherwise; the simulations are simple models, not match data.
+            Photographs are reproduced only when they are in the public domain or under a free licence (CC0, CC BY or
+            CC BY-SA). The photographer, the licence and any cropping are credited under each picture, and the file page is
+            listed below. Film clips are embedded from the rights holders’ own uploads, never re-cut.
+          </p>
+          <p>
+            Every drawing of a historical object, the Maya stone, the Roman lap counter, the 1744 scorecard, the Wrigley
+            board, is an original reconstruction, labelled as such, and deliberately leaves out details such as
+            inscriptions that cannot be verified. Follow the source links to see the real objects. Matches, teams and
+            athletes in the interactive examples are invented unless the label says otherwise; the simulations are simple
+            models, not match data.
           </p>
           <p>
             Typefaces: Newsreader, Big Shoulders Display, IBM Plex Mono, IM FELL English and Homemade Apple, all released
