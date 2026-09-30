@@ -61,7 +61,7 @@ if (mode === 'stills') {
   fs.writeFileSync(wav, synth(cues, total));
   const out = path.join(OUT, `why-24-${lang}.mp4`);
   const ff = spawn(FFMPEG, ['-y', '-f', 'image2pipe', '-framerate', String(fps), '-c:v', 'png', '-i', '-', '-i', wav,
-    '-c:v', 'libx264', '-preset', 'slow', '-crf', '18', '-pix_fmt', 'yuv420p', '-profile:v', 'high',
+    '-c:v', 'libx264', '-preset', 'slow', '-crf', '21', '-pix_fmt', 'yuv420p', '-profile:v', 'high',
     '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', out], { stdio: ['pipe', 'inherit', 'inherit'] });
   const n = Math.round(total * fps);
   for (let f = 0; f < n; f++) {
