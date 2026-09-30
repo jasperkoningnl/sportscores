@@ -1,0 +1,638 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Why 24</title>
+<style>
+@font-face { font-family: "Shown"; src: url("/node_modules/@fontsource-variable/big-shoulders-display/files/big-shoulders-display-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; }
+@font-face { font-family: "Spoken"; font-style: italic; src: url("/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-standard-italic.woff2") format("woff2"); font-weight: 200 800; }
+@font-face { font-family: "Recorded"; src: url("/node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+html, body { margin: 0; background: #000; }
+canvas { display: block; width: 540px; height: 960px; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+// "Why 24?" — a motion graphic of chapter 12 of The Archaeology of Sports Scores.
+// Everything is a pure function of time: render(t, lang) draws frame t (seconds).
+const W = 1080, H = 1920;
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+
+const C = {
+  bg0: '#0a1a12', bg1: '#1c3b2d', ink: '#eeede3', ink2: '#b9c7bd', ink3: '#7f958a',
+  amber: '#f2ad1f', red: '#ff4b2b', plate: '#f3f1e7', plateInk: '#141414', panel: '#0c1d15', ball: '#d9772b',
+};
+const F = {
+  shown: (w, s) => `${w} ${s}px Shown`,
+  spoken: (w, s) => `italic ${w} ${s}px Spoken`,
+  mono: (s) => `500 ${s}px Recorded`,
+};
+
+// ---------- copy ----------
+const TXT = {
+  en: {
+    s1k: '22 NOVEMBER 1950 · MINNEAPOLIS', s1h: ['The lowest score', 'in NBA history.'], s1s: 'THE RECORD STILL STANDS',
+    s2t: 'BALL HELD', s2: ['Fort Wayne simply held the ball.', 'Sometimes for minutes at a time,', 'keeping it from the Lakers’ giant, George Mikan.', 'Nothing in the rules stopped them.'],
+    s3k: 'SYRACUSE, NEW YORK', s3: ['Danny Biasone, owner of the Syracuse Nationals,', 'wanted a time limit on every possession.'], s3q: 'But how many seconds?',
+    s4: { min: 'minutes in a game', sec: 'seconds a minute', tot: 'seconds', shots: 'shots in a good game, by Biasone’s reckoning', per: 'seconds per shot',
+      colA: 'each column = 1 minute', colB: 'each dot = 1 second', colC: 'each block = 1 shot · 24 seconds', note: 'The sum as Biasone and his GM Leo Ferris told it.' },
+    s5: ['From 1954–55, in the NBA:', 'shoot within 24 seconds,', 'or lose the ball.'], s5v: 'TIME UP · BALL TO THE OTHER TEAM',
+    s6t: 'NBA · POINTS PER TEAM, PER GAME', s6c: 'The first season with the clock.', s6s: 'Source: Basketball-Reference.com', s6y: ['1953–54', '1954–55'],
+    s7k: '10 APRIL 1955 · NBA FINALS, GAME 7', s7: ['The same Pistons. Again, one point in it.', 'Nearly five times the points.'],
+    s8: ['One number records what you have done.', 'The other counts down the time you have left.'],
+    endK: 'THE ARCHAEOLOGY OF SPORTS SCORES · CHAPTER 12', endT: ['The clock became', 'part of the score.'],
+    src: 'Sources: Basketball-Reference.com · Le Moyne College Library · The Sports Museum, Boston',
+    teams: ['PISTONS', 'LAKERS', 'NATIONALS'], home: 'HOME', away: 'AWAY', clock: 'SHOT CLOCK',
+    num: (n, d = 0) => n.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d }),
+  },
+  nl: {
+    s1k: '22 NOVEMBER 1950 · MINNEAPOLIS', s1h: ['De laagste score', 'uit de NBA-geschiedenis.'], s1s: 'HET RECORD STAAT NOG ALTIJD',
+    s2t: 'BAL IN BEZIT', s2: ['Fort Wayne hield de bal gewoon vast.', 'Soms minutenlang,', 'weg bij Lakers-reus George Mikan.', 'Niets in de regels hield ze tegen.'],
+    s3k: 'SYRACUSE, NEW YORK', s3: ['Danny Biasone, eigenaar van de Syracuse Nationals,', 'wilde een tijdslimiet op elke aanval.'], s3q: 'Maar hoeveel seconden?',
+    s4: { min: 'minuten in een wedstrijd', sec: 'seconden per minuut', tot: 'seconden', shots: 'schoten in een goede wedstrijd, volgens Biasone', per: 'seconden per schot',
+      colA: 'elke kolom = 1 minuut', colB: 'elke stip = 1 seconde', colC: 'elk blok = 1 schot · 24 seconden', note: 'De som zoals Biasone en zijn manager Leo Ferris hem vertelden.' },
+    s5: ['Vanaf 1954–55 in de NBA:', 'schiet binnen 24 seconden,', 'anders ben je de bal kwijt.'], s5v: 'TIJD OM · BAL NAAR DE TEGENSTANDER',
+    s6t: 'NBA · PUNTEN PER TEAM, PER WEDSTRIJD', s6c: 'Het eerste seizoen met de klok.', s6s: 'Bron: Basketball-Reference.com', s6y: ['1953–54', '1954–55'],
+    s7k: '10 APRIL 1955 · NBA-FINALE, WEDSTRIJD 7', s7: ['Weer de Pistons. Weer één punt verschil.', 'Bijna vijf keer zoveel punten.'],
+    s8: ['Het ene getal telt wat je hebt gedaan.', 'Het andere telt af hoeveel tijd je nog hebt.'],
+    endK: 'THE ARCHAEOLOGY OF SPORTS SCORES · HOOFDSTUK 12', endT: ['De klok werd', 'deel van de score.'],
+    src: 'Bronnen: Basketball-Reference.com · Le Moyne College Library · The Sports Museum, Boston',
+    teams: ['PISTONS', 'LAKERS', 'NATIONALS'], home: 'THUIS', away: 'UIT', clock: 'SCHOTKLOK',
+    num: (n, d = 0) => n.toLocaleString('nl-NL', { minimumFractionDigits: d, maximumFractionDigits: d }),
+  },
+};
+
+// ---------- timeline ----------
+const S = [
+  ['s1', 0, 7.5], ['s2', 7.5, 16.5], ['s3', 16.5, 22], ['s4', 22, 41.5], ['s5', 41.5, 50],
+  ['s6', 50, 57.5], ['s7', 57.5, 66.5], ['s8', 66.5, 77],
+];
+const TOTAL = 77;
+const FADE = 0.45;
+
+// ---------- helpers ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, k) => a + (b - a) * k;
+const P = (t, a, b) => clamp((t - a) / (b - a));
+const eOut = (k) => 1 - Math.pow(1 - k, 3);
+const eIn = (k) => k * k * k;
+const eIO = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+const eExpo = (k) => (k >= 1 ? 1 : 1 - Math.pow(2, -10 * k));
+const eBack = (k) => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(k - 1, 3) + c1 * Math.pow(k - 1, 2); };
+function rng(seed) { return () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296); }
+
+function text(str, x, y, o = {}) {
+  ctx.save();
+  ctx.font = o.font || F.mono(30);
+  ctx.fillStyle = o.color || C.ink;
+  ctx.textAlign = o.align || 'center';
+  ctx.textBaseline = o.base || 'alphabetic';
+  ctx.letterSpacing = (o.ls || 0) + 'px';
+  ctx.globalAlpha *= o.alpha ?? 1;
+  if (o.glow) { ctx.shadowColor = o.glow; ctx.shadowBlur = o.blur || 30; }
+  ctx.fillText(str, x, y);
+  ctx.restore();
+}
+// words rise into place one after another
+function rise(str, x, y, t, o = {}) {
+  if (t <= 0) return;
+  ctx.save();
+  ctx.font = o.font; ctx.letterSpacing = (o.ls || 0) + 'px';
+  const words = str.split(' ');
+  const sp = ctx.measureText(' ').width;
+  const ws = words.map((w) => ctx.measureText(w).width);
+  const total = ws.reduce((a, b) => a + b, 0) + sp * (words.length - 1);
+  let cx = o.align === 'left' ? x : x - total / 2;
+  const stag = o.stagger ?? 0.06, dur = o.dur ?? 0.55;
+  words.forEach((w, i) => {
+    const k = eOut(P(t, i * stag, i * stag + dur));
+    text(w, cx, y + (1 - k) * (o.dy ?? 36), { ...o, align: 'left', alpha: (o.alpha ?? 1) * k });
+    cx += ws[i] + sp;
+  });
+  ctx.restore();
+}
+function type(str, x, y, t, cps, o) {
+  const n = Math.floor(clamp(t * cps, 0, str.length));
+  if (n <= 0) return;
+  text(str.slice(0, n), x, y, { ...o, align: 'left' });
+}
+function measure(str, font, ls = 0) { ctx.save(); ctx.font = font; ctx.letterSpacing = ls + 'px'; const w = ctx.measureText(str).width; ctx.restore(); return w; }
+function rrect(x, y, w, h, r) { ctx.beginPath(); ctx.roundRect(x, y, w, h, r); }
+
+// --- seven-segment digits (the shot clock and the possession timer) ---
+const SEG = { '0': 'abcdef', '1': 'bc', '2': 'abged', '3': 'abgcd', '4': 'fgbc', '5': 'afgcd', '6': 'afgedc', '7': 'abc', '8': 'abcdefg', '9': 'abcdfg', '-': 'g', ' ': '' };
+function seg7(ch, x, y, w, h, on, alpha = 1, offA = 0.08) {
+  const t = w * 0.2, g = t * 0.12, hh = h / 2;
+  const segs = {
+    a: [x + g, y, w - 2 * g, 'h'], d: [x + g, y + h, w - 2 * g, 'h'], g: [x + g, y + hh, w - 2 * g, 'h'],
+    f: [x, y + g, hh - 2 * g, 'v'], b: [x + w, y + g, hh - 2 * g, 'v'], e: [x, y + hh + g, hh - 2 * g, 'v'], c: [x + w, y + hh + g, hh - 2 * g, 'v'],
+  };
+  const lit = SEG[ch] ?? '';
+  for (const k of 'abcdefg') {
+    const [sx, sy, len, dir] = segs[k];
+    ctx.beginPath();
+    const s = t / 2;
+    if (dir === 'h') { ctx.moveTo(sx, sy); ctx.lineTo(sx + s, sy - s); ctx.lineTo(sx + len - s, sy - s); ctx.lineTo(sx + len, sy); ctx.lineTo(sx + len - s, sy + s); ctx.lineTo(sx + s, sy + s); }
+    else { ctx.moveTo(sx, sy); ctx.lineTo(sx + s, sy + s); ctx.lineTo(sx + s, sy + len - s); ctx.lineTo(sx, sy + len); ctx.lineTo(sx - s, sy + len - s); ctx.lineTo(sx - s, sy + s); }
+    ctx.closePath();
+    ctx.save();
+    if (lit.includes(k)) { ctx.globalAlpha *= alpha; ctx.fillStyle = on; ctx.shadowColor = on; ctx.shadowBlur = w * 0.35; }
+    else { ctx.globalAlpha *= offA; ctx.fillStyle = on; }
+    ctx.fill();
+    ctx.restore();
+  }
+}
+function seg7str(str, cx, y, w, h, gap, on, alpha = 1) {
+  const n = str.length;
+  let x = cx - (n * w + (n - 1) * gap) / 2;
+  for (const ch of str) { if (ch === ':') { ctx.save(); ctx.fillStyle = on; ctx.globalAlpha *= alpha; ctx.shadowColor = on; ctx.shadowBlur = 20; ctx.fillRect(x + w / 2 - w * 0.09, y + h * 0.28, w * 0.18, w * 0.18); ctx.fillRect(x + w / 2 - w * 0.09, y + h * 0.66, w * 0.18, w * 0.18); ctx.restore(); } else seg7(ch, x, y, w, h, on, alpha); x += w + gap; }
+}
+
+// --- scoreboard plates with rolling digits ---
+function plateDigit(glyphA, glyphB, off, x, y, w, h) {
+  ctx.save();
+  rrect(x, y, w, h, 6); ctx.fillStyle = C.plate; ctx.fill();
+  ctx.clip();
+  ctx.font = F.shown(800, h * 0.86); ctx.fillStyle = C.plateInk; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(glyphA, x + w / 2, y + h / 2 + h * 0.04 - off * h);
+  ctx.fillText(glyphB, x + w / 2, y + h / 2 + h * 0.04 + (1 - off) * h);
+  // hinge shading
+  const gr = ctx.createLinearGradient(0, y, 0, y + h);
+  gr.addColorStop(0, 'rgba(0,0,0,.18)'); gr.addColorStop(0.49, 'rgba(0,0,0,0)'); gr.addColorStop(0.5, 'rgba(0,0,0,.22)'); gr.addColorStop(0.52, 'rgba(0,0,0,0)'); gr.addColorStop(1, 'rgba(0,0,0,.15)');
+  ctx.fillStyle = gr; ctx.fillRect(x, y, w, h);
+  ctx.restore();
+}
+function odometer(v, x, y, w, h, gap) {
+  // two places; tens is blank until the score reaches 10
+  const ones = v % 10, o0 = Math.floor(ones), oOff = ones - o0;
+  const whole = Math.floor(v / 10), spill = Math.max(0, v - whole * 10 - 9);
+  const tf = whole + spill, t0 = Math.floor(tf), tOff = tf - t0;
+  const tg = (d) => (d % 10 === 0 && v < 10.0001 ? '' : String(d % 10));
+  plateDigit(tg(t0), tg(t0 + 1), tOff, x, y, w, h);
+  plateDigit(String(o0 % 10), String((o0 + 1) % 10), oOff, x + w + gap, y, w, h);
+}
+function board(rows, x, y, w, k) {
+  // rows: [{name, v}]
+  const rh = 190, pad = 44, h = rows.length * rh + pad * 2 - 20;
+  ctx.save();
+  ctx.globalAlpha *= k;
+  ctx.translate(0, (1 - k) * 40);
+  rrect(x, y, w, h, 14); ctx.fillStyle = C.panel; ctx.fill();
+  ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(242,173,31,.25)'; ctx.stroke();
+  rows.forEach((r, i) => {
+    const ry = y + pad + i * rh;
+    text(r.name, x + 60, ry + 118, { font: F.shown(700, 104), align: 'left', ls: 4, color: C.ink });
+    odometer(r.v, x + w - 60 - 2 * 116 - 14, ry, 116, 150, 14);
+  });
+  ctx.restore();
+  return h;
+}
+
+// ---------- background, grain ----------
+const grain = [0, 1, 2].map((s) => {
+  const g = document.createElement('canvas'); g.width = 540; g.height = 960;
+  const gc = g.getContext('2d'); const id = gc.createImageData(540, 960); const r = rng(7 + s * 99);
+  for (let i = 0; i < id.data.length; i += 4) { const v = r() * 255; id.data[i] = id.data[i + 1] = id.data[i + 2] = v; id.data[i + 3] = 255; }
+  gc.putImageData(id, 0, 0); return g;
+});
+function background(t, flash = 0) {
+  const g = ctx.createRadialGradient(W / 2, H * 0.42, 80, W / 2, H * 0.5, H * 0.75);
+  g.addColorStop(0, C.bg1); g.addColorStop(1, C.bg0);
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  // faint court lines drifting
+  ctx.save();
+  ctx.globalAlpha = 0.05; ctx.strokeStyle = C.ink; ctx.lineWidth = 3;
+  const cy = H * 0.5 + Math.sin(t * 0.2) * 30;
+  ctx.beginPath(); ctx.arc(W / 2, cy, 260, 0, Math.PI * 2); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(W, cy); ctx.stroke();
+  ctx.beginPath(); ctx.arc(W / 2, -140 + Math.sin(t * 0.15) * 20, 720, 0.1 * Math.PI, 0.9 * Math.PI); ctx.stroke();
+  ctx.restore();
+  if (flash > 0) { ctx.save(); ctx.globalAlpha = flash; ctx.fillStyle = C.red; ctx.fillRect(0, 0, W, H); ctx.restore(); }
+}
+function finish(t) {
+  ctx.save();
+  ctx.globalAlpha = 0.07; ctx.globalCompositeOperation = 'overlay';
+  ctx.drawImage(grain[Math.floor(t * 30) % 3], 0, 0, W, H);
+  ctx.restore();
+  const v = ctx.createRadialGradient(W / 2, H / 2, H * 0.3, W / 2, H / 2, H * 0.72);
+  v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,.55)');
+  ctx.fillStyle = v; ctx.fillRect(0, 0, W, H);
+}
+function chrome(t, L) {
+  const a = 1 - P(t, TOTAL - 9.5, TOTAL - 9);
+  text('THE ARCHAEOLOGY OF SPORTS SCORES', 60, 110, { font: F.mono(24), align: 'left', ls: 4, color: C.ink2, alpha: 0.8 * a });
+  text('12', W - 60, 112, { font: F.shown(800, 44), align: 'right', color: C.amber, alpha: a });
+  // progress: a thin amber line along the bottom
+  ctx.save(); ctx.globalAlpha = 0.9; ctx.fillStyle = 'rgba(238,237,227,.12)'; ctx.fillRect(60, H - 92, W - 120, 4);
+  ctx.fillStyle = C.amber; ctx.fillRect(60, H - 92, (W - 120) * clamp(t / TOTAL), 4); ctx.restore();
+  text('sportscores-history.vercel.app', W / 2, H - 42, { font: F.mono(24), ls: 2, color: C.ink3, alpha: 0.9 });
+}
+
+// ---------- scenes ----------
+// Each scene: fn(lt, L, dur) with ctx.globalAlpha already set for the fade.
+
+function s1(lt, L) {
+  type(L.s1k, 100, 520, lt - 0.2, 38, { font: F.mono(34), color: C.amber, ls: 3 });
+  const k = eOut(P(lt, 0.5, 1.2));
+  const roll = eIO(P(lt, 1.1, 3.1));
+  board([{ name: L.teams[0], v: 19 * roll }, { name: L.teams[1], v: 18 * roll }], 100, 580, 880, k);
+  // one point in it: amber tick beside the leader after the roll
+  const pk = eBack(P(lt, 3.1, 3.6));
+  if (pk > 0) text('+1', 1000, 700, { font: F.shown(800, 46), align: 'left', color: C.amber, alpha: clamp(pk), glow: 'rgba(242,173,31,.5)' });
+  rise(L.s1h[0], W / 2, 1210, lt - 3.7, { font: F.spoken(400, 96), color: C.ink });
+  rise(L.s1h[1], W / 2, 1320, lt - 4.1, { font: F.spoken(400, 96), color: C.ink });
+  text(L.s1s, W / 2, 1450, { font: F.mono(28), ls: 5, color: C.ink3, alpha: eOut(P(lt, 5.3, 6)) });
+}
+
+function s2(lt, L, dur) {
+  // possession timer runs fast: the ball just stays with Fort Wayne
+  const held = Math.min(179, lt * 21);
+  const m = Math.floor(held / 60), s = Math.floor(held % 60);
+  text(L.s2t, W / 2, 300, { font: F.mono(28), ls: 6, color: C.ink2, alpha: eOut(P(lt, 0.1, 0.6)) });
+  ctx.save(); ctx.globalAlpha *= eOut(P(lt, 0, 0.6));
+  rrect(W / 2 - 260, 330, 520, 210, 16); ctx.fillStyle = '#060d09'; ctx.fill();
+  seg7str(`${m}:${String(s).padStart(2, '0')}`, W / 2, 370, 86, 132, 34, C.amber);
+  ctx.restore();
+  // dribble
+  const per = 0.52, ph = (lt % per) / per;
+  const floorY = 1060, top = 700, r = 92;
+  const hgt = Math.pow(Math.abs(Math.cos(ph * Math.PI)), 1.4); // 1 at top, 0 at floor
+  const by = lerp(floorY - r, top, hgt);
+  const squash = 1 + 0.12 * Math.max(0, 0.18 - hgt) / 0.18;
+  const sh = lerp(1, 0.45, hgt);
+  ctx.save(); ctx.globalAlpha *= 0.45 * eOut(P(lt, 0, 0.5));
+  ctx.fillStyle = '#000'; ctx.beginPath(); ctx.ellipse(W / 2, floorY + 6, r * 1.1 * sh, 16 * sh, 0, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+  ctx.save(); ctx.globalAlpha *= eOut(P(lt, 0, 0.5));
+  ctx.strokeStyle = 'rgba(238,237,227,.18)'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(140, floorY + 6); ctx.lineTo(W - 140, floorY + 6); ctx.stroke();
+  ctx.translate(W / 2, by); ctx.scale(squash, 1 / squash);
+  const bg = ctx.createRadialGradient(-30, -34, 10, 0, 0, r);
+  bg.addColorStop(0, '#f09a4e'); bg.addColorStop(1, '#a9521a');
+  ctx.fillStyle = bg; ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill();
+  ctx.rotate(lt * 0.8);
+  ctx.strokeStyle = 'rgba(30,14,4,.8)'; ctx.lineWidth = 5;
+  ctx.beginPath(); ctx.moveTo(-r, 0); ctx.lineTo(r, 0); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0, -r); ctx.lineTo(0, r); ctx.stroke();
+  ctx.beginPath(); ctx.arc(-r * 1.25, 0, r * 0.95, -0.72, 0.72); ctx.stroke();
+  ctx.beginPath(); ctx.arc(r * 1.25, 0, r * 0.95, Math.PI - 0.72, Math.PI + 0.72); ctx.stroke();
+  ctx.restore();
+  // captions stack up; earlier lines dim
+  const starts = [0.5, 2.8, 4.4, 6.4];
+  starts.forEach((st, i) => {
+    const later = starts.slice(i + 1).find((x) => x <= lt);
+    const dim = later !== undefined ? 0.45 : 1;
+    const last = i === 3;
+    rise(L.s2[i], W / 2, 1250 + i * 92, lt - st, {
+      font: last ? F.spoken(500, 60) : F.spoken(400, i === 2 ? 46 : 60), color: last ? C.amber : C.ink, alpha: dim,
+    });
+  });
+}
+
+function s3(lt, L) {
+  const k = eOut(P(lt, 0, 0.9));
+  ctx.save(); ctx.globalAlpha *= k;
+  ctx.translate(W / 2, 640); ctx.scale(lerp(1.25, 1, k), lerp(1.25, 1, k));
+  text('1954', 0, 0, { font: F.shown(800, 380), color: C.amber, glow: 'rgba(242,173,31,.35)', blur: 60 });
+  ctx.restore();
+  text(L.s3k, W / 2, 740, { font: F.mono(32), ls: 8, color: C.ink2, alpha: eOut(P(lt, 0.6, 1.2)) });
+  rise(L.s3[0], W / 2, 900, lt - 1.2, { font: F.spoken(400, 46), color: C.ink });
+  rise(L.s3[1], W / 2, 964, lt - 1.6, { font: F.spoken(400, 46), color: C.ink });
+  // blinking dashes: the number nobody had yet
+  const bk = eOut(P(lt, 2.9, 3.4));
+  ctx.save(); ctx.globalAlpha *= bk;
+  rrect(W / 2 - 200, 1080, 400, 250, 18); ctx.fillStyle = '#060d09'; ctx.fill();
+  const blink = Math.floor(lt * 2.4) % 2 === 0 ? 1 : 0.15;
+  seg7str('--', W / 2, 1120, 110, 170, 40, C.red, blink);
+  ctx.restore();
+  rise(L.s3q, W / 2, 1470, lt - 3.3, { font: F.spoken(500, 72), color: C.ink });
+}
+
+// the sum: 2,880 dots regroup from 48 minutes of 60 into 120 shots of 24
+const GX = 110, GY = 700, GW = 860, GH = 860;
+const N = 2880;
+const posA = new Array(N), posB = new Array(N), ringPos = [];
+for (let i = 0; i < N; i++) {
+  const c = Math.floor(i / 60), r = i % 60;
+  posA[i] = [GX + (c + 0.5) * (GW / 48), GY + (r + 0.5) * (GH / 60)];
+  // 120 blocks of 24 (6 × 4), laid out 10 across and 12 down
+  const g = Math.floor(i / 24), j = i % 24, bx = g % 10, by = Math.floor(g / 10);
+  const cw = GW / 10, ch = GH / 12, px = 12.5, py = 12.5;
+  posB[i] = [GX + bx * cw + cw / 2 + ((j % 6) - 2.5) * px, GY + by * ch + ch / 2 + (Math.floor(j / 6) - 1.5) * py];
+}
+const PICK = 54; // the block (shot) that becomes the shot clock
+const RING_C = [W / 2, 1110], RING_R = 330;
+for (let j = 0; j < 24; j++) { const a = -Math.PI / 2 + (j / 24) * Math.PI * 2; ringPos.push([RING_C[0] + Math.cos(a) * RING_R, RING_C[1] + Math.sin(a) * RING_R]); }
+
+function sumLine(y, parts, alpha) {
+  // parts: [op, number, label]
+  const [op, n, lab] = parts;
+  ctx.save(); ctx.globalAlpha *= alpha;
+  text(op, 110, y - 8, { font: F.shown(700, 76), color: C.amber, align: 'center' });
+  text(n, 410, y, { font: F.shown(800, 108), color: C.ink, align: 'right' });
+  text(lab, 440, y - 10, { font: F.mono(26), color: C.ink2, align: 'left', ls: 1 });
+  ctx.restore();
+}
+
+function s4(lt, L) {
+  const T = L.s4;
+  // equation, top area: lines slide in, older ones shrink upward
+  const tot = 2880 * eIO(P(lt, 3.6, 7.2));
+  const lines = [
+    { at: 0.2, parts: ['', '48', T.min] },
+    { at: 3.1, parts: ['×', '60', T.sec] },
+    { at: 3.6, parts: ['=', L.num(Math.round(tot)), T.tot] },
+    { at: 8.4, parts: ['÷', '120', T.shots.length > 34 ? T.shots.slice(0, T.shots.lastIndexOf(',')) : T.shots] },
+  ];
+  // after 8.4 the first two lines scroll away so four fit
+  const shift = eIO(P(lt, 8.2, 8.9)) * 2;
+  const outK = 1 - eOut(P(lt, 13.2, 13.9));
+  lines.forEach((ln, i) => {
+    const k = eOut(P(lt, ln.at, ln.at + 0.5));
+    const slot = i - shift;
+    const a = k * clamp(1 + slot) * outK;
+    if (a <= 0) return;
+    sumLine(300 + slot * 118 + (1 - k) * 30, ln.parts, a);
+  });
+  if (lt > 8.4 && outK > 0) {
+    const tail = T.shots.includes(',') ? T.shots.slice(T.shots.lastIndexOf(',') + 2) : '';
+    if (tail) text(tail, 440, 300 + 1 * 118 + 26, { font: F.mono(22), color: C.ink3, align: 'left', alpha: eOut(P(lt, 8.9, 9.4)) * outK });
+    // rule under the sum
+  }
+  // grid caption, right under the grid
+  const cap = lt < 3.6 ? T.colA : lt < 8.9 ? T.colB : T.colC;
+  const capA = (lt < 3.6 ? eOut(P(lt, 0.8, 1.3)) * (1 - P(lt, 3.2, 3.5)) : lt < 8.9 ? eOut(P(lt, 3.7, 4.2)) * (1 - P(lt, 8.5, 8.8)) : eOut(P(lt, 9.8, 10.3)) * (1 - P(lt, 12.6, 13)));
+  text(cap, W / 2, GY + GH + 62, { font: F.mono(26), color: C.ink2, ls: 2, alpha: capA });
+
+  // bars for the 48 minutes
+  const barA = lt < 3.6 ? 1 : 1 - P(lt, 3.6, 5.2);
+  if (barA > 0) {
+    for (let c = 0; c < 48; c++) {
+      const k = eOut(P(lt, 0.3 + c * 0.022, 0.9 + c * 0.022));
+      const x = GX + c * (GW / 48) + 3, w = GW / 48 - 6;
+      const hgt = GH * k;
+      ctx.save(); ctx.globalAlpha *= barA * 0.9; ctx.fillStyle = C.ink2;
+      rrect(x, GY + GH - hgt, w, hgt, 4); ctx.fill(); ctx.restore();
+    }
+  }
+  // dots
+  const pickK = eOut(P(lt, 13.1, 13.8));       // highlight the chosen row
+  const toRing = P(lt, 14.0, 15.6);            // it flies into a ring
+  ctx.save();
+  for (let i = 0; i < N; i++) {
+    const c = Math.floor(i / 60), r = i % 60;
+    const appear = eOut(P(lt, 3.5 + r * 0.028 + c * 0.004, 3.9 + r * 0.028 + c * 0.004));
+    if (appear <= 0) continue;
+    const mv = eIO(P(lt, 9.0 + (i / N) * 1.6, 10.3 + (i / N) * 1.6));
+    let x = lerp(posA[i][0], posB[i][0], mv), y = lerp(posA[i][1], posB[i][1], mv);
+    let rad = lerp(4.6, 4.2, mv);
+    const row = Math.floor(i / 24);
+    let col = C.ink;
+    let a = appear;
+    if (row === PICK) {
+      col = pickK > 0.5 ? C.amber : col;
+      rad *= 1 + pickK * 0.6;
+      const j = i % 24, k = eIO(clamp((toRing - j * 0.012) / 0.72));
+      x = lerp(x, ringPos[j][0], k); y = lerp(y, ringPos[j][1], k); rad = lerp(rad, 15, k);
+    } else {
+      a *= 1 - 0.85 * pickK;
+      a *= 1 - P(lt, 14.2, 15.2);
+    }
+    if (a <= 0.003) continue;
+    ctx.globalAlpha = a;
+    ctx.fillStyle = col;
+    if (row === PICK && pickK > 0.5) { ctx.shadowColor = C.amber; ctx.shadowBlur = 18; } else ctx.shadowBlur = 0;
+    ctx.beginPath(); ctx.arc(x, y, rad, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.restore();
+  // block count: the 120 shots number off as they settle
+  const cntA = eOut(P(lt, 10.6, 11.2)) * (1 - pickK);
+  if (cntA > 0) {
+    const n = Math.round(120 * eIO(P(lt, 10.6, 12.2)));
+    text(String(n), GX + GW, GY - 26, { font: F.shown(800, 56), color: C.amber, align: 'right', alpha: cntA });
+  }
+  // the answer
+  const ansK = P(lt, 15.4, 16.1);
+  if (ansK > 0) {
+    const s = lerp(1.6, 1, eOut(ansK));
+    ctx.save(); ctx.globalAlpha *= eOut(ansK); ctx.translate(RING_C[0], RING_C[1]); ctx.scale(s, s);
+    seg7str('24', 0, -130, 150, 260, 50, C.red);
+    ctx.restore();
+    text('= 24 ' + T.per, W / 2, 560, { font: F.spoken(500, 64), color: C.ink, alpha: eOut(P(lt, 16.0, 16.6)) });
+    text(L.num(2880) + ' ÷ 120', W / 2, 440, { font: F.shown(700, 92), color: C.ink2, alpha: eOut(P(lt, 15.8, 16.4)) });
+    rise(T.note, W / 2, 1600, lt - 16.9, { font: F.mono(24), color: C.ink3, stagger: 0.03 });
+  }
+}
+
+function ring(left, pulse) {
+  // 24 lamps; lamps go dark as the seconds run out
+  for (let j = 0; j < 24; j++) {
+    const on = j < left;
+    ctx.save();
+    ctx.globalAlpha *= on ? 1 : 0.18;
+    ctx.fillStyle = on ? C.amber : C.ink3;
+    if (on) { ctx.shadowColor = C.amber; ctx.shadowBlur = 18 + pulse * 20; }
+    ctx.beginPath(); ctx.arc(ringPos[j][0], ringPos[j][1], 15, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+  }
+}
+const S5_RUN = [0.8, 6.8]; // 24 seconds shown in 6
+function s5state(lt) {
+  const k = P(lt, S5_RUN[0], S5_RUN[1]);
+  const secs = 24 * (1 - k);
+  return { secs, shown: Math.ceil(secs - 1e-6), over: lt >= S5_RUN[1] };
+}
+function s5(lt, L) {
+  const st = s5state(lt);
+  const pulse = 1 - ((lt * 4) % 1);
+  ring(st.shown, st.over ? 0 : pulse * 0.3);
+  ctx.save(); ctx.translate(RING_C[0], RING_C[1]);
+  const shown = String(st.shown).padStart(2, ' ');
+  const blink = st.over ? (Math.floor((lt - S5_RUN[1]) * 4) % 2 ? 0.25 : 1) : 1;
+  seg7str(st.over ? '00' : shown, 0, -130, 150, 260, 50, C.red, blink);
+  ctx.restore();
+  // text above
+  rise(L.s5[0], W / 2, 300, lt - 0.1, { font: F.mono(30), color: C.ink2, ls: 2 });
+  rise(L.s5[1], W / 2, 420, lt - 0.5, { font: F.spoken(500, 72), color: C.ink });
+  rise(L.s5[2], W / 2, 510, lt - 1.1, { font: F.spoken(500, 72), color: C.amber });
+  if (st.over) text(L.s5v, W / 2, 1580, { font: F.mono(30), ls: 3, color: C.red, alpha: eOut(P(lt, S5_RUN[1], S5_RUN[1] + 0.3)) });
+}
+
+function s6(lt, L) {
+  text(L.s6t, W / 2, 330, { font: F.mono(30), ls: 3, color: C.ink2, alpha: eOut(P(lt, 0.1, 0.6)) });
+  const base = 1400, maxH = 820, scale = maxH / 100; // zero-based axis, 0–100 points
+  const bars = [
+    { v: 79.5, x: 250, col: C.ink3, at: 0.5, year: L.s6y[0] },
+    { v: 93.1, x: 590, col: C.amber, at: 2.1, year: L.s6y[1] },
+  ];
+  const bw = 240;
+  // gridlines at 0, 50, 100
+  [0, 50, 100].forEach((g) => {
+    const y = base - g * scale;
+    ctx.save(); ctx.globalAlpha *= 0.25 * eOut(P(lt, 0.2, 0.7)); ctx.strokeStyle = C.ink; ctx.lineWidth = g === 0 ? 3 : 1.5;
+    ctx.setLineDash(g === 0 ? [] : [6, 8]); ctx.beginPath(); ctx.moveTo(150, y); ctx.lineTo(930, y); ctx.stroke(); ctx.restore();
+    text(String(g), 130, y + 9, { font: F.mono(24), color: C.ink3, align: 'right', alpha: eOut(P(lt, 0.2, 0.7)) });
+  });
+  bars.forEach((b) => {
+    const k = eOut(P(lt, b.at, b.at + 1.4));
+    const hgt = b.v * scale * k;
+    ctx.save(); ctx.fillStyle = b.col; ctx.beginPath(); ctx.roundRect(b.x, base - hgt, bw, hgt, [4, 4, 0, 0]); ctx.fill(); ctx.restore();
+    if (k > 0) {
+      text(L.num(b.v * k, 1), b.x + bw / 2, base - hgt - 28, { font: F.shown(800, 96), color: C.ink, alpha: clamp(k * 3) });
+      text(b.year, b.x + bw / 2, base + 60, { font: F.mono(30), color: C.ink2, ls: 2, alpha: clamp(k * 3) });
+    }
+  });
+  // the difference
+  const dk = eBack(P(lt, 3.9, 4.5));
+  if (dk > 0) {
+    const y1 = base - 79.5 * scale, y2 = base - 93.1 * scale;
+    ctx.save(); ctx.globalAlpha *= clamp(dk); ctx.strokeStyle = C.amber; ctx.lineWidth = 3; ctx.setLineDash([8, 8]);
+    ctx.beginPath(); ctx.moveTo(250 + bw, y1); ctx.lineTo(590 + bw + 30, y1); ctx.stroke(); ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(590 + bw + 30, y1); ctx.lineTo(590 + bw + 30, y2); ctx.stroke();
+    ctx.restore();
+    text('+' + L.num(13.6, 1), 590 + bw + 44, (y1 + y2) / 2 + 20, { font: F.shown(800, 64), color: C.amber, align: 'left', alpha: clamp(dk) });
+  }
+  rise(L.s6c, W / 2, 1610, lt - 4.4, { font: F.spoken(400, 60), color: C.ink });
+  text(L.s6s, W / 2, 1700, { font: F.mono(22), color: C.ink3, alpha: eOut(P(lt, 4.8, 5.3)) });
+}
+
+function s7(lt, L) {
+  type(L.s7k, 100, 420, lt - 0.2, 38, { font: F.mono(32), color: C.amber, ls: 2 });
+  const k = eOut(P(lt, 0.4, 1.1));
+  const roll = eIO(P(lt, 1.0, 3.2));
+  board([{ name: L.teams[2], v: 92 * roll }, { name: L.teams[0], v: 91 * roll }], 100, 480, 880, k);
+  // the 1950 board, small, for comparison
+  const gk = eOut(P(lt, 4.0, 4.6));
+  ctx.save(); ctx.globalAlpha *= gk;
+  rrect(260, 1010, 560, 110, 12); ctx.fillStyle = 'rgba(12,29,21,.8)'; ctx.fill();
+  ctx.strokeStyle = 'rgba(238,237,227,.15)'; ctx.lineWidth = 2; ctx.stroke();
+  text('1950', 300, 1080, { font: F.mono(28), color: C.ink3, align: 'left' });
+  text('PISTONS 19 – 18 LAKERS', 790, 1082, { font: F.shown(700, 48), color: C.ink2, align: 'right', ls: 1 });
+  ctx.restore();
+  rise(L.s7[0], W / 2, 1270, lt - 4.3, { font: F.spoken(400, 54), color: C.ink });
+  rise(L.s7[1], W / 2, 1370, lt - 5.6, { font: F.spoken(500, 64), color: C.amber });
+  const sk = eOut(P(lt, 6.3, 6.9));
+  text(`19 + 18 = 37     →     92 + 91 = 183`, W / 2, 1480, { font: F.mono(30), color: C.ink2, alpha: sk, ls: 1 });
+}
+
+function s8(lt, L, dur) {
+  // the modern scoreboard: two scores and, between them, the countdown
+  const out = 1 - eIO(P(lt, 4.9, 5.6));
+  const k = eOut(P(lt, 0.1, 0.8));
+  if (out > 0) {
+    ctx.save(); ctx.globalAlpha *= k * out;
+    rrect(70, 470, 940, 520, 18); ctx.fillStyle = C.panel; ctx.fill();
+    ctx.strokeStyle = 'rgba(242,173,31,.25)'; ctx.lineWidth = 3; ctx.stroke();
+    text(L.home, 215, 560, { font: F.mono(28), ls: 4, color: C.ink2 });
+    text(L.away, 865, 560, { font: F.mono(28), ls: 4, color: C.ink2 });
+    odometer(92, 95, 600, 110, 150, 12);
+    odometer(91, 755, 600, 110, 150, 12);
+    text(L.clock, W / 2, 560, { font: F.mono(24), ls: 3, color: C.red });
+    const secs = Math.max(0, 24 - Math.max(0, lt - 0.8) * 3);
+    const shown = String(Math.ceil(secs - 1e-6)).padStart(2, ' ');
+    rrect(W / 2 - 170, 590, 340, 250, 14); ctx.fillStyle = '#060d09'; ctx.fill();
+    seg7str(shown, W / 2, 630, 100, 170, 36, C.red);
+    // labels under each number
+    const la = eOut(P(lt, 0.8, 1.3)), lb = eOut(P(lt, 2.6, 3.1));
+    ctx.save(); ctx.globalAlpha *= la; ctx.strokeStyle = C.ink; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(95, 900); ctx.lineTo(327, 900); ctx.moveTo(755, 900); ctx.lineTo(987, 900); ctx.stroke(); ctx.restore();
+    ctx.save(); ctx.globalAlpha *= lb; ctx.strokeStyle = C.red; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(W / 2 - 170, 900); ctx.lineTo(W / 2 + 170, 900); ctx.stroke(); ctx.restore();
+    ctx.restore();
+    ctx.save(); ctx.globalAlpha *= out;
+    rise(L.s8[0], W / 2, 1180, lt - 0.9, { font: F.spoken(400, 56), color: C.ink });
+    rise(L.s8[1], W / 2, 1290, lt - 2.7, { font: F.spoken(500, 56), color: C.red });
+    ctx.restore();
+  }
+  // end card
+  const e = lt - 5.5;
+  if (e > 0) {
+    type(L.endK, (W - measure(L.endK, F.mono(26), 3)) / 2, 700, e, 60, { font: F.mono(26), color: C.amber, ls: 3 });
+    rise(L.endT[0], W / 2, 880, e - 0.4, { font: F.spoken(400, 104), color: C.ink });
+    rise(L.endT[1], W / 2, 1000, e - 0.8, { font: F.spoken(400, 104), color: C.ink });
+    ctx.save(); ctx.globalAlpha *= eOut(P(e, 1.4, 2));
+    rrect(W / 2 - 110, 1110, 220, 150, 14); ctx.fillStyle = '#060d09'; ctx.fill();
+    seg7str('24', W / 2, 1140, 64, 94, 24, C.red);
+    ctx.restore();
+    text('sportscores-history.vercel.app', W / 2, 1400, { font: F.mono(34), color: C.ink, ls: 2, alpha: eOut(P(e, 1.8, 2.4)) });
+    text(L.src, W / 2, 1520, { font: F.mono(19), color: C.ink3, alpha: eOut(P(e, 2.2, 2.8)) });
+  }
+}
+
+const FN = { s1, s2, s3, s4, s5, s6, s7, s8 };
+
+function render(t, lang = 'en') {
+  const L = TXT[lang];
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.globalAlpha = 1;
+  // red flash on the buzzer
+  const bz = S[4][1] + S5_RUN[1];
+  const flash = t >= bz ? 0.35 * Math.exp(-(t - bz) * 5) : 0;
+  background(t, flash);
+  for (const [id, a, b] of S) {
+    if (t < a - 0.001 || t > b) continue;
+    const lt = t - a;
+    const fin = a === 0 ? 1 : eOut(P(lt, 0, FADE));
+    const fout = b === TOTAL ? 1 - P(t, TOTAL - 0.8, TOTAL) : 1 - eIn(P(t, b - FADE, b));
+    ctx.save();
+    ctx.globalAlpha = fin * fout;
+    // a small push-in keeps every scene moving
+    const z = 1 + 0.018 * P(lt, 0, b - a);
+    ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.translate(-W / 2, -H / 2);
+    FN[id](lt, L, b - a);
+    ctx.restore();
+  }
+  chrome(t, L);
+  finish(t);
+}
+
+// sound cues, derived from the same timeline
+function cues(lang = 'en') {
+  const out = [];
+  const add = (t, type, v = 1) => out.push({ t, type, v });
+  const st = (id) => S.find((s) => s[0] === id)[1];
+  // s1: rolling digits click, then a hit
+  for (let i = 1; i <= 19; i++) { const k = i / 19; const inv = invIO(k); add(st('s1') + 1.1 + inv * 2.0, 'click', 0.6); }
+  add(st('s1') + 3.15, 'hit', 1);
+  add(st('s1') + 3.7, 'swell', 0.5);
+  // s2: dribble + possession ticks
+  for (let tt = 0; tt < 8.8; tt += 0.52) add(st('s2') + tt + 0.26, 'thump', 0.9);
+  for (let tt = 0.3; tt < 8.8; tt += 1 / 3) add(st('s2') + tt, 'tick', 0.35);
+  add(st('s2') + 6.4, 'hit', 0.6);
+  // s3
+  add(st('s3') + 0.05, 'boom', 0.9);
+  for (let tt = 2.9; tt < 5.3; tt += 1 / 1.2) add(st('s3') + tt, 'beep', 0.35);
+  // s4: the sum
+  add(st('s4') + 0.3, 'swell', 0.4);
+  for (let c = 0; c < 48; c += 4) add(st('s4') + 0.3 + c * 0.022, 'click', 0.35);
+  add(st('s4') + 3.1, 'hit', 0.5);
+  for (let r = 0; r < 60; r += 3) add(st('s4') + 3.5 + r * 0.028, 'tick', 0.25);
+  add(st('s4') + 8.4, 'hit', 0.5);
+  add(st('s4') + 9.0, 'whoosh', 0.8);
+  add(st('s4') + 13.1, 'riser', 0.8);
+  add(st('s4') + 15.45, 'boom', 1.2);
+  // s5: one beep per second shown, then the buzzer
+  for (let s = 23; s >= 1; s--) add(st('s5') + S5_RUN[0] + (24 - s) / 24 * (S5_RUN[1] - S5_RUN[0]), 'beep', s <= 5 ? 0.7 : 0.4);
+  add(st('s5') + S5_RUN[1], 'buzzer', 1);
+  // s6
+  add(st('s6') + 0.5, 'swell', 0.4); add(st('s6') + 2.1, 'swell', 0.6); add(st('s6') + 3.95, 'hit', 0.8);
+  // s7
+  for (let i = 1; i <= 92; i += 4) add(st('s7') + 1.0 + invIO(i / 92) * 2.2, 'click', 0.45);
+  add(st('s7') + 3.25, 'hit', 1); add(st('s7') + 5.6, 'swell', 0.5);
+  // s8
+  for (let s = 0; s < 5; s++) add(st('s8') + 0.8 + s / 3, 'beep', 0.25);
+  add(st('s8') + 5.5, 'boom', 0.9);
+  add(st('s8') + 7.0, 'beep', 0.3);
+  return out;
+}
+function invIO(y) { let lo = 0, hi = 1; for (let i = 0; i < 30; i++) { const m = (lo + hi) / 2; if (eIO(m) < y) lo = m; else hi = m; } return lo; }
+
+window.TOTAL = TOTAL;
+window.render = render;
+window.cues = cues;
+window.ready = document.fonts.ready.then(() => Promise.all([
+  document.fonts.load(F.shown(800, 100)), document.fonts.load(F.spoken(400, 60)), document.fonts.load(F.spoken(500, 60)), document.fonts.load(F.mono(30)),
+])).then(() => { render(0); return true; });
+</script>
+</body>
+</html>

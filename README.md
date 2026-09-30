@@ -135,11 +135,13 @@ docs/
   og-image.html   source of the share image
 scripts/
   record-clips.mjs  records short vertical videos of the essay’s own animations
+  motion/           “Why 24?”, a motion graphic of chapter 12, and its renderer
 ```
 
 ## Beyond the site
 
 - **Short videos** for social media: `scripts/record-clips.mjs` records five vertical clips (1080×1920) of the essay’s own animations (the prologue, the notcher’s stick, the Roman lap counter, the rugby points chart and the coda), each with a title card and the site’s address. They contain no photographs or embedded films.
+- **“Why 24?”**, a 77-second vertical motion graphic (1080×1920, with sound) of chapter 12, in English and Dutch: the 19–18 game of 1950, the 2,880 ÷ 120 sum shown as 2,880 dots that regroup into 120 shots of 24, the shot clock, the jump in scoring (79.5 → 93.1 points per team per game, Basketball-Reference) and the 1955 final that the same Pistons lost 92–91. `scripts/motion/why-24.html` draws every frame as a function of time on one canvas; `scripts/motion/render-why-24.mjs` renders it frame by frame, synthesises the sound (no samples) and encodes the MP4. It uses no photographs or films.
 - **A slide deck** for talks lives outside the repository, as a claude.ai Slides artifact built from the same facts and with screenshots of the essay’s exhibits.
 
 ## Editorial rules used
